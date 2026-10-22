@@ -1,0 +1,11 @@
+{"engine": "lua51", "suite": "test_adapter", "passed": 18, "failed": 0, "assertions": 109, "failures": []}
+{"engine": "lua51", "suite": "test_core", "passed": 24, "failed": 0, "assertions": 174, "failures": []}
+{"engine": "lua51", "suite": "test_network", "passed": 14, "failed": 0, "assertions": 7840, "failures": []}
+{"engine": "lua51", "suite": "test_replay", "passed": 2, "failed": 0, "assertions": 4454, "failures": []}
+{"engine": "lua51", "suite": "test_rules", "passed": 4, "failed": 0, "assertions": 122, "failures": []}
+{"engine": "lua54", "suite": "test_adapter", "passed": 18, "failed": 0, "assertions": 109, "failures": []}
+{"engine": "lua54", "suite": "test_core", "passed": 24, "failed": 0, "assertions": 174, "failures": []}
+{"engine": "lua54", "suite": "test_network", "passed": 14, "failed": 0, "assertions": 7840, "failures": []}
+{"engine": "lua54", "suite": "test_replay", "passed": 2, "failed": 0, "assertions": 4454, "failures": []}
+{"engine": "lua54", "suite": "test_rules", "passed": 4, "failed": 0, "assertions": 122, "failures": []}
+{"total_passed": 124, "total_failed": 0, "total_assertions": 25398}
