@@ -380,7 +380,7 @@ end
 function Core:_MakeForecast(a,now,x,predictions,nextAt)
     local f={actor=a.actor,kind="forecast",mode="shadow",usable=false,at=now,
         expires=math.min(now+C.horizon,nextAt or now+C.horizon),horizon=C.horizon,contextRevision=a.revision,
-        modelVersion=self.modelVersion,regime=a.regime,target="cast-delivery-v1",outputs={}}
+        modelVersion=self.modelVersion,regime=a.regime,target=C.target,outputs={}}
     local candidates=R.Candidates(a.class)
     for i,name in ipairs(R.families) do
         local score=predictions.neural[i]

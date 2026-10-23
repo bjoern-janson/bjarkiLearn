@@ -2,7 +2,7 @@
 
 A shared Lua learner for the Bjarki World of Warcraft addon suite. It combines readable encounter context with a small predictive model and revisable training records.
 
-**Status: 0.1.5-shadow — a single evidence authority and explicit reconciliation paths.** Native API behavior is tested with modeled WoW APIs under Lua 5.1 and 5.4. Live-client validation and demonstrated predictive usefulness remain pending.
+**Status: 0.1.6-shadow — Druid root coverage and distinct defensive-witness inputs.** Native API behavior is tested with modeled WoW APIs under Lua 5.1 and 5.4. Live-client validation and demonstrated predictive usefulness remain pending.
 
 The addon starts in shadow mode. It records evidence and trains real models; its forecasts remain diagnostics. The suite's tracking, colours, layout and aura priorities keep their existing owners and behavior.
 
@@ -48,6 +48,8 @@ Forecasts and core status expose `modelCorpusRevision`, `corpusRevision`, `model
 
 `bjarkiLearnDB` stores enabled state and compatible deidentified examples. Reload discards pending windows, actor bindings and raw occurrence IDs, then rebuilds from the corpus. It does not claim to resume an interrupted optimizer step. No player GUIDs, raw cast IDs or names are saved in examples. Restore accepts a plain dense array of up to 256 valid records; malformed arrays are rejected before replacing live state.
 
+**Upgrading from 0.1.5 or earlier:** saved learning is incompatible and is not loaded. The enabled/disabled setting carries over. A chat notice and `/blearn status` explain the rejection; new observations build a fresh corpus. This is necessary because old root negatives and the age of old defensive witnesses cannot be reconstructed from deidentified examples. New 0.1.6 examples can be saved and rebuilt normally.
+
 The addon measures update time when the client exposes a profiling clock. Training stops after its current sample if that clock exceeds a 1.5 ms soft budget. One sample cannot be preempted; actual client performance still needs measurement.
 
 ## Purpose
@@ -88,7 +90,7 @@ The current release implements the context, recording, revision, model and diagn
 
 ## Run verification
 
-Download and extract the separate `bjarkiLearn-0.1.5-shadow-verification.zip`. From its root:
+Download and extract the separate `bjarkiLearn-0.1.6-shadow-verification.zip`. From its root:
 
 ```sh
 python3 -m pip install -r requirements-test.txt

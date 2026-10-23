@@ -2,7 +2,7 @@
 ## Title: bjarkiLearn
 ## Notes: Shared semantic context and a small revisable learner in shadow mode. /blearn
 ## Author: bjarki
-## Version: 0.1.5-shadow
+## Version: 0.1.6-shadow
 ## SavedVariables: bjarkiLearnDB
 ## OptionalDeps: bjarkiCC, bjarkiPortraits, bjarkiUI
 

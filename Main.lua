@@ -24,6 +24,14 @@ local function textValue(value)
     return 'unknown'
 end
 
+local function restoreMessage(reason)
+    if reason == 'incompatible' then
+        return 'saved learning is incompatible with this version and was not loaded; this version learns from new observations.'
+    elseif reason then
+        return 'saved learning could not be loaded; this version learns from new observations.'
+    end
+end
+
 function Main.New()
     local self = setmetatable({ initialized = false, enabled = false, errors = 0,
         registrationErrors = {}, updates = 0, profileSamples = 0, maxUpdateMs = 0, lastUpdateMs = 0 }, Main)
@@ -68,10 +76,15 @@ function Main:Initialize()
     self.core = ns.Core.New()
     local saved = S.Table(bjarkiLearnDB)
     local enabled = saved and S.Boolean(S.Field(saved, 'enabled'))
-    if saved then self.core:Restore(S.Field(saved, 'learning')) end
+    if saved then
+        local restored, reason = self.core:Restore(S.Field(saved, 'learning'))
+        if not restored then self.restoreReason = reason end
+    end
     self.initialized = true
     self:InstallPublic()
     self:SetEnabled(enabled ~= false)
+    local message = restoreMessage(self.restoreReason)
+    if message then printLine(message) end
 end
 
 function Main:SetEnabled(enabled)
@@ -157,6 +170,7 @@ function Main:Status()
         maxUpdateMs = self.maxUpdateMs, lastUpdateMs = self.lastUpdateMs,
         profilingAvailable = self.profileSamples > 0,
         registrationErrors = ns.Copy(self.registrationErrors),
+        restoreReason = self.restoreReason,
         adapter = self.adapter and ns.Copy(self.adapter:Status()) or nil,
         core = self.core and ns.Copy(self.core:Status()) or nil,
     }
@@ -167,6 +181,8 @@ function Main:PrintStatus()
     printLine(ns.Config.version..' | shadow | '..(self.enabled and 'enabled' or 'disabled')
         ..(self.faulted and ' | paused after error' or '')..' | native cast registration '
         ..(self.castRegistered and 'available' or 'unavailable'))
+    local message = restoreMessage(status.restoreReason)
+    if message then printLine(message) end
     if status.core then
         local core = status.core
         printLine('actors '..textValue(core.actors)..', occurrences '..textValue(core.occurrences)

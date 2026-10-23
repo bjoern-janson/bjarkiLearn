@@ -24,11 +24,13 @@ History and defensive witnesses are projected at the current query time. A retai
 
 Candidate statuses are `candidate`, `conditional` and `unknown`. None means ready. Rules provide their basis and condition. Missing health/power/combat/form fields retain missingness; callers must not replace them with known zero values.
 
-The 48 features encode nine classes plus class-known, three actor roles, combat/health/power value-known pairs, six recent-cast/known pairs, six candidate/conditional pairs, cat/bear/form-known and recent positive defensive witness/known. Names, raw identities and colours are excluded. A positive aura witness records recent evidence; it cannot establish complete current aura state or absence.
+The 48 features encode nine classes plus class-known, three actor roles, combat/health/power value-known pairs, six recent-cast/known pairs, six candidate/conditional pairs, cat/bear/form-known and defensive-witness recency/known. Names, raw identities and colours are excluded. A positive aura witness records recent evidence; it cannot establish complete current aura state or absence.
+
+Feature 47 is `1 - age/8` for an eligible positive defensive witness; feature 48 is 1 for that same known evidence. Eligibility requires age in `[0,8]` and no expiry at or before the query time. At age eight the pair is `(0,1)`; missing, future, expired or older evidence yields `(0,0)`. Unknown does not mean a confirmed absence. Inputs retain the evidence available at their anchor.
 
 ### Forecast
 
-Computed forecasts include actor, `kind="forecast"`, `mode="shadow"`, `usable=false`, anchor `at`, `expires`, `horizon`, `contextRevision`, `modelVersion`, `regime`, `target="cast-delivery-v1"`, and an array of six outputs in the order below.
+Computed forecasts include actor, `kind="forecast"`, `mode="shadow"`, `usable=false`, anchor `at`, `expires`, `horizon`, `contextRevision`, `modelVersion`, `regime`, `target="cast-delivery-v2"`, and an array of six outputs in the order below.
 
 Known-actor forecast projections also include `corpusRevision`, optional `modelCorpusRevision` and `modelExamples`, and `modelRefreshPending`. The model fields describe the last completed training snapshot, not current retained label counts. Routine retirement preserves that snapshot while replacement waits for outside-combat replay. `modelRefreshPending=true` means the serving snapshot differs from current replay history, including if a replacement failed; it is not a scheduler progress guarantee. These fields are refreshed when a cached forecast is copied. Corrections affecting the snapshot withdraw it immediately, even when the affected replay row has already been evicted. Normal context freshness and expiry checks still apply.
 
@@ -37,6 +39,8 @@ Each output has a family, candidate explanation, `status`, `reason`, `usable=fal
 Withholding reasons include `cold_start`, `rebuilding`, `insufficient_positive_and_negative_support`, `unsupported_enemy_coverage`, `not_computed`, `stale_context`, `expired`, `context_revised`, `future_projection` and `unknown_actor`. The cache expires no later than the next retained relevant evidence timestamp; the two-second prediction horizon itself is unchanged. A query before the cached projection's own anchor withholds its scores. A stale query removes every numeric score. Consumers must check current context and expiry rather than retaining an old returned table indefinitely. **Every forecast in 0.1 has `usable=false`.**
 
 ### Status and evaluation
+
+Status optionally reports `restoreReason` when saved learning was rejected at startup (`incompatible` or an invalid-save reason). The notice also appears once on load and when `/blearn status` is requested. This describes the startup load, not the current corpus size; a successful subsequent reload clears it.
 
 Status has `core` and `adapter` projections plus lifecycle status, registration failures, fault/error counts, scheduled updates and profiling availability. Core exposes bounded counts, model version, training state, gap reasons and a six-family array. It includes the snapshot fields above and `modelDependencyCount` (0-256), the count of transient window descriptors retained to guard corrections to its serving generation. No additional raw occurrence history is kept. A session reset clears these descriptors when examples become sealed; the existing sealed-history boundary is unchanged. Its family denominators cover retained player positives/negatives/censored labels and retained enemy positives. `scored` counts paired pre-outcome forecasts. Mean squared/Brier losses compare all three numeric estimators on those same labeled windows.
 
@@ -50,14 +54,14 @@ This explicit Forever foundation vocabulary classifies use of the named ability,
 | --- | --- |
 | fear | Psychic Scream: 8122, 8124, 10888, 10890; Howl of Terror: 5484, 17928; Intimidating Shout: 5246 |
 | stun | Hammer of Justice: 853, 5588, 5589, 10308; Bash: 5211, 6798, 8983; Kidney Shot: 408, 8643; Concussion Blow: 12809; War Stomp: 20549 |
-| root | Frost Nova: 122, 865, 6131, 10230; Counterattack: 19306, 20909, 20910, 1242634 |
+| root | Frost Nova: 122, 865, 6131, 10230; Counterattack: 19306, 20909, 20910, 1242634; Entangling Roots: 339, 1062, 5195, 5196, 9852, 9853 |
 | silence | Silence: 15487 |
 | interrupt | Kick: 1766, 1767, 1768, 1769; Pummel: 6552, 6554; Shield Bash: 72, 1671, 1672; Counterspell: 2139; Spell Lock: 19244, 19647 |
 | defensive | Barkskin: 22812; Evasion: 5277, 26669 |
 
 Creature/pet actor collection and ownership relationships are not implemented in the first adapter. Conditional capability seeds can describe prerequisites without supplying an actor-attributed label. Unknown spell counts include ordinary abilities outside this small vocabulary, not necessarily newly discovered mechanics.
 
-Nature's Grasp activation is excluded from root labels. The shared Shock cooldown mapping is not reused as an interrupt mapping. Aura effect IDs are not automatically interpreted as cast IDs. Defensive aura witnesses are exactly Barkskin/Evasion, require a readable native aura identity, and never label this cast-delivery target.
+Nature's Grasp activation and triggered root variants are excluded from cast labels. The Druid root association is `candidate`, with availability still unknown. The shared Shock cooldown mapping is not reused as an interrupt mapping. Aura effect IDs are not automatically interpreted as cast IDs. Defensive aura witnesses are exactly Barkskin/Evasion, require a readable native aura identity, and never label this cast-delivery target.
 
 ## Source basis and versioning
 
@@ -68,5 +72,7 @@ The supplied suite established the readable-value, class/form and evidence bound
 - [bjarkiPortraits v16 Spells.lua](https://github.com/bjoern-janson/bjarkiPortraits/blob/e0a855e2bd50418242b27a1a6b5c19d032179384/Spells.lua): explicit Silence ID.
 - [bjarkiPortraits v16 AuraEngine.lua](https://github.com/bjoern-janson/bjarkiPortraits/blob/e0a855e2bd50418242b27a1a6b5c19d032179384/AuraEngine.lua): readable class/power/alive form witnesses.
 - [bjarkiUI v16](https://github.com/bjoern-janson/bjarkiUI/blob/18f9a3d52f4943dee591ea6ac8efe98c2afef764/bjarkiUI.lua): readable identity semantics distinct from native opaque rendering.
+
+The 0.1.6 compatibility key is `learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1`; class candidate basis is `forever-provisional-class-v2`. The schema remains 1 and the public protocol remains `bjarki-learn-v1`. Older learning is rejected, not reinterpreted or partially migrated; enabled/disabled settings are independent and retained. Old deidentified examples lack the information needed to relabel roots or recover witness age.
 
 The research motivation and larger future contract remain in [DESIGN.md](../DESIGN.md). Changing feature meanings, cast vocabulary or label/coverage semantics requires a new compatibility key; saved examples must not silently acquire a different interpretation.

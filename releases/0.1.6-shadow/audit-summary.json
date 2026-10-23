@@ -1,0 +1,80 @@
+{
+  "verdict": "No confirmed remaining bug or unintended regression found in this bounded offline audit.",
+  "confirmed_findings": [],
+  "source_sha256": "065eed18d4e45d07ab86659f3bf5ca795e6cac945c3edb8ee2c33ff61591bc97",
+  "source_files": 14,
+  "source_hashes": {
+    "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+    "bjarkiLearn.toc": "8bf63ef6f0b304e107927e7ebd24475489a2ce62dcf91ad1b40a8f6fca1b6b8a",
+    "bjarkiLearn_Camelot.toc": "8bf63ef6f0b304e107927e7ebd24475489a2ce62dcf91ad1b40a8f6fca1b6b8a",
+    "Bootstrap.lua": "09df443d5b2ccb41b6a600bec40334d49ff25b051b3c154c163af7820f7cf4fb",
+    "CHANGELOG.md": "00f67ee57372a66524003a3c71e75125a115ec842c187f15ab1c54f9a7661d78",
+    "Core.lua": "255d901e30ad58e1b5e3c2b63a8fe495d7500461de8b77862315909316e0acb9",
+    "DESIGN.md": "ba865e432772cab9964fe38976437cee95bf48cdd4fc5c7699955ea455784a81",
+    "docs/API.md": "41c93362e363312bee7882822c23ef6dfcb57671ad8972b2e14679da6dc1ea28",
+    "docs/IMPLEMENTATION.md": "fa2eeadb9222182d7086d9fb8eed9ed7fe9ce74ff06e7a9cb6ec5ee97e6babe5",
+    "Main.lua": "10339ce448b097b66534fcd6c833787b3c549e820fde5391d994de344e23c195",
+    "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+    "README.md": "2bd246a702ea1e32fbe3918600b09d9980daddf510e6acc39093d2388bef6495",
+    "Rules.lua": "23374379039e8600fcc0c55f5daff513e971bc90c7d086f987cbafa1dda790e3",
+    "VERIFICATION.md": "ae0c5a4ba0f68c9cd6ecac882f0577f9a33f3b959fea668b7da1e7d70f2f91dc"
+  },
+  "packaged_rerun": {
+    "passed": true,
+    "execution": "full fresh run",
+    "repair_cases": {
+      "passed": 42,
+      "total": 42,
+      "checks": 67624
+    },
+    "independent_cases": {
+      "passed": 34,
+      "total": 34
+    },
+    "syntax": {
+      "passed": 12,
+      "total": 12
+    },
+    "inherited_baseline_jobs": 39,
+    "inherited_candidate_jobs": 39,
+    "inherited_unexpected_failures": [],
+    "scoped_repetition_cases": 86,
+    "recency_adapted_executions": 149
+  },
+  "new_independent_checks": {
+    "core": {
+      "passed": 40,
+      "total": 40,
+      "current016": 20,
+      "baseline015": 20,
+      "mixed_operations": 11200
+    },
+    "native": {
+      "passed": 148,
+      "total": 148,
+      "current016": 74,
+      "baseline015": 74,
+      "assertions": 1808
+    },
+    "network_persistence": {
+      "passed": 24,
+      "total": 24,
+      "current016": 12,
+      "baseline015": 12,
+      "assertions": 1655940
+    },
+    "integration": {
+      "passed": 16,
+      "total": 16,
+      "exact_comparisons": 24,
+      "current016_only": true
+    }
+  },
+  "limitations": [
+    "Ordinary Lua 5.1/5.4 with modeled WoW host APIs; not live-client validation.",
+    "Native secret-value/taint behavior, frame-time cost and predictive usefulness remain unverified.",
+    "Intentional old-save rejection, sealed-history limits, bounded identity retirement and latest-witness selection are not new findings.",
+    "Historical obsolete assertions remain failed or excluded claims, not silently counted as passing."
+  ],
+  "files_edited": "Audit scripts/reports only. The addon ZIP, extracted addon source, installed game and GitHub repositories were not changed."
+}

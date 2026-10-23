@@ -1,0 +1,56 @@
+bjarkiLearn 0.1.6-shadow independent repeat audit
+
+Verdict: no confirmed remaining bugs or unintended regressions found in this
+bounded source and offline-execution audit. No addon changes were made.
+
+Exact input install SHA-256:
+065eed18d4e45d07ab86659f3bf5ca795e6cac945c3edb8ee2c33ff61591bc97
+
+All 14 extracted files match the delivered ZIP and the verification source.
+The six Lua files, both TOCs, metadata, load references and ZIP CRCs were checked.
+
+Fresh packaged verification
+-42/42 repair cases;34/34 original independent comparison cases;12/12 Lua syntax.
+-All39 inherited leaf jobs rerun against exact015 and016, with exact expected
+ historical failures and recency adaptations classified separately.
+-149 adapted group executions and86 same-version invariant/repetition cases pass.
+-No unexpected inherited failure. Original tests and baseline hashes preserved.
+
+Additional independent audit (counts include baseline controls where shown)
+-Core:40/40 scenario executions =20 current016 +20 exact015. Four seeded streams
+ per version/engine total11,200 mixed actions, outcome oracle, corrections,
+ maturity, retirement, nonoverlap, capacity, immutability and clean replay.
+-Native:148/148 executions =74 current016 +74 exact015. Root aliases, unreadable
+ inputs, class/form recovery, event deadlines, reset/bus replay, startup warnings,
+ settings, public copies and stopped callbacks pass.
+-Network/persistence:24/24 executions =12 current016 +12 exact015. Dense age/expiry
+ grid, malformed final-row save atomicity, support/masks, deterministic replay,
+ finite-update atomicity and all256 serving descriptors under actual FIFO pressure.
+-Integration:16/16 actual native traces on016, plus24 exact comparisons. All six
+ Entangling Roots ranks and mixed ranks match an existing registered-root control;
+ alias duplicates, actual SharedEvidence, session resets, disable/enable, supported
+ scores, clean save/reload and cross-Lua state equality are exercised.
+
+Findings
+No confirmed actionable defect. The new root cast coverage and Druid candidate
+are consistent. Recency and known-evidence remain distinct at age eight; unknown
+or expired evidence is not treated as a confirmed absence. Old learning is rejected
+atomically while enabled preference survives; current saves rebuild correctly.
+Correction, immutable-anchor and bounded-history guarantees held in the probes.
+
+Limits
+These tests run ordinary Lua5.1/5.4 with modeled native APIs. They do not establish
+live WoW event delivery, secret enforcement, taint safety, rendering, frame cost,
+calibration or useful forecasts. Shadow outputs remain unusable for UI changes.
+Intentional rejection of old saves and limits on sealed/discarded identities are
+not regressions. Cross-version numeric equality is not asserted for deliberately
+changed feature-dependent models. No claim of exhaustive bug absence is made.
+
+Evidence
+Read core/review.txt, native/REPORT.txt, network/REPORT.md, integration/results.json
+and audit-summary.json. reports/full-packaged-run.log records the fresh full run.
+verification/ holds the extracted original verification bundle, with current run
+outputs refreshed. Its historical bundle-files.json describes the original input;
+the audit-payload-hashes.json manifest covers this audit's actual payload instead.
+All new scripts operate only on the audit tree. Existing report paths may name the
+original local workspace; source hashes bind the artifacts independently of paths.

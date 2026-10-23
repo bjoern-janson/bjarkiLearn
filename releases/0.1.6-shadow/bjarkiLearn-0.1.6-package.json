@@ -1,0 +1,18 @@
+{
+  "version": "0.1.6-shadow",
+  "install": {
+    "name": "bjarkiLearn-0.1.6-shadow.zip",
+    "sha256": "065eed18d4e45d07ab86659f3bf5ca795e6cac945c3edb8ee2c33ff61591bc97",
+    "bytes": 57102,
+    "files": 14,
+    "crc_and_every_archived_byte_verified": true
+  },
+  "verification": {
+    "name": "bjarkiLearn-0.1.6-shadow-verification.zip",
+    "sha256": "7d850af1f12780f28a29d7f4de65b22c58bc3f13be03b6c72c1cfddc2e15a5a3",
+    "bytes": 3341896,
+    "files": 1137,
+    "crc_and_every_archived_byte_verified": true
+  },
+  "source_files": 14
+}

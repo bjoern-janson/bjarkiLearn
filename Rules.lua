@@ -14,7 +14,7 @@ local function add(family, ids)
 end
 add(1, {8122,8124,10888,10890,5484,17928,5246})
 add(2, {853,5588,5589,10308,5211,6798,8983,408,8643,12809,20549})
-add(3, {122,865,6131,10230,19306,20909,20910,1242634})
+add(3, {122,865,6131,10230,19306,20909,20910,1242634,339,1062,5195,5196,9852,9853})
 add(4, {15487})
 add(5, {1766,1767,1768,1769,6552,6554,72,1671,1672,2139,19244,19647})
 add(6, {22812,5277,26669})
@@ -32,14 +32,14 @@ local associations = {
     SHAMAN = {},
     MAGE = {root="candidate",interrupt="candidate"},
     WARLOCK = {fear="candidate",interrupt="conditional"},
-    DRUID = {stun="conditional",defensive="candidate"},
+    DRUID = {stun="conditional",root="candidate",defensive="candidate"},
 }
 function R.Candidates(class)
     local known = associations[class] or {}
     local out = {}
     for _, family in ipairs(R.families) do
         local status = known[family] or "unknown"
-        out[family] = {status=status, basis="forever-provisional-class-v1",
+        out[family] = {status=status, basis=ns.Config.ruleBasis,
             reason=status=="conditional" and "build, form or controlled actor required"
                 or status=="candidate" and "class association; availability unknown"
                 or "no exhaustive exclusion established"}
@@ -48,7 +48,7 @@ function R.Candidates(class)
 end
 
 -- Stable schema: 10 class + 3 role + 6 value/known + 12 history
--- + 12 capability + 3 form + 2 positive witness = 48 inputs.
+-- + 12 capability + 3 form + witness recency/known = 48 inputs.
 function R.Features(actor, now, evidence)
     evidence = evidence or actor
     local x = {}
@@ -76,6 +76,7 @@ function R.Features(actor, now, evidence)
     local witness = evidence.defensiveWitness
     local fresh = witness and now >= witness.at and now-witness.at <= 8
         and (not witness.expires or now < witness.expires)
-    push(fresh and 1 or 0); push(fresh and 1 or 0)
+    -- At age eight, zero recency remains distinguishable from unknown evidence.
+    push(fresh and (1-(now-witness.at)/8) or 0); push(fresh and 1 or 0)
     return x
 end

@@ -1,5 +1,12 @@
 # Changes
 
+## 0.1.6-shadow
+
+- Recognize all six registered Entangling Roots cast ranks and add the Druid root class candidate. Nature's Grasp activation and triggered roots remain outside the cast vocabulary.
+- Give defensive-witness inputs distinct meanings: eight-second recency and eligible positive evidence known. Missing, future, expired or older evidence remains unknown; exact age eight has zero recency with known evidence.
+- Version the feature meanings, ruleset and cast-delivery target. Reject older saved learning before replacing live state, preserve enabled/disabled settings, and report rejected startup learning in chat and status. The public protocol and saved table shape remain unchanged.
+- Preserve correction/retraction, time-floor protection, immutable inputs, replay and serving-model invalidation, and all existing record limits. Verify against the exact 0.1.5 archive, including clean replay under changed inputs.
+
 ## 0.1.5-shadow
 
 - Remove unused per-actor history and defensive-witness mirrors. The bounded occurrence registry remains the evidence authority, and public context/feature projections retain their time-specific behavior. Actor revisions and forecast invalidation keep the same event ordering.

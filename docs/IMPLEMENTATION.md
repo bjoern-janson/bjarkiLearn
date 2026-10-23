@@ -4,7 +4,7 @@
 
 Ship an installable, optional Lua addon that maintains semantic actor context, records revisable evidence, and learns a small anticipatory model in shadow mode. Existing CC tracking, portrait election, colours and layout retain their current owners. No consumer receives authority to change behavior in this release.
 
-The initial executable task is **registered readable cast-family deliveries in the next two seconds**, version `cast-delivery-v1`. The six families are fear, stun, root, silence, interrupt and defensive ability use. A cast-family delivery does not establish a landed effect, successful interruption, ability readiness or complete hidden enemy activity.
+The initial executable task is **registered readable cast-family deliveries in the next two seconds**, version `cast-delivery-v2` (expanded from v1 in 0.1.6). The six families are fear, stun, root, silence, interrupt and defensive ability use. A cast-family delivery does not establish a landed effect, successful interruption, ability readiness or complete hidden enemy activity.
 
 Negative-label coverage is enabled only for the local player's continuously serviced event stream, with readable identity and successful event registration. Windows open during known combat. Their full horizon continues through known combat exit while the stream remains covered; the opening trigger need not recur. Enemy windows retain positive evidence and unknown absence. They do not train the player model or inherit its evaluated support. Unreadable events, identity changes, registration failure and scheduler gaps censor affected absence labels. Aura snapshots never certify absence or become cast labels.
 
@@ -41,7 +41,7 @@ Models expose `New(inputs, hidden, outputs, seed)`, `Predict(x)`, `Learn(x, y, m
 
 ## Feature meanings
 
-48 fixed inputs: nine class indicators plus class-known; self/hostile/friendly role; combat value and known; health fraction and known; power fraction and known; six recent-cast values and six history-known indicators; six class-association indicators and six conditional-association indicators; cat/bear/form-known; recent positive defensive witness and witness-known. Missing values remain distinct from zero observations. No RGB values, names, raw IDs or future corrections enter a saved input vector.
+48 fixed inputs: nine class indicators plus class-known; self/hostile/friendly role; combat value and known; health fraction and known; power fraction and known; six recent-cast values and six history-known indicators; six class-association indicators and six conditional-association indicators; cat/bear/form-known; positive defensive-witness recency over eight seconds and eligible-witness-known. Missing values remain distinct from zero observations. No RGB values, names, raw IDs or future corrections enter a saved input vector.
 
 Class associations are versioned provisional candidates under the existing Forever foundation. They are not exhaustive exclusions or numerical priors. Priest fear is relevant immediately; Silence remains conditional. Effects on an actor do not establish the class or identity of their source.
 
@@ -101,3 +101,14 @@ The occurrence registry is the single evidence authority. Actor records no longe
 Reconciliation now exposes three internal entrypoints: `_ReconcileEvidenceChange(old, new)` checks correction guards and affected retained rows; `_ReconcileHistoryRetirement(old)` updates affected rows without withdrawing the completed serving snapshot; `_ReconcileTimeAdvance(since)` checks newly mature casts against serving guards and updates unsealed outcomes. All three share `_ReviseWindow`, which revises training state only when labels or masks change. A lead-time-only refinement updates the lead without changing the row revision or dirtying the corpus through the outcome updater. A timestamp correction can still withdraw a dependent serving model through the unchanged correction guards. Below-floor rejected evidence continues through the evidence-change path, not retirement.
 
 No feature meanings, persisted fields, compatibility key, network parameters, caps, scheduling, observed-time fields or native adapters change. The exact 0.1.4 source and prior test scripts accompany the verification bundle. Tests that formerly read the removed private mirrors use explicit projection reads in disposable copies; original files and a substitution manifest remain available for inspection.
+
+
+## 0.1.6 vocabulary, feature and compatibility boundary
+
+The root cast family adds Entangling Roots ranks 339, 1062, 5195, 5196, 9852 and 9853. Druid root becomes a class candidate, without claiming readiness or a landed root. Nature's Grasp activation/proc identities remain excluded. The adapter and network are byte-identical to 0.1.5; the Core lifecycle changes only its advertised target metadata.
+
+Inputs 47 and 48 are now eligible defensive-witness recency and known evidence. Existing projection selects the latest witness at or before the requested time, then feature extraction applies freshness and expiry eligibility; an expired newer witness does not resurrect an older witness. No new evidence mirror, queue or retained record is added. Recency is `1 - age/8` for age zero through eight, provided expiry has not been reached. An age-eight witness has `(0,1)`, while unknown evidence has `(0,0)`. Anchored vectors remain immutable through later witness correction.
+
+The new compatibility key versions the ruleset, feature meanings and cast vocabulary together. The saved structure stays schema 1. Core's existing exact-key check rejects old learning before mutating live state; native startup retains the enabled setting and reports its failed load reason. Old negative root labels and witness age cannot be recovered from persisted deidentified rows, so no migration is attempted. Same-version saves retain deterministic rebuild behavior. Public interface protocol stays v1; forecast target and candidate basis advertise their v2 meanings.
+
+Comparison to 0.1.5 distinguishes unchanged-input equality from intentional changes to Druid association, root labels, witness values and resulting learned parameters. Changed-input corrections are checked against clean replay of the corrected retained corpus. Historical test files are preserved and fixture adaptations are listed separately. Validation remains offline with modeled game APIs.
