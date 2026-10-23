@@ -1,0 +1,255 @@
+{
+  "passed": true,
+  "confirmed_findings": 0,
+  "conclusion": "No confirmed remaining bug or 0.1.5 regression found in this bounded source and offline-execution audit.",
+  "tests_executed_by_this_invocation": false,
+  "jobs": [],
+  "addon": {
+    "file": "outputs/bjarkiLearn-0.1.5-shadow.zip",
+    "sha256": "608ff7b953b0fa705ee11b0b517dfc0f433eaff6c0b7532d4a36f830d74184df",
+    "bytes": 54107,
+    "files": 14,
+    "crc_valid": true
+  },
+  "original_verification_archive": {
+    "file": "outputs/bjarkiLearn-0.1.5-shadow-verification.zip",
+    "sha256": "63c7fe5ed0e70fe987ae916c345c840e80f8a6f63c4cbff97bc6617f0a40aafd",
+    "bytes": 1126840,
+    "files": 421,
+    "crc_valid": true
+  },
+  "source_hashes": {
+    "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+    "bjarkiLearn.toc": "bfeb1818ea99438627af9d1969f0dc26264e73fd04f30d31deb12563d445be74",
+    "bjarkiLearn_Camelot.toc": "bfeb1818ea99438627af9d1969f0dc26264e73fd04f30d31deb12563d445be74",
+    "Bootstrap.lua": "be69950d7532dc9b391dd64901ee68e8947a7f8cb7419180b85c7bbf293e37ac",
+    "CHANGELOG.md": "945c2fd26747cb41edf457f70ca8c99e9d22a4385233626b1c1e62ab70b3189c",
+    "Core.lua": "3766ae3f630f5f4aa072242411d9768a3b7899a39ea9bf5a43bdb3010afa800a",
+    "DESIGN.md": "ba865e432772cab9964fe38976437cee95bf48cdd4fc5c7699955ea455784a81",
+    "docs/API.md": "d4d773b815c2557a49bc369dfb729b1336bf623b735b340e77884bb9d8dfa495",
+    "docs/IMPLEMENTATION.md": "4a1a8f48b4a4bc2aa12105da668390dff87a09a084c5057e7b923f423cbbf62e",
+    "Main.lua": "3d468590005b81484af4d548f54bf41d561165d3762c6142931e87df8596052e",
+    "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+    "README.md": "28bb548e3583349f1f8d512ef708b13ac047165e0fb5b2d73e318da23eda8586",
+    "Rules.lua": "4456d77323afc59c3946abd3b3037648b137004ff9d9036e892065e039ef602c",
+    "VERIFICATION.md": "18cd6449ee3f0d5e7e19db886c332417b8e4cd55d4166d5c2f1c9e29376e7f53"
+  },
+  "baseline_hashes": {
+    "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+    "bjarkiLearn.toc": "8ea1b39e81a8218da3f8ee446252d947b1c6f63b451b16c658425b6df10d145c",
+    "bjarkiLearn_Camelot.toc": "8ea1b39e81a8218da3f8ee446252d947b1c6f63b451b16c658425b6df10d145c",
+    "Bootstrap.lua": "68eea6fe6651c8e480d7d9f2ec45c7421cd048521a7b5d44ba4b3ae7b60988e6",
+    "CHANGELOG.md": "464aac110169e5879fb956829b5b8dd29d236b66e608c8bd20a990e1871cfd33",
+    "Core.lua": "9dc55ae29fd69e76448bd8c83e8386edbaa1bff00009dbd98dc8532678c4dc01",
+    "DESIGN.md": "ba865e432772cab9964fe38976437cee95bf48cdd4fc5c7699955ea455784a81",
+    "docs/API.md": "d4d773b815c2557a49bc369dfb729b1336bf623b735b340e77884bb9d8dfa495",
+    "docs/IMPLEMENTATION.md": "c61e04c4b58f9b8a6e1f6343d8b75e13407bf0755ad80e2b41a0596addf3a6b1",
+    "Main.lua": "3d468590005b81484af4d548f54bf41d561165d3762c6142931e87df8596052e",
+    "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+    "README.md": "80505477e10892f5573dfa2a09a616e779470fff0f0a60e936d4f7f61996ff3c",
+    "Rules.lua": "4456d77323afc59c3946abd3b3037648b137004ff9d9036e892065e039ef602c",
+    "VERIFICATION.md": "5f53da8c773874ef342cd81a7dd51d89e29db92e1c09eb55eead008e8236bcbf"
+  },
+  "source_unchanged": true,
+  "install_and_verification_source_identical": true,
+  "original_verification_lua_python_files_checked": 131,
+  "original_verification_lua_python_files_unchanged": true,
+  "archive_rebuild_byte_identical": true,
+  "toc_inventory_versions_valid": true,
+  "packaged": {
+    "passed": true,
+    "version": "0.1.5-shadow",
+    "runtime_hashes": {
+      "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+      "Bootstrap.lua": "be69950d7532dc9b391dd64901ee68e8947a7f8cb7419180b85c7bbf293e37ac",
+      "Core.lua": "3766ae3f630f5f4aa072242411d9768a3b7899a39ea9bf5a43bdb3010afa800a",
+      "Main.lua": "3d468590005b81484af4d548f54bf41d561165d3762c6142931e87df8596052e",
+      "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+      "Rules.lua": "4456d77323afc59c3946abd3b3037648b137004ff9d9036e892065e039ef602c"
+    },
+    "baseline_runtime_hashes": {
+      "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+      "Bootstrap.lua": "68eea6fe6651c8e480d7d9f2ec45c7421cd048521a7b5d44ba4b3ae7b60988e6",
+      "Core.lua": "9dc55ae29fd69e76448bd8c83e8386edbaa1bff00009dbd98dc8532678c4dc01",
+      "Main.lua": "3d468590005b81484af4d548f54bf41d561165d3762c6142931e87df8596052e",
+      "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+      "Rules.lua": "4456d77323afc59c3946abd3b3037648b137004ff9d9036e892065e039ef602c"
+    },
+    "reports_reused": false,
+    "runs": [
+      {
+        "suite": "baseline_adaptation",
+        "exit_code": 0,
+        "seconds": 30.494
+      },
+      {
+        "suite": "inherited_and_audit014",
+        "exit_code": 0,
+        "seconds": 327.668
+      },
+      {
+        "suite": "refactor_contracts",
+        "exit_code": 0,
+        "seconds": 0.139
+      },
+      {
+        "suite": "differential",
+        "exit_code": 0,
+        "seconds": 12.869
+      },
+      {
+        "suite": "review_policy_matrix",
+        "exit_code": 0,
+        "seconds": 13.648
+      }
+    ],
+    "original_test_sources_unchanged": true,
+    "preserved_original_test_files": 76,
+    "legacy_scenario_controls_passed": 663,
+    "legacy_review_probes_passed": 12,
+    "superseded_historical_assertions_excluded": 6,
+    "audit014_checks_passed": 94,
+    "native_014_comparisons_passed": 8,
+    "contracts_passed": 8,
+    "differential_cases_passed": 56,
+    "differential_counts": {
+      "assertions": 8448,
+      "candidateSnapshots": 34,
+      "cases": 56,
+      "checkpoints": 208,
+      "equalLeaves": 1819360,
+      "modelSnapshots": 66,
+      "passed": 56
+    },
+    "review_policy_comparisons_passed": 46080,
+    "baseline_adaptation_controls_per_variant": 158,
+    "adapted_private_cache_files": 5,
+    "syntax_checks_passed": 12,
+    "syntax_checks": [
+      {
+        "runtime": "lua51",
+        "file": "Adapter.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua51",
+        "file": "Bootstrap.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua51",
+        "file": "Core.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua51",
+        "file": "Main.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua51",
+        "file": "Network.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua51",
+        "file": "Rules.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua54",
+        "file": "Adapter.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua54",
+        "file": "Bootstrap.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua54",
+        "file": "Core.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua54",
+        "file": "Main.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua54",
+        "file": "Network.lua",
+        "passed": true
+      },
+      {
+        "runtime": "lua54",
+        "file": "Rules.lua",
+        "passed": true
+      }
+    ],
+    "additional_inherited_checks": {
+      "independent_boundary_checks_passed": 22136,
+      "seed_constructor_cases": 7731,
+      "seed_invalid_inputs_checked": 28,
+      "native_replay_trajectories_passed": 12,
+      "capacity_reproduction_runs_passed": 8,
+      "native_cross_version_and_reload_comparisons_passed": 8
+    },
+    "staged_documentation_note": "See legacy current-full report for exact staged/current source hashes and any documented non-runtime release-text changes.",
+    "limits": [
+      "Offline ordinary Lua with modeled WoW APIs; no live-client proof.",
+      "Refactor equivalence does not establish predictive usefulness or frame-time improvement.",
+      "Unchanged bounded history cannot reconstruct discarded identities or sealed deidentified evidence."
+    ]
+  },
+  "independent": {
+    "core": {
+      "focused_executions": 60,
+      "focused_passed": 60,
+      "differential_traces": 6,
+      "differential_passed": 6,
+      "transitions": 14154,
+      "full_state_comparisons": 2300
+    },
+    "native": {
+      "passed": 224,
+      "total": 224,
+      "checks": 44896,
+      "public_projection_comparisons": 112
+    },
+    "network_restore": {
+      "executions": 48,
+      "passed": 48,
+      "assertions": 14804,
+      "exact_state_comparisons": 20,
+      "seed_oracles": 307
+    },
+    "integration": {
+      "exact_comparisons": 16,
+      "passed": 16,
+      "checks": 79104,
+      "native_traces": 8,
+      "full_snapshots": 72
+    }
+  },
+  "independent_test_hashes": {
+    "audit/core/differential.lua": "b2d5c542baf6361736c088a03d3ef66755ea1e4dff95503bd7de851a45924b43",
+    "audit/core/probes.lua": "bc494e81e340d7be691bdb730e42541c456e141a1694bd78ac58e0b93d3379ea",
+    "audit/core/run.py": "47ffb372a3aedc22b76262e36b33c372caccfc1da667e7a2d2a54ce9b7f4c4c1",
+    "audit/integration/harness.lua": "eea3c874f05d4deadc512f5f85301ad637d909df07c5c085d6ea5d4db3ba914d",
+    "audit/integration/run.py": "87e045852a052612213c70ed14b7e793f5f27aa659fbc4d869f6976f8c55e581",
+    "audit/integration/SharedEvidence.lua": "ca6c78fcbec53dd0500abdff4b55b62d1af08e8a5e0d9b233ea2b1a0bbb1b456",
+    "audit/integration/trace.lua": "871d52a102605355605516f33e8209c64365e4b4276bb3643966cad08c73f955",
+    "audit/native/harness.lua": "6e82f0bd7302ab3ae2dd7d5bb404cb662d163f9635f05b75e346d73e6f6a036c",
+    "audit/native/probes.lua": "6e852eef827fc9ab33377364d3633ceac988927b92cc9aa95d8492209acba20f",
+    "audit/native/run.py": "1da6d2d20d41008432f357bfd3dde066302886fd1d5e0f0a1bb30703abc0fe3c",
+    "audit/network-restore/probes.lua": "b1b7ecbf5e8b4025d4d5f76af146acd87f82999fa3c898db5fd1e05241fbaf31",
+    "audit/network-restore/run.py": "a6effa2c04c6a244a4e71e0bc6569b2f1dea5a7b58b0686c465385174884ef70"
+  },
+  "limits": [
+    "Ordinary Lua 5.1 and Lua 5.4 with modeled WoW APIs; no live-client verification.",
+    "Finite scenario and trace equality is not exhaustive equivalence or proof of no bugs.",
+    "No measured live frame-time, predictive usefulness, calibration, taint or secret-value enforcement claim.",
+    "Bounded retained evidence cannot recover discarded identities or raw correction authority for sealed imported rows."
+  ]
+}

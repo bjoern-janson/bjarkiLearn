@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "file": "bjarkiLearn-0.1.5-shadow-audit-evidence.zip",
+  "sha256": "e932b9757903531d89ce4a04b884284df1b8ad5aeb078b601a277c125361ab73",
+  "bytes": 1362136,
+  "files": 469,
+  "crc_valid": true,
+  "exact_archived_bytes": true,
+  "source_unchanged": true,
+  "original_install_zip_unchanged": true,
+  "original_verification_zip_unchanged": true,
+  "install_rebuild_byte_identical": true,
+  "audit_summary_sha256": "85c5fa7e56d10be38af6349e3f3b791bf7eb793bd5a14e0f92dcaf5cc2d2b530",
+  "audit_report_sha256": "4a3436de607829bfe8fb9e784e4b241eda0210e9fbb08480c0f3c60fcd4c2a41"
+}

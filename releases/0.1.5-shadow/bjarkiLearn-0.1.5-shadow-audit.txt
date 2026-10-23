@@ -1,0 +1,77 @@
+bjarkiLearn 0.1.5-shadow — independent deep audit
+2026-10-23
+
+RESULT
+No confirmed remaining bug or 0.1.5 regression found in the reviewed source and the executed offline tests. No production changes were made. This is a bounded audit result, not proof that the addon is bug-free or validated in the game.
+
+EXACT ARTIFACT
+Install archive: bjarkiLearn-0.1.5-shadow.zip
+SHA-256: 608ff7b953b0fa705ee11b0b517dfc0f433eaff6c0b7532d4a36f830d74184df
+Size: 54,107 bytes; 14 files.
+Original verification archive SHA-256:
+63c7fe5ed0e70fe987ae916c345c840e80f8a6f63c4cbff97bc6617f0a40aafd
+Frozen 0.1.4 install archive SHA-256:
+3cf686e9b1e3fe78b8577c15c75e2e1ba08fc6142b4cf794b36ac9da048f461d
+
+The install and bundled verification source trees matched byte-for-byte. Both archive CRC checks passed; inventory, duplicate/path checks, version metadata and both TOC load orders were checked. Rebuilding the install archive from the freshly verified source reproduced the original ZIP byte-for-byte, with the same SHA-256. Every source file remained unchanged. All 131 Lua/Python files originally present in the verification bundle also retained their original hashes. This includes earlier baselines and test/support files; 131 is not a count of independent tests.
+
+SCOPE AND METHOD
+The review covered all six production Lua modules, both manifests, public API and lifecycle contracts, the normalized 0.1.4-to-0.1.5 source diff, and archive provenance. Three independent reviewers divided Core, native event handling, and numeric/persistence behavior. A fourth integration trace exercised the actual Main/Adapter/Core path with the unchanged SharedEvidence fixture.
+
+All executable evidence below uses actual production Lua modules under Lupa with Lua 5.1 and Lua 5.4. WoW APIs, event delivery and protected-value markers are modeled. No repository, installed addon, original install ZIP or original verification ZIP was changed.
+
+The only functional production edit from 0.1.4 is in Core.lua. Bootstrap and TOCs update version metadata; Rules, Network, Adapter and Main are byte-identical. The refactor removes redundant private actor evidence mirrors and separates evidence-change, history-retirement and observed-time reconciliation around a shared window updater.
+
+FRESH PACKAGED VERIFICATION
+The complete packaged run_all.py was executed again successfully; its report records reports_reused=false and five successful jobs. Results:
+- 663 applicable inherited regression/scenario controls.
+- 12 previous whole-change review probes.
+- 94 checks from the subsequent 0.1.4 audit.
+- 8 native 0.1.4/0.1.5/reload comparisons.
+- 8 refactor contract checks.
+- 56 differential cases: 208 checkpoints, 1,819,360 matching scalar leaves, 66 complete model snapshots and 34 candidate snapshots.
+- 46,080 reconciliation policy comparisons.
+- 12 syntax checks: all six runtime Lua files in both engines.
+- Additional inherited checks include 22,136 boundary checks, 7,731 seed constructor cases, 12 native replay trajectories and eight capacity reproduction runs.
+
+These counts describe different units and must not be summed as independent bug searches. Six previously superseded historical assertion executions are explicitly excluded; they encode the older pre-0.1.4 future-positive behavior. Raw historical outcomes and current controls remain available. Original tests were not edited: the packaged runner adapts obsolete reads of removed private caches only in disposable copies, with exact substitution manifests and baseline equivalence controls.
+
+NEW INDEPENDENT EXECUTION
+Core: 60/60 focused executions (15 groups x two versions x two engines), plus 6/6 differential traces. The traces performed 14,154 paired transitions and 2,300 complete state comparisons. Three seeds each drove 1,800 mixed actions per engine after real-model training. Return values were checked every transition; complete state was checked at the first 100 transitions, then every eight, and at completion. Status/Export were also compared. Only intentionally removed actor mirrors and version metadata were normalized.
+
+Native handling: 224/224 executions (56 scenarios x two versions x two engines), 44,896 assertions, and 112/112 exact public-projection comparisons. Two mixed 320-step schedules per version/engine covered 2,560 transitions overall.
+
+Numeric/persistence: 48/48 executions (12 scenarios x two versions x two engines), 14,804 assertions, and 20/20 exact model-state comparisons. Included 307 Python integer seed oracles, finite atomic updates, restore rejection/replacement, candidate publication, support snapshots, paired scoring and full 256-row rollover.
+
+Additional native integration: 16/16 exact comparisons, 79,104 checks, eight complete native traces with 72 full snapshots, and eight clean native save/reloads. All traces reached the 256-example bound. Compared full normalized Core state, public projections, exports and complete learned model states across versions, engines and reloads.
+
+REVIEW CONCLUSIONS
+1. Correction authority remained intact. Reassignment checks both the old and new actor/time/family overlap. Retraction and changed evidence still withdraw affected serving generations, including when a replay row is already retired or another positive keeps the current label unchanged. Obsolete or duplicate revisions do not gain fresh authority.
+2. Forecast continuity remained intact. Routine occurrence/example retirement can censor retained replay data and rebuild a candidate while preserving a completed serving snapshot. Genuine contradictory evidence still invalidates the affected model. Lead-only updates alone do not spuriously revise training labels or discard an unaffected partial candidate.
+3. Future evidence remained temporally contained. Features and witnesses project at the requested time; query calls do not mature outcomes. Accepted observed time batches eligible positive maturity, reconciles retained rows, and checks serving guards. Rollback/reset preserves observed positives while censoring unobserved future outcomes.
+4. Bounds remained intact: 16 actors, 128 retained occurrences, 256 retained examples, at most 256 serving correction descriptors, and at most 256 candidate replay rows. Mixed capacity traces and full-corpus replacement exercised retirement, stale replay, actor recreation and monotone retention-floor protections.
+5. Reset/reload and copied projections remained consistent. Deterministic sealing and replay matched 0.1.4. Malformed restore inputs left active state intact; valid replacement detached caller data. Public reads neither mutated evidence nor performed optimizer work. Native optimizer work remained deferred during known or unreadable combat.
+
+INTERPRETATION AND REMAINING LIMITS
+No new issue is assigned a severity or classified as a regression. Agreement with 0.1.4 alone would not rule out a shared defect; this audit also used focused contract assertions, exact numeric oracles and separately rebuilt clean models. All tests remain finite.
+
+Documented bounded-history behavior is unchanged: discarded identities cannot be reconstructed indefinitely; sealed imported examples intentionally lack raw correction identifiers; an old serving snapshot can retain retired training influence until a complete replacement is ready. A retired far-future identity can conservatively advance the retention floor. These are explicit limitations, not newly confirmed bugs.
+
+The optional SharedEvidence bus has no autonomous delayed replay timer for a row rejected as future-dated at subscription. A later qualifying replay/publication is needed. If enable occurs with an unreadable clock, the optional bridge retries on a later addon-load event rather than an autonomous retry. These existing boundaries are recorded in the native report; no new regression was demonstrated.
+
+Still unverified: actual client API behavior and event payloads, native secret-value enforcement, taint, live scheduling/frame-time cost, practical predictive usefulness, probability calibration and consumer benefit. No performance improvement or live correctness claim follows from this audit.
+
+TEST DEVELOPMENT NOTES
+Three test-construction mistakes were corrected without production edits: a missing required bus unit field; selecting a sealed pre-reset row instead of a new unsealed row; and mistakenly expecting a boolean true mask entry to be invalid. Their notes/raw outputs are retained. An oversized initial Core differential attempt was stopped for test execution cost and contributes no result or pass count; the completed bounded schedule is specified above.
+
+EVIDENCE MAP
+- audit-summary.json: aggregate validation and all tested source hashes.
+- archive-checks.json: original archive provenance and install hashes.
+- verification/reports-0.1.5/verification.json: fresh complete packaged rerun.
+- audit/core/results.json and REPORT.md: focused and differential Core review.
+- audit/native/current.json and REPORT.txt: native review and comparisons.
+- audit/network-restore/results.json and report.txt: numeric/persistence review.
+- audit/integration/results.json: combined native lifecycle and reload traces.
+- run_audit.py: rerun the packaged suite and four independent suites, or validate existing reports with --summarize.
+
+Use the separate audit evidence ZIP for portable source, fixtures, runners and raw reports. It is an audit bundle, not a new addon release.

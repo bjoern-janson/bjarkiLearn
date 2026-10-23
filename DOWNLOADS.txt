@@ -1,0 +1,8 @@
+bjarkiLearn 0.1.5-shadow
+
+Install ZIP, reproducible verification, audit evidence and checksums:
+  releases/0.1.5-shadow/
+
+Start with releases/0.1.5-shadow/README.txt for artifact descriptions and validation limits.
+
+The root runtime files and docs/ exactly match the audited addon ZIP. The repository source is ready to inspect; use the install ZIP for the correctly named bjarkiLearn addon folder.

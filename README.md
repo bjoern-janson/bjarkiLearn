@@ -1,10 +1,54 @@
 # bjarkiLearn
 
-A proposed shared Lua learner for the Bjarki World of Warcraft addon suite. It combines readable encounter context with a small predictive model so the suite can anticipate relevant events and learn from later observations.
+A shared Lua learner for the Bjarki World of Warcraft addon suite. It combines readable encounter context with a small predictive model and revisable training records.
 
-**Status: design draft 0.11 · 22 October 2026.** Lua implementation and in-client validation are pending.
+**Status: 0.1.5-shadow — a single evidence authority and explicit reconciliation paths.** Native API behavior is tested with modeled WoW APIs under Lua 5.1 and 5.4. Live-client validation and demonstrated predictive usefulness remain pending.
 
-**[Read the complete design](DESIGN.md)** for the observation, forecast, correction, training, runtime, and acceptance contracts, together with the pinned research sources.
+The addon starts in shadow mode. It records evidence and trains real models; its forecasts remain diagnostics. The suite's tracking, colours, layout and aura priorities keep their existing owners and behavior.
+
+**[Complete design](DESIGN.md)** · **[Current behavior and API](docs/API.md)** · **[Verification](VERIFICATION.md)**
+
+## Install and inspect
+
+Extract the install ZIP so `Interface/AddOns/bjarkiLearn/` contains `bjarkiLearn.toc` directly, enable the addon, then reload. Both ordinary and Camelot manifests target Interface 16001, matching the supplied Forever v16 suite. No extra library is required. The other three suite addons are optional dependencies.
+
+| Command | Result |
+| --- | --- |
+| `/blearn status` | Label coverage, model progress, paired prediction losses, bridge status and available CPU measurements |
+| `/blearn inspect player` | Current semantic context, class candidates and supported shadow scores |
+| `/blearn inspect target` or `focus` | Actor context and candidates; enemy learned scores remain withheld |
+| `/blearn disable` / `enable` | Pause or resume collection and learning, retaining examples |
+| `/blearn reset` | Clear only this addon's retained examples and adaptation |
+
+`/bjarkilearn` is an alias. Play normally: eligible windows open during known combat, and bounded training runs after combat. There is no new display frame or configuration panel.
+
+## What 0.1 implements
+
+The first task is **registered readable cast-family deliveries in the next two seconds**. Six heads classify fear, stun, root, silence, interrupt and defensive ability use. These labels do not establish landed effects, successful interruption, actual cooldown readiness or complete hidden enemy activity.
+
+| Component | Implemented behavior |
+| --- | --- |
+| Semantic context | Readable player/target/focus identity, class, role, combat, health, power and supported Druid form witnesses |
+| Capability rules | Provisional class candidates before spells happen; Priest fear is relevant and Silence stays conditional |
+| Portraits bridge | Existing positive-aura protocol supplies identified Barkskin/Evasion witnesses, with revisions, bounded replay and no cast-label inference |
+| Neural candidate | 48 inputs, 12 tanh hidden units, six sigmoid outputs: **666 trainable parameters** |
+| Comparators | Regularized logistic model and Laplace-smoothed event frequencies on the same eligible examples |
+| Learning lifecycle | Immutable anchors, per-output masks, deduplication, replacement of revised outcomes and deterministic clean rebuilds |
+| Limits | 16 actors, 128 occurrences, 256 retained windows/examples, and at most 256 serving-model correction descriptors; at most four sample updates per scheduled tick outside combat |
+
+The initial negative-label regime is the local player's continuously serviced readable event stream. Combat establishes eligibility at the anchor; an already opened two-second horizon can finish after a known combat exit. Registration failure, lost identity, unknown combat, unreadable relevant events and scheduler gaps censor absence labels. Enemy positives are tracked separately, and enemy examples never train the player model.
+
+A head needs at least two player positives and eight negatives in the completed serving model's training snapshot before numeric shadow scores are exposed. This is a support floor, not a calibration result. Sparse families can remain withheld. The initial explicit spell vocabulary is in [docs/API.md](docs/API.md).
+
+Accepted future-dated casts stay in the same bounded registry. Context and forecast inputs use only evidence at or before their observation time, retaining an earlier valid witness when a later one is still in the future. A future cast becomes a positive outcome only after the observed clock reaches its complete timing interval. Corrections retain their existing authority; delayed maturity also checks serving-model dependencies after replay-row eviction. No additional identity queue or timer is introduced.
+
+Forecast inputs and comparator predictions are saved before outcomes. An event at the anchor cannot predict itself. A correction replaces affected labels and evaluation contributions, invalidates the affected adaptive generation, and schedules a clean replay of valid retained examples. Retiring examples or occurrences updates the next replay without interrupting an otherwise valid completed model. That model can retain older training influence until a replacement finishes outside combat. A bounded registry remembers its unsealed training windows, so late corrections invalidate it even after their replay rows have been evicted. Evicted occurrence dependencies become unknown in replay labels; a retirement time floor prevents stale evidence from restoring superseded labels. Actor-capacity pressure briefly pauses new windows to prevent overlapping lessons after actor recreation.
+
+Forecasts and core status expose `modelCorpusRevision`, `corpusRevision`, `modelExamples` and `modelRefreshPending`. Core status also exposes `modelDependencyCount`. The refresh flag indicates a serving snapshot differs from current replay history; it does not promise a completion time. Sustained combat or changing history can delay replacement indefinitely. Retained evaluation counts may therefore differ from the serving model's support.
+
+`bjarkiLearnDB` stores enabled state and compatible deidentified examples. Reload discards pending windows, actor bindings and raw occurrence IDs, then rebuilds from the corpus. It does not claim to resume an interrupted optimizer step. No player GUIDs, raw cast IDs or names are saved in examples. Restore accepts a plain dense array of up to 256 valid records; malformed arrays are rejected before replacing live state.
+
+The addon measures update time when the client exposes a profiling clock. Training stops after its current sample if that clock exceeds a 1.5 ms soft budget. One sample cannot be preempted; actual client performance still needs measurement.
 
 ## Purpose
 
@@ -12,7 +56,7 @@ Use the meaning behind the suite's existing class, ownership, form, aura, and co
 
 A small neural candidate must demonstrate value against explicit rules, empirical estimates, and a linear or logistic baseline. Each enabled consumer must show a practical benefit within its runtime allowance.
 
-## Roles in the suite
+## Longer-term suite roles
 
 | Component | Role |
 | --- | --- |
@@ -21,7 +65,7 @@ A small neural candidate must demonstrate value against explicit rules, empirica
 | bjarkiCC | Supplies occurrence history, recipient DR state, timing evidence, and corrections. |
 | bjarkiLearn | Maintains shared context and hypotheses, learns forecasts, and serves narrow consumer projections. |
 
-The owning addons retain their authoritative state and presentation rules. The learner is an optional shared component with thin adapters.
+The first adapter reads native semantic facts directly and consumes Portraits' existing bridge. CC does not yet expose its private DR model to this addon. The owning addons retain authoritative state and presentation rules; future shared projections and consumer changes need separate integration and evaluation.
 
 ## Design commitments
 
@@ -32,7 +76,7 @@ The owning addons retain their authoritative state and presentation rules. The l
 - Bound records, training history, and work per update; profile on the actual client.
 - Verify corrected state, subsequent consumer use, and timely propagation before enabling behavior.
 
-## First implementation sequence
+## Development sequence
 
 1. Build the context and occurrence contracts.
 2. Record observations and forecasts in shadow mode.
@@ -40,4 +84,15 @@ The owning addons retain their authoritative state and presentation rules. The l
 4. Compare the candidate models on held-out encounters and bounded replay.
 5. Enable one narrow consumer behavior after it meets the declared prediction, practical-benefit, and preservation criteria.
 
-The recommended first consumer is a narrowly selected CC interpretation, with UI supplying identity context and Portraits supplying effects. The complete draft records the proposed capacities, evaluation procedures, and remaining design choices.
+The current release implements the context, recording, revision, model and diagnostic stages. Live sessions must establish usable labels and comparative value before a consumer is enabled. The recommended first consumer remains a narrowly selected CC interpretation.
+
+## Run verification
+
+Download and extract the separate `bjarkiLearn-0.1.5-shadow-verification.zip`. From its root:
+
+```sh
+python3 -m pip install -r requirements-test.txt
+python3 run_all.py
+```
+
+The verification bundle contains the exact source, tests, before/after results and package manifest. Tests execute the real addon code in Lupa's Lua 5.1 and 5.4 runtimes. [VERIFICATION.md](VERIFICATION.md) records the checks and their limits; [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) records the lifecycle decisions.
