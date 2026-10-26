@@ -43,8 +43,53 @@ local function removeKey(order,key)
     for i=1,#order do if order[i]==key then table.remove(order,i); return end end
 end
 
+-- Fixed, stratified reservoir. Six positive-family buckets and one background
+-- bucket prevent common negatives from replacing every rare positive.
+local ARCHIVE_LIMITS = {16,16,16,16,16,16,32}
+local RNG_MODULUS = 2147483647
+local function emptyArchive()
+    local buckets, seen = {}, {}
+    for i=1,7 do buckets[i],seen[i]={},0 end
+    return buckets,seen
+end
+local function denseCount(rows,limit)
+    if not S.Table(rows) or getmetatable(rows)~=nil then return nil end
+    local n=0
+    for k in next,rows do
+        local i=number(k,1,limit)
+        if not i or i~=math.floor(i) then return nil end
+        n=n+1
+    end
+    for i=1,n do if S.Field(rows,i)==nil then return nil end end
+    return n
+end
+local function corpusSignature(examples,archive)
+    -- Stable, non-cryptographic corruption guard for an optional model cache.
+    -- Every trained feature and label participates; no private identity does.
+    local hash=104729
+    local function add(value)
+        local token=type(value)=="number" and string.format("%.17g",value)
+            or type(value)=="boolean" and (value and "T" or "F") or tostring(value)
+        for i=1,#token do hash=(hash*33+token:byte(i))%RNG_MODULUS end
+        hash=(hash*33+124)%RNG_MODULUS
+    end
+    local function row(w)
+        add(w.regime)
+        for i=1,C.featureCount do add(w.x[i]) end
+        for i=1,6 do add(w.y[i]);add(w.mask[i]) end
+    end
+    for i=1,7 do
+        add(i)
+        for _,w in ipairs(archive[i]) do row(w) end
+    end
+    for _,w in ipairs(examples) do row(w) end
+    return hash
+end
+
 function Core.New()
+    local archive,archiveSeen=emptyArchive()
     return setmetatable({actors={},actorOrder={},occurrences={},occurrenceOrder={},examples={},
+        archive=archive,archiveSeen=archiveSeen,archiveRng=C.seed,
         stats={},gapReasons={},coverage=false,now=0,nextWindow=0,corpusRevision=0,
         modelVersion=0,modelDependencies={},dirty=false,inferenceCursor=0,session=1,evidenceFloor=-1,openAfter=0,
         evidenceTime=0,nextCastAt=nil},Core)
@@ -407,12 +452,42 @@ function Core:_Open(a,now)
     self:_MakeForecast(a,now,x,predictions,evidence.nextAt)
     ns.Bump(self.stats,"openedWindows")
 end
+-- Only examples sealed by a prior session boundary may enter long-term
+-- rehearsal. An active-session eviction might still receive a correction:
+-- dropping it is safer than permanently learning a label we cannot revise.
+function Core:_ArchiveEvicted(w)
+    if w.regime~="player" or not any(w.mask) then return end
+    if not w.sealed then
+        ns.Bump(self.stats,"archiveSkippedUnsealed")
+        return
+    end
+    local family=7
+    for i=1,6 do
+        if w.mask[i] and w.y[i]==1 then family=i;break end
+    end
+    local bucket=self.archive[family]
+    ns.Bump(self.archiveSeen,family)
+    self.archiveRng=(self.archiveRng*16807)%RNG_MODULUS
+    local count=self.archiveSeen[family]
+    local limit=ARCHIVE_LIMITS[family]
+    local index=math.floor(self.archiveRng/RNG_MODULUS*count)+1
+    if #bucket<limit or index<=limit then
+        local row={x=ns.Copy(w.x),y=ns.Copy(w.y),mask=ns.Copy(w.mask),regime="player"}
+        if #bucket<limit then bucket[#bucket+1]=row
+        else bucket[index]=row end
+        ns.Bump(self.stats,"archiveSelections")
+    end
+    ns.Bump(self.stats,"archiveCandidates")
+end
+
 function Core:_Resolve(w)
     w.y,w.mask,w.lead=self:_Labels(w)
     if #self.examples>=C.maxExamples then
-        table.remove(self.examples,1); ns.Bump(self.stats,"exampleEvictions")
-        -- Retire this row from the next replay. Keep the completed serving
-        -- snapshot until replacement; its bounded correction guards survive.
+        local retired=table.remove(self.examples,1)
+        self:_ArchiveEvicted(retired)
+        ns.Bump(self.stats,"exampleEvictions")
+        -- A frozen serving model survives normal history retirement; its
+        -- existing transient correction guards still protect recent lessons.
         self:_Dirty(false)
     end
     self.examples[#self.examples+1]=w
@@ -424,10 +499,23 @@ function Core:_Train()
     if not self.dirty then return end
     if not self.candidate then
         local data={}
-        for _,w in ipairs(self.examples) do
-            if w.regime=="player" and any(w.mask) then
+        -- Rehearse immutable earlier sessions first, then up to 128 current
+        -- examples. Training remains bounded to 256 rows and fully rebuildable.
+        for family=1,7 do
+            for _,w in ipairs(self.archive[family]) do
                 data[#data+1]={x=ns.Copy(w.x),y=ns.Copy(w.y),mask=ns.Copy(w.mask)}
             end
+        end
+        local recent={}
+        for _,w in ipairs(self.examples) do
+            if w.regime=="player" and any(w.mask) then
+                recent[#recent+1]=w
+            end
+        end
+        local first=math.max(1,#recent-C.recentTrainLimit+1)
+        for n=first,#recent do
+            local w=recent[n]
+            data[#data+1]={x=ns.Copy(w.x),y=ns.Copy(w.y),mask=ns.Copy(w.mask)}
         end
         if #data==0 then self:_WithdrawModel(); self.dirty=false; return end
         local model=ns.Models.New(C.featureCount,C.hiddenCount,C.outputCount,C.seed)
@@ -544,6 +632,14 @@ function Core:Status()
     out.mode="shadow"; out.version=C.version; out.actors=#self.actorOrder
     out.occurrences=#self.occurrenceOrder; out.examples=#self.examples
     out.modelVersion=self.modelVersion; out.training=self.candidate~=nil; out.dirty=self.dirty
+    out.archiveExamples=0;out.archiveSeen=0;out.archiveByFamily={}
+    for i=1,7 do
+        local count=#self.archive[i]
+        out.archiveByFamily[i]=count
+        out.archiveExamples=out.archiveExamples+count
+        out.archiveSeen=out.archiveSeen+self.archiveSeen[i]
+    end
+    out.snapshotRestored=self.snapshotRestored==true
     self:_SnapshotStatus(out); out.modelDependencyCount=#self.modelDependencies
     out.evidenceFloor=self.evidenceFloor; out.openAfter=self.openAfter
     out.trainingSteps=out.trainingSteps or 0; out.trainingExamples=0; out.pending=0
@@ -601,10 +697,19 @@ function Core:ResetSession(now)
     ns.Bump(self.stats,"sessionResets")
 end
 function Core:Export()
-    local out={schema=C.schema,compat=C.compat,examples={}}
+    local out={schema=C.schema,compat=C.compat,examples={},
+        archive=ns.Copy(self.archive),archiveSeen=ns.Copy(self.archiveSeen),archiveRng=self.archiveRng}
     for _,w in ipairs(self.examples) do
         out.examples[#out.examples+1]={x=ns.Copy(w.x),y=ns.Copy(w.y),mask=ns.Copy(w.mask),
             regime=w.regime,predictions=ns.Copy(w.predictions)}
+    end
+    out.signature=corpusSignature(out.examples,out.archive)
+    -- Optional fast serving cache, never the authority for training. A model
+    -- differing from current replay history is intentionally not serialized.
+    if self.model and not self.dirty and self.modelCorpusRevision==self.corpusRevision then
+        local ok=self.model:Valid()
+        if ok then out.snapshot={signature=out.signature,model=ns.Copy(self.model),
+            examples=self.modelExamples} end
     end
     return out
 end
@@ -644,10 +749,62 @@ function Core:Restore(saved)
         end
         restored[#restored+1]={x=x,y=y,mask=mask,regime=regime,predictions=predictions,sealed=true,revision=1}
     end
-    self.examples=restored
+    -- Archive validation is all-or-nothing. Persisted samples carry no actor
+    -- IDs and were sealed before entering the reservoir.
+    local sourceArchive=S.Table(S.Field(saved,"archive"))
+    local sourceSeen=S.Table(S.Field(saved,"archiveSeen"))
+    if denseCount(sourceArchive,7)~=7 or denseCount(sourceSeen,7)~=7 then
+        return false,"invalid_archive"
+    end
+    local archive,seen=emptyArchive()
+    for family=1,7 do
+        local sourceBucket=S.Table(S.Field(sourceArchive,family))
+        local n=denseCount(sourceBucket,ARCHIVE_LIMITS[family])
+        local total=number(S.Field(sourceSeen,family),0,2147483647)
+        if not n or not total or total~=math.floor(total) or total<n then
+            return false,"invalid_archive"
+        end
+        seen[family]=total
+        for i=1,n do
+            local raw=S.Table(S.Field(sourceBucket,i))
+            if not raw or getmetatable(raw)~=nil then return false,"invalid_archive" end
+            local x=vector(S.Field(raw,"x"),C.featureCount,"input")
+            local y=vector(S.Field(raw,"y"),6,"label")
+            local mask=vector(S.Field(raw,"mask"),6,"mask")
+            if not x or not y or not mask or not any(mask) then return false,"invalid_archive" end
+            archive[family][i]={x=x,y=y,mask=mask,regime="player"}
+        end
+    end
+    local rng=number(S.Field(saved,"archiveRng"),1,RNG_MODULUS-1)
+    local signature=number(S.Field(saved,"signature"),0,RNG_MODULUS-1)
+    if not rng or rng~=math.floor(rng) or not signature
+        or signature~=corpusSignature(restored,archive) then
+        return false,"invalid_archive_signature"
+    end
+    -- A damaged or mismatched optional cache is ignored; evidence survives.
+    local restoredModel,restoredExamples
+    local snapshot=S.Table(S.Field(saved,"snapshot"))
+    if snapshot and S.Field(snapshot,"signature")==signature then
+        local candidate=ns.Models.Restore(S.Field(snapshot,"model"))
+        local count=number(S.Field(snapshot,"examples"),0,C.maxExamples)
+        if candidate and count and count==math.floor(count)
+            and candidate.inputs==C.featureCount and candidate.hidden==C.hiddenCount
+            and candidate.outputs==C.outputCount then
+            restoredModel,restoredExamples=candidate,count
+        end
+    end
+    self.examples,self.archive,self.archiveSeen,self.archiveRng=restored,archive,seen,rng
     self.actors={}; self.actorOrder={}; self.occurrences={}; self.occurrenceOrder={}
     self.evidenceFloor=-1; self.openAfter=self.now
     self.evidenceTime=self.now; self.nextCastAt=nil
     self:_Dirty(true)
+    if restoredModel then
+        self.model=restoredModel;self.modelVersion=self.modelVersion+1
+        self.modelCorpusRevision=self.corpusRevision;self.modelExamples=restoredExamples
+        self.dirty=false;self.snapshotRestored=true
+    else
+        self.snapshotRestored=false
+        if snapshot then ns.Bump(self.stats,"rejectedSnapshots") end
+    end
     return true
 end
