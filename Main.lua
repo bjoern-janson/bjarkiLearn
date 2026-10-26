@@ -186,7 +186,10 @@ function Main:PrintStatus()
     if status.core then
         local core = status.core
         printLine('actors '..textValue(core.actors)..', occurrences '..textValue(core.occurrences)
-            ..', retained examples '..textValue(core.examples)..'; model '..textValue(core.modelVersion)
+            ..', recent examples '..textValue(core.examples)
+            ..', long-memory '..textValue(core.archiveExamples)..' / 128 (seen '
+            ..textValue(core.archiveSeen)..'); model '..textValue(core.modelVersion)
+            ..(core.snapshotRestored and ' restored' or '')
             ..(core.training and ' rebuilding' or ''))
         if type(core.families) == 'table' then
             for _, family in ipairs(core.families) do

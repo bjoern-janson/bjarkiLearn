@@ -1,8 +1,8 @@
-# bjarkiLearn 0.1 interface and vocabulary
+# bjarkiLearn 0.2 experimental interface and vocabulary
 
 ## Copied public projections
 
-The optional global interface is `BjarkiLearn`, protocol `bjarki-learn-v1`.
+The optional global interface is `BjarkiLearn`, protocol `bjarki-learn-v1`. The interface remains read-only in 0.2; the persistence schema changes to 2.
 
 ```lua
 if BjarkiLearn and BjarkiLearn.protocol == "bjarki-learn-v1" then
@@ -42,7 +42,7 @@ Withholding reasons include `cold_start`, `rebuilding`, `insufficient_positive_a
 
 Status optionally reports `restoreReason` when saved learning was rejected at startup (`incompatible` or an invalid-save reason). The notice also appears once on load and when `/blearn status` is requested. This describes the startup load, not the current corpus size; a successful subsequent reload clears it.
 
-Status has `core` and `adapter` projections plus lifecycle status, registration failures, fault/error counts, scheduled updates and profiling availability. Core exposes bounded counts, model version, training state, gap reasons and a six-family array. It includes the snapshot fields above and `modelDependencyCount` (0-256), the count of transient window descriptors retained to guard corrections to its serving generation. No additional raw occurrence history is kept. A session reset clears these descriptors when examples become sealed; the existing sealed-history boundary is unchanged. Its family denominators cover retained player positives/negatives/censored labels and retained enemy positives. `scored` counts paired pre-outcome forecasts. Mean squared/Brier losses compare all three numeric estimators on those same labeled windows.
+Status has `core` and `adapter` projections plus lifecycle status, registration failures, fault/error counts, scheduled updates and profiling availability. Core exposes bounded counts, model version, training state, gap reasons and a six-family array. It includes the snapshot fields above and `modelDependencyCount` (0-256), the count of transient window descriptors retained to guard corrections to its serving generation. No additional raw occurrence history is kept. A session reset clears these descriptors when examples become sealed; the existing sealed-history boundary is unchanged. Its family denominators cover **recent** player positives/negatives/censored labels and recent enemy positives (not the long-term archive). `archiveExamples` reports 0–128 durable samples, `archiveSeen` counts previously sealed eviction candidates considered by the reservoir, `archiveByFamily` gives seven bucket sizes, and `snapshotRestored` reports a validated serving-cache restoration. `scored` counts paired pre-outcome forecasts. Mean squared/Brier losses compare all three numeric estimators on those same labeled windows.
 
 Adapter message counts count received qualifying deliveries; core cast counts count accepted unique occurrences. These denominators differ intentionally. Metrics describe the bounded retained evaluation corpus. They do not establish held-out performance after design tuning, enemy accuracy, probability calibration or useful UI interventions.
 
@@ -73,6 +73,6 @@ The supplied suite established the readable-value, class/form and evidence bound
 - [bjarkiPortraits v16 AuraEngine.lua](https://github.com/bjoern-janson/bjarkiPortraits/blob/e0a855e2bd50418242b27a1a6b5c19d032179384/AuraEngine.lua): readable class/power/alive form witnesses.
 - [bjarkiUI v16](https://github.com/bjoern-janson/bjarkiUI/blob/18f9a3d52f4943dee591ea6ac8efe98c2afef764/bjarkiUI.lua): readable identity semantics distinct from native opaque rendering.
 
-The 0.1.6 compatibility key is `learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1`; class candidate basis is `forever-provisional-class-v2`. The schema remains 1 and the public protocol remains `bjarki-learn-v1`. Older learning is rejected, not reinterpreted or partially migrated; enabled/disabled settings are independent and retained. Old deidentified examples lack the information needed to relabel roots or recover witness age.
+The experimental 0.2 compatibility key is `learn2/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1/archive7-128-recent128-v1`; class candidate basis remains `forever-provisional-class-v2`. The persistence schema is 2; the public protocol remains `bjarki-learn-v1`. Prior 0.1.x learning is rejected, not reinterpreted or partially migrated, while enabled/disabled preferences survive. The archived examples are sealed and have no recoverable occurrence identities. See [long-memory contract](LONG_MEMORY.md).
 
 The research motivation and larger future contract remain in [DESIGN.md](../DESIGN.md). Changing feature meanings, cast vocabulary or label/coverage semantics requires a new compatibility key; saved examples must not silently acquire a different interpretation.

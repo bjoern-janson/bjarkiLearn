@@ -1,3 +1,9 @@
+# Historical verification notice
+
+This file documents **0.1.6-shadow only**, not the 0.2.0 long-memory branch. The experimental branch adds `tests/long_memory.lua` and `.github/workflows/long-memory.yml` for initial regression checks. The original 0.1.6 verification and audit results must not be represented as verification of the new release. Live WoW and predictive value remain unverified.
+
+---
+
 # bjarkiLearn 0.1.6-shadow verification
 
 This release repairs Druid root cast coverage and duplicated defensive-witness inputs against the exact 0.1.5-shadow install archive, SHA-256 `608ff7b953b0fa705ee11b0b517dfc0f433eaff6c0b7532d4a36f830d74184df`. Its semantic compatibility key changes; older learned examples are rejected, while enabled/disabled settings are retained. The saved structure remains schema 1.
