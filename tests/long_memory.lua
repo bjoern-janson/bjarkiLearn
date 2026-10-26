@@ -134,6 +134,25 @@ signatureBad.examples[1].x[1]=signatureBad.examples[1].x[1]==0 and 1 or 0
 check(not fallback:Restore(signatureBad),"tampered corpus signature accepted")
 check(fallback:Status().archiveExamples==128,"rejected restore changed archive")
 
+-- Session export/import is the finality boundary: no row is archived while
+-- in the active session, but those same examples may become rehearsal after
+-- surviving a reload and later leaving the recent ring.
+local previous=ns.Core.New()
+for i=1,C.maxExamples do previous.examples[i]=example(3000+i,7,false) end
+local firstSave=previous:Export()
+local nextSession=ns.Core.New()
+check(nextSession:Restore(firstSave),"saved current session not restorable")
+check(nextSession.examples[1].sealed,"restore did not seal previous-session rows")
+check(archiveCount(nextSession)==0,"archive populated before previous row eviction")
+nextSession:_Resolve(example(4000,7,false))
+check(nextSession.archiveSeen[7]==1 and #nextSession.archive[7]==1,
+    "previous-session example did not enter long-term bank")
+local secondSave=nextSession:Export()
+local thirdSession=ns.Core.New()
+check(thirdSession:Restore(secondSave),"archive was not persistable across reload")
+check(thirdSession.archiveSeen[7]==1 and #thirdSession.archive[7]==1,
+    "long-memory bank did not survive another session")
+
 -- Actual Core chronology: a late revision changes the active training label,
 -- but only the subsequently sealed/deidentified outcome can enter rehearsal.
 local live=ns.Core.New()
