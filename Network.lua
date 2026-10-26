@@ -123,6 +123,14 @@ function Methods:Copy()
     return setmetatable(copyTable(self), Methods)
 end
 
+-- Persistence restores a fully validated numeric snapshot, never inherited
+-- methods, optimizer closures, or caller-owned mutable state.
+function Models.Restore(saved)
+    local ok, reason = valid(saved)
+    if not ok then return nil, reason end
+    return setmetatable(copyTable(saved), Methods)
+end
+
 function Models.New(inputs, hidden, outputs, seed)
     if not dimension(inputs) or not dimension(hidden) or not dimension(outputs) then
         return nil, "invalid_dimensions"
