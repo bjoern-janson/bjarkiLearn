@@ -1,0 +1,30 @@
+name: Long-memory Lua regression
+on:
+  push:
+    branches:
+      - feat/long-memory-shadow
+  pull_request:
+    paths:
+      - '**.lua'
+      - 'tests/**'
+      - '.github/workflows/long-memory.yml'
+jobs:
+  lua:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runtime: ['5.1', '5.4']
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y lua5.1 lua5.4
+      - name: Compile addon modules
+        run: |
+          for file in Bootstrap.lua Rules.lua Network.lua Core.lua Adapter.lua Main.lua; do
+            luac${{ matrix.runtime }} -p "$file"
+          done
+      - name: Long-memory regression
+        run: lua${{ matrix.runtime }} tests/long_memory.lua
