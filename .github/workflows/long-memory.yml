@@ -28,3 +28,27 @@ jobs:
           done
       - name: Long-memory regression
         run: lua${{ matrix.runtime }} tests/long_memory.lua
+
+  package:
+    name: Installable shadow ZIP
+    needs: lua
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build minimal addon
+        run: |
+          mkdir -p dist/bjarkiLearn
+          cp Bootstrap.lua Rules.lua Network.lua Core.lua Adapter.lua Main.lua bjarkiLearn.toc bjarkiLearn_Camelot.toc dist/bjarkiLearn/
+          (cd dist && zip -q -r ../bjarkiLearn-0.2.0-long-memory-shadow.zip bjarkiLearn)
+          unzip -t bjarkiLearn-0.2.0-long-memory-shadow.zip
+          sha256sum bjarkiLearn-0.2.0-long-memory-shadow.zip > SHA256SUMS
+          printf 'Source commit: %s\nShadow-only: no learned consumer authority\n' "$GITHUB_SHA" > BUILD.txt
+      - name: Upload installable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bjarkiLearn-0.2.0-long-memory-shadow
+          path: |
+            bjarkiLearn-0.2.0-long-memory-shadow.zip
+            SHA256SUMS
+            BUILD.txt
+          if-no-files-found: error
