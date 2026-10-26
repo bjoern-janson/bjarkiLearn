@@ -99,6 +99,6 @@ lua5.1 tests/long_memory.lua
 lua5.4 tests/long_memory.lua
 ```
 
-The branch also includes a GitHub Actions workflow for syntax compilation and these regressions. The separate 0.1.6 verification bundle documents the *previous* release and is not evidence that 0.2 has passed all earlier native simulations.
+The branch also includes a GitHub Actions workflow for syntax compilation and these regressions. When both Lua jobs pass, it publishes a minimal **installable shadow-mode ZIP** as a workflow artifact; the historical 0.1.6 ZIP is not this build. The separate 0.1.6 verification bundle documents the *previous* release and is not evidence that 0.2 has passed all earlier native simulations.
 
 The new tests exercise the actual bootstrap, rules, network and core source, including reservoir invariants, schema rejection, snapshot restore, tamper fallback and retraining bounds. They do **not** exercise live WoW APIs or the old 0.1.6 harness. [docs/LONG_MEMORY.md](docs/LONG_MEMORY.md) explains the new contract; [VERIFICATION.md](VERIFICATION.md) retains the older release's verification record.
