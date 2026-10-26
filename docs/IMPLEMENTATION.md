@@ -103,6 +103,39 @@ Reconciliation now exposes three internal entrypoints: `_ReconcileEvidenceChange
 No feature meanings, persisted fields, compatibility key, network parameters, caps, scheduling, observed-time fields or native adapters change. The exact 0.1.4 source and prior test scripts accompany the verification bundle. Tests that formerly read the removed private mirrors use explicit projection reads in disposable copies; original files and a substitution manifest remain available for inspection.
 
 
+## 0.2.0 experimental bounded cross-session learning
+
+The 0.2 branch keeps the exact native intake, 48-feature semantics,
+positive/negative coverage contract and correction paths from 0.1.6. Long
+memory consists of a 128-row, seven-stratum deidentified reservoir, sampled
+*only at eviction of previously sealed session rows*. Same-session eviction
+never commits a potentially revisable example. The reservoir has six
+16-example positive-family strata and one 32-example background stratum;
+multiple positive heads use the first family in frozen family order. Each
+stratum has its own running candidate count; a shared Park–Miller state makes
+replacement deterministic across Lua 5.1 and 5.4.
+
+The learner still rebuilds from seed when its replay history changes.
+Training concatenates at most 128 long-term examples and the latest 128
+eligible recent examples, preserving the 256-row training ceiling and prior
+four-update-per-tick out-of-combat policy. The per-sample model update stays
+atomic. A serving snapshot can be serialized only when its corpus revision
+matches replay history; the checkpoint is an optional cache, not a source of
+unrevisable additional weight updates. The exact corpus signature is a
+deterministic accidental-corruption check rather than cryptographic proof.
+
+Persistence schema 2 validates the dense seven-bucket archive, all samples,
+counts, RNG state and corpus fingerprint before mutating a running core.
+Invalid optional model state does not destroy valid replay evidence.
+0.1.x saved learning remains incompatible, but enabled/disabled preference
+is retained. Public API remains read-only; outputs remain usable=false.
+
+CI runs the real Lua source under 5.1 and 5.4, plus separate long-memory
+regressions, and packages a minimal installable ZIP only after both pass.
+The old full verification suite is not claimed as rerun on this version.
+Live-client profiling, semantic utility and actual predictive improvement
+remain the next acceptance tests. See docs/LONG_MEMORY.md.
+
 ## 0.1.6 vocabulary, feature and compatibility boundary
 
 The root cast family adds Entangling Roots ranks 339, 1062, 5195, 5196, 9852 and 9853. Druid root becomes a class candidate, without claiming readiness or a landed root. Nature's Grasp activation/proc identities remain excluded. The adapter and network are byte-identical to 0.1.5; the Core lifecycle changes only its advertised target metadata.
