@@ -134,6 +134,34 @@ signatureBad.examples[1].x[1]=signatureBad.examples[1].x[1]==0 and 1 or 0
 check(not fallback:Restore(signatureBad),"tampered corpus signature accepted")
 check(fallback:Status().archiveExamples==128,"rejected restore changed archive")
 
+-- Actual Core chronology: a late revision changes the active training label,
+-- but only the subsequently sealed/deidentified outcome can enter rehearsal.
+local live=ns.Core.New()
+local actor="Player-Synthetic"
+live:SetCoverage(true)
+live:Context({actor=actor,at=10,role="self",class="DRUID",
+    combat=true,health=1,power=1,bound=true})
+live:Tick(10,true)
+check(live.actors[actor].window~=nil,"combat failed to open a window")
+check(live:Cast({actor=actor,id="cast-1",family=3,at=10.5,revision=1}),
+    "cast evidence rejected")
+live:Tick(12.4,false)
+check(#live.examples==1 and live.examples[1].y[3]==1
+    and live.examples[1].mask[3],"cast-positive label incorrect")
+check(live:Cast({actor=actor,id="cast-1",family=3,at=10.5,
+    revision=2,retracted=true}),"revision rejected")
+check(live.examples[1].y[3]==0 and live.examples[1].mask[3],
+    "corrected outcome not propagated to retained example")
+local old=live.examples[1]
+live:ResetSession(13)
+check(old.sealed==true and old.actor==nil and old.id==nil,
+    "session reset failed to seal/deidentify examples")
+live:_ArchiveEvicted(old)
+check(#live.archive[7]==1 and live.archive[7][1].y[3]==0,
+    "long-term memory did not use corrected sealed outcome")
+check(live.archive[7][1].actor==nil and live.archive[7][1].id==nil,
+    "sealed memory restored a raw event identity")
+
 -- A 0.1.x save cannot silently acquire the new training meaning.
 local legacy=ns.Core.New()
 check(not legacy:Restore({schema=1,compat="old",examples={}}),
