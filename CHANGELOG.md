@@ -1,5 +1,16 @@
 # Changes
 
+## 0.2.0-long-memory-shadow (experimental)
+
+- Preserve a bounded, deidentified cross-session replay archive: 16 slots for each of six positive cast families and 32 for background examples. Deterministic independent per-family reservoir sampling and immutable training input copies.
+- Archive only sealed examples from a prior session when they leave the 256-row recent history. Drop revisable same-session evictions instead of converting possibly correctable labels into permanent learning.
+- Train from up to 128 archive examples and the latest 128 eligible recent examples; retain the existing maximum of 256 replay rows, four epochs, and out-of-combat execution.
+- Save an optional validated frozen serving model when it matches the full bounded training corpus. Restore an exact matching snapshot after reload; a malformed snapshot falls back to clean replay rather than rejecting valid retained evidence.
+- Validate the archive, reservoir counters, RNG state and a deterministic corpus signature before any state mutation. Change schema/compatibility to reject 0.1.x learning while keeping the enabled setting.
+- Add archive and checkpoint diagnostics. No change to visual consumers, enemy negative-label policy, native event subscriptions, or the original 48 feature meanings.
+- Add Lua 5.1/5.4 regression and syntax-check workflow. Live Forever profiling, compatibility and predictive benefit remain unverified.
+
+
 ## 0.1.6-shadow
 
 - Recognize all six registered Entangling Roots cast ranks and add the Druid root class candidate. Nature's Grasp activation and triggered roots remain outside the cast vocabulary.
