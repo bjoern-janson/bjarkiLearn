@@ -47,6 +47,12 @@ end
 -- bucket prevent common negatives from replacing every rare positive.
 local ARCHIVE_LIMITS = {16,16,16,16,16,16,32}
 local RNG_MODULUS = 2147483647
+local function archiveFamily(w)
+    for i=1,6 do
+        if w.mask[i] and w.y[i]==1 then return i end
+    end
+    return 7
+end
 local function emptyArchive()
     local buckets, seen = {}, {}
     for i=1,7 do buckets[i],seen[i]={},0 end
@@ -461,10 +467,7 @@ function Core:_ArchiveEvicted(w)
         ns.Bump(self.stats,"archiveSkippedUnsealed")
         return
     end
-    local family=7
-    for i=1,6 do
-        if w.mask[i] and w.y[i]==1 then family=i;break end
-    end
+    local family=archiveFamily(w)
     local bucket=self.archive[family]
     ns.Bump(self.archiveSeen,family)
     self.archiveRng=(self.archiveRng*16807)%RNG_MODULUS
@@ -771,7 +774,10 @@ function Core:Restore(saved)
             local x=vector(S.Field(raw,"x"),C.featureCount,"input")
             local y=vector(S.Field(raw,"y"),6,"label")
             local mask=vector(S.Field(raw,"mask"),6,"mask")
-            if not x or not y or not mask or not any(mask) then return false,"invalid_archive" end
+            if not x or not y or not mask or not any(mask)
+                or archiveFamily({y=y,mask=mask})~=family then
+                return false,"invalid_archive"
+            end
             archive[family][i]={x=x,y=y,mask=mask,regime="player"}
         end
     end
