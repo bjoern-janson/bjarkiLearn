@@ -1,11 +1,19 @@
 bjarkiLearn 0.1.6-shadow
 
-Install ZIP, reproducible verification, independent audit and checksums:
-  releases/0.1.6-shadow/
+Install ZIP (unchanged):
+  releases/0.1.6-shadow/bjarkiLearn-0.1.6-shadow.zip
 
-Start with releases/0.1.6-shadow/README.txt for artifact descriptions,
-upgrade compatibility and validation limits. The previous release is retained
-under releases/0.1.5-shadow/.
+Latest offline verification tools, audit, and checksums:
+  releases/0.1.6-shadow/verification-r9/
 
-The 14 root/docs addon files exactly match the verified install ZIP.
-Use the ZIP for the correctly named bjarkiLearn addon folder.
+Start with that directory's README.txt. The r9 audit found two remaining
+Windows packaging gaps; both are documented and are not fixed by publication.
+Python is only for offline verification, not for running the Lua addon.
+
+The six runtime Lua files and both TOCs match the install ZIP exactly.
+Root README/VERIFICATION notes describe current verification tooling; the
+install ZIP preserves its original 14-file inventory and documentation.
+Use the install ZIP for the correctly named bjarkiLearn addon folder.
+
+Original 0.1.6 release evidence remains under releases/0.1.6-shadow/;
+the previous release remains under releases/0.1.5-shadow/.

@@ -1,0 +1,3355 @@
+{
+  "passed": true,
+  "version": "0.1.6-shadow",
+  "execution": "full fresh run",
+  "source_hashes": {
+    "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+    "bjarkiLearn.toc": "8bf63ef6f0b304e107927e7ebd24475489a2ce62dcf91ad1b40a8f6fca1b6b8a",
+    "bjarkiLearn_Camelot.toc": "8bf63ef6f0b304e107927e7ebd24475489a2ce62dcf91ad1b40a8f6fca1b6b8a",
+    "Bootstrap.lua": "09df443d5b2ccb41b6a600bec40334d49ff25b051b3c154c163af7820f7cf4fb",
+    "CHANGELOG.md": "00f67ee57372a66524003a3c71e75125a115ec842c187f15ab1c54f9a7661d78",
+    "Core.lua": "255d901e30ad58e1b5e3c2b63a8fe495d7500461de8b77862315909316e0acb9",
+    "DESIGN.md": "ba865e432772cab9964fe38976437cee95bf48cdd4fc5c7699955ea455784a81",
+    "docs/API.md": "41c93362e363312bee7882822c23ef6dfcb57671ad8972b2e14679da6dc1ea28",
+    "docs/IMPLEMENTATION.md": "fa2eeadb9222182d7086d9fb8eed9ed7fe9ce74ff06e7a9cb6ec5ee97e6babe5",
+    "Main.lua": "10339ce448b097b66534fcd6c833787b3c549e820fde5391d994de344e23c195",
+    "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+    "README.md": "2bd246a702ea1e32fbe3918600b09d9980daddf510e6acc39093d2388bef6495",
+    "Rules.lua": "23374379039e8600fcc0c55f5daff513e971bc90c7d086f987cbafa1dda790e3",
+    "VERIFICATION.md": "ae0c5a4ba0f68c9cd6ecac882f0577f9a33f3b959fea668b7da1e7d70f2f91dc"
+  },
+  "runtime_hashes": {
+    "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+    "Bootstrap.lua": "09df443d5b2ccb41b6a600bec40334d49ff25b051b3c154c163af7820f7cf4fb",
+    "Core.lua": "255d901e30ad58e1b5e3c2b63a8fe495d7500461de8b77862315909316e0acb9",
+    "Main.lua": "10339ce448b097b66534fcd6c833787b3c549e820fde5391d994de344e23c195",
+    "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+    "Rules.lua": "23374379039e8600fcc0c55f5daff513e971bc90c7d086f987cbafa1dda790e3"
+  },
+  "baseline_hashes": {
+    "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+    "bjarkiLearn.toc": "bfeb1818ea99438627af9d1969f0dc26264e73fd04f30d31deb12563d445be74",
+    "bjarkiLearn_Camelot.toc": "bfeb1818ea99438627af9d1969f0dc26264e73fd04f30d31deb12563d445be74",
+    "Bootstrap.lua": "be69950d7532dc9b391dd64901ee68e8947a7f8cb7419180b85c7bbf293e37ac",
+    "CHANGELOG.md": "945c2fd26747cb41edf457f70ca8c99e9d22a4385233626b1c1e62ab70b3189c",
+    "Core.lua": "3766ae3f630f5f4aa072242411d9768a3b7899a39ea9bf5a43bdb3010afa800a",
+    "DESIGN.md": "ba865e432772cab9964fe38976437cee95bf48cdd4fc5c7699955ea455784a81",
+    "docs/API.md": "d4d773b815c2557a49bc369dfb729b1336bf623b735b340e77884bb9d8dfa495",
+    "docs/IMPLEMENTATION.md": "4a1a8f48b4a4bc2aa12105da668390dff87a09a084c5057e7b923f423cbbf62e",
+    "Main.lua": "3d468590005b81484af4d548f54bf41d561165d3762c6142931e87df8596052e",
+    "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+    "README.md": "28bb548e3583349f1f8d512ef708b13ac047165e0fb5b2d73e318da23eda8586",
+    "Rules.lua": "4456d77323afc59c3946abd3b3037648b137004ff9d9036e892065e039ef602c",
+    "VERIFICATION.md": "18cd6449ee3f0d5e7e19db886c332417b8e4cd55d4166d5c2f1c9e29376e7f53"
+  },
+  "smoke": {
+    "passed": 8,
+    "total": 8
+  },
+  "semantic": {
+    "passed": 42,
+    "total": 42,
+    "checks": 67624
+  },
+  "baseline_red": {
+    "unchanged_controls_passed": 14,
+    "expected_semantic_failures": 28,
+    "total": 42
+  },
+  "independent": {
+    "passed": 34,
+    "total": 34
+  },
+  "inherited": {
+    "passed": true,
+    "unexpected_failures": [],
+    "runtime_hashes": {
+      "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+      "Bootstrap.lua": "09df443d5b2ccb41b6a600bec40334d49ff25b051b3c154c163af7820f7cf4fb",
+      "Core.lua": "255d901e30ad58e1b5e3c2b63a8fe495d7500461de8b77862315909316e0acb9",
+      "Main.lua": "10339ce448b097b66534fcd6c833787b3c549e820fde5391d994de344e23c195",
+      "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+      "Rules.lua": "23374379039e8600fcc0c55f5daff513e971bc90c7d086f987cbafa1dda790e3"
+    },
+    "baseline_runtime_hashes": {
+      "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+      "Bootstrap.lua": "be69950d7532dc9b391dd64901ee68e8947a7f8cb7419180b85c7bbf293e37ac",
+      "Core.lua": "3766ae3f630f5f4aa072242411d9768a3b7899a39ea9bf5a43bdb3010afa800a",
+      "Main.lua": "3d468590005b81484af4d548f54bf41d561165d3762c6142931e87df8596052e",
+      "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+      "Rules.lua": "4456d77323afc59c3946abd3b3037648b137004ff9d9036e892065e039ef602c"
+    },
+    "preserved_original_trees_unchanged": true,
+    "baseline_leaf_jobs": 39,
+    "candidate_raw_leaf_jobs": 39,
+    "adapted_leaf_jobs": 4,
+    "scoped_cases": 86,
+    "scoped_cases_passed": 86,
+    "recency_adapted_group_executions": 149,
+    "recency_adaptations": [
+      {
+        "file": "audit-0.1.3/audit/network-restore/probes.lua",
+        "original": "zero[47]==1 and zero[48]==1,'positive witness'",
+        "replacement": "zero[47]==.875 and zero[48]==1,'positive witness'",
+        "count": 1,
+        "reason": "Witness99 at query100: 1-1/8=.875; known bit and expiry check unchanged.",
+        "before_sha256": "0fe51292d1458a99142b5c99015f25e395c328933370cbefa49436d8f8737f63",
+        "after_sha256": "57290bc5ee8e98d30d71e2e7c4bd8b9ccb4cfae6e2d734119837c8d6ea7fcdfe"
+      },
+      {
+        "file": "tests-time/projections.lua",
+        "original": "x[47]==1,'future witness hid valid earlier witness'",
+        "replacement": "x[47]==.875,'future witness hid valid earlier witness'",
+        "count": 1,
+        "reason": "Witness at9, anchor10: 1-(10-9)/8=.875; future publication must not hide it.",
+        "before_sha256": "c342b8050b74e320788bdb41c577132a1d54535b00a472487c44ac2b7eddf6ea",
+        "after_sha256": "cf605fc534c1cbd2694b3cc77963a55e608f286b3279f96f9a86ac6bec37b2f0"
+      },
+      {
+        "file": "tests-time/independent/probes.lua",
+        "original": "eq(c.actors.P.window.x[47],1); eq(c.actors.P.window.x[48],1)",
+        "replacement": "eq(c.actors.P.window.x[47],.875); eq(c.actors.P.window.x[48],1)",
+        "count": 1,
+        "reason": "Witness at9, anchor10. Eligibility remains1.",
+        "before_sha256": "ed190e221d45051a77e6d506d153a85692be536ab194cac7613e2d0c907bb850",
+        "after_sha256": "48a4cfb06143e8bef3c662e4d2bb3e45e28ec7fd2c47d5db1b05aff6b91396e7"
+      },
+      {
+        "file": "audit014/native/probes.lua",
+        "original": "Equal(target.window.anchor,10.25);Equal(target.window.x[47],1)",
+        "replacement": "Equal(target.window.anchor,10.25);Equal(target.window.x[47],.90625)",
+        "count": 1,
+        "reason": "Native witness9.5, anchor10.25: 1-.75/8=.90625.",
+        "before_sha256": "272483059a991730ec57d454391957ae8e20cc2f80f036146fa7bd827a8fbec4",
+        "after_sha256": "2cba83917c256f6d14e39d9dca7ec05caf6fd9130cb4b3c7bb466da0b8b13b42"
+      },
+      {
+        "file": "audit014/native/probes.lua",
+        "original": "Check(row~=nil);Equal(row.x[47],1)",
+        "replacement": "Check(row~=nil);Equal(row.x[47],.90625)",
+        "count": 1,
+        "reason": "Retained input remains the original9.5/10.25 anchored recency.",
+        "before_sha256": "2cba83917c256f6d14e39d9dca7ec05caf6fd9130cb4b3c7bb466da0b8b13b42",
+        "after_sha256": "7227afc8503783966f474dfc82b7d49f3cb8c3a84536e36802617bd263964688"
+      },
+      {
+        "file": "audit014/native/probes.lua",
+        "original": "Equal(target.window.anchor,12.5);Equal(target.window.x[47],1)",
+        "replacement": "Equal(target.window.anchor,12.5);Equal(target.window.x[47],.8125)",
+        "count": 1,
+        "reason": "Witness11 enters later12.5 anchor: 1-1.5/8=.8125; old missing input remains unchanged.",
+        "before_sha256": "7227afc8503783966f474dfc82b7d49f3cb8c3a84536e36802617bd263964688",
+        "after_sha256": "4c14c8edd52a461213c838e40552d5f5efaef454e8043da89f6c6e754fc96c16"
+      }
+    ],
+    "retired_future_positive_assertion_executions": 6,
+    "raw_binary_witness_assertion_failures_replaced": 10,
+    "old_cross_version_failures_are_not_passes": true,
+    "per_suite": [
+      {
+        "suite": "existing_main",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.summary.total": 28
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "existing_warm",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "existing_core",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "existing_network",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "existing_adapter",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "retention",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "long_integration",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "fresh_review010",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit_controls",
+        "baseline_exit": 1,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {
+          "$.scenario_executions": 40,
+          "$.summary.total": 40
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "registration",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.summary.total": 86
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "restore",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.total": 40
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "seeds",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.corpus_seed_count": 2577
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "fresh_review012",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.summary.total": 22136
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit012_core",
+        "baseline_exit": 1,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit012_native",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.summary.total": 36
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit012_network_restore",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.total": 18
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "reset_core",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.total": 12
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "reset_native",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.summary.total": 84
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "review013",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.total": 10
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit013_core",
+        "baseline_exit": 1,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {
+          "$.counts.total": 40
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit013_native",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.summary.total": 54
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit013_network",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {
+          "$.total": 21
+        },
+        "adapted_exit": 0
+      },
+      {
+        "suite": "audit013_integration",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 4,
+        "reported_quantity_fields": {
+          "$.total": 8
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "temporal",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {
+          "$.total": 28
+        },
+        "adapted_exit": 0
+      },
+      {
+        "suite": "temporal_independent",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {
+          "$.counts.total": 46
+        },
+        "adapted_exit": 0
+      },
+      {
+        "suite": "normalized_legacy",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.total": 6
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "reset_repro",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.native_trace_runs": 12,
+          "$.capacity_runs": 8
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "review014",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {
+          "$.total": 12
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit014_core",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 2,
+        "reported_quantity_fields": {
+          "$.total": 14
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit014_native",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 4,
+        "reported_quantity_fields": {
+          "$.summary.total": 54
+        },
+        "adapted_exit": 0
+      },
+      {
+        "suite": "audit014_network_restore",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.total": 26
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit014_integration",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 1,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "refactor_contracts",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.total": 8
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "refactor_differential",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 56,
+        "reported_quantity_fields": {},
+        "adapted_exit": null
+      },
+      {
+        "suite": "policy_matrix",
+        "baseline_exit": 0,
+        "raw_exit": 0,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.results[0].exact_policy_state_comparisons": 23040,
+          "$.results[1].exact_policy_state_comparisons": 23040
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit015_core",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 6,
+        "reported_quantity_fields": {
+          "$.total": 66
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit015_native",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 0,
+        "reported_quantity_fields": {
+          "$.summary.total": 224
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit015_network-restore",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 6,
+        "reported_quantity_fields": {
+          "$.seed_oracles": 307,
+          "$.scenario_total": 48
+        },
+        "adapted_exit": null
+      },
+      {
+        "suite": "audit015_integration",
+        "baseline_exit": 0,
+        "raw_exit": 1,
+        "raw_failed_leaf_assertions_or_aggregate": 4,
+        "reported_quantity_fields": {
+          "$.total": 16
+        },
+        "adapted_exit": null
+      }
+    ],
+    "excluded_raw_claims": [
+      {
+        "suite": "audit_controls",
+        "classification": "superseded_future_positive_expectation",
+        "path": "$.cases[14]",
+        "case": {
+          "engine": "lua51",
+          "suite": "lifecycle",
+          "checks": 7,
+          "error": "[string \"<python>\"]:3: resolving pending positive changes eligible corpus, cancels old candidate",
+          "passed": false,
+          "case": "active replay reset with pending positive cancels candidate, seals rows, publishes copied corpus"
+        }
+      },
+      {
+        "suite": "audit_controls",
+        "classification": "superseded_future_positive_expectation",
+        "path": "$.cases[34]",
+        "case": {
+          "engine": "lua54",
+          "suite": "lifecycle",
+          "checks": 7,
+          "error": "[string \"<python>\"]:3: resolving pending positive changes eligible corpus, cancels old candidate",
+          "passed": false,
+          "case": "active replay reset with pending positive cancels candidate, seals rows, publishes copied corpus"
+        }
+      },
+      {
+        "suite": "audit012_core",
+        "classification": "superseded_future_positive_expectation",
+        "path": "$[4]",
+        "case": {
+          "runtime": "lua51",
+          "name": "reset halfway through training with pending partial window restarts replay",
+          "passed": false,
+          "detail": null,
+          "error": "[string \"<python>\"]:84: partial corpus resets candidate but keeps completed snapshot"
+        }
+      },
+      {
+        "suite": "audit012_core",
+        "classification": "superseded_future_positive_expectation",
+        "path": "$[10]",
+        "case": {
+          "runtime": "lua54",
+          "name": "reset halfway through training with pending partial window restarts replay",
+          "passed": false,
+          "detail": null,
+          "error": "[string \"<python>\"]:84: partial corpus resets candidate but keeps completed snapshot"
+        }
+      },
+      {
+        "suite": "audit013_core",
+        "classification": "superseded_future_positive_expectation",
+        "path": "$.cases[16]",
+        "case": {
+          "runtime": "lua51",
+          "name": "actor_eviction_overlap_pause_and_clock_rollback",
+          "passed": false,
+          "detail": null,
+          "error": "[string \"<python>\"]:11: mismatch: 0 ~= 1"
+        }
+      },
+      {
+        "suite": "audit013_core",
+        "classification": "superseded_future_positive_expectation",
+        "path": "$.cases[36]",
+        "case": {
+          "runtime": "lua54",
+          "name": "actor_eviction_overlap_pause_and_clock_rollback",
+          "passed": false,
+          "detail": null,
+          "error": "[string \"<python>\"]:11: mismatch: 0 ~= 1"
+        }
+      },
+      {
+        "suite": "audit013_network",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.results[9]",
+        "case": {
+          "runtime": "lua51",
+          "error": "[string \"<python>\"]:3: positive witness",
+          "passed": false,
+          "name": "feature schema normalizes and distinguishes unknown from known zero",
+          "checks": 56
+        }
+      },
+      {
+        "suite": "audit013_network",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.results[19]",
+        "case": {
+          "runtime": "lua54",
+          "error": "[string \"<python>\"]:3: positive witness",
+          "name": "feature schema normalizes and distinguishes unknown from known zero",
+          "checks": 56,
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit013_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[1]",
+        "case": {
+          "scenario": "continuous_three_actors",
+          "engine": "lua51",
+          "version": "0.1.3",
+          "passed": false,
+          "full_trace_identical_to_reference": false,
+          "logout_reload_export_and_completed_model_identical": true,
+          "checks": 2514,
+          "examples": 256,
+          "modelExamples": 85
+        }
+      },
+      {
+        "suite": "audit013_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[3]",
+        "case": {
+          "scenario": "continuous_three_actors",
+          "engine": "lua54",
+          "version": "0.1.3",
+          "passed": false,
+          "full_trace_identical_to_reference": false,
+          "logout_reload_export_and_completed_model_identical": true,
+          "checks": 2514,
+          "examples": 256,
+          "modelExamples": 85
+        }
+      },
+      {
+        "suite": "audit013_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[5]",
+        "case": {
+          "scenario": "alias_lifecycle",
+          "engine": "lua51",
+          "version": "0.1.3",
+          "passed": false,
+          "full_trace_identical_to_reference": false,
+          "logout_reload_export_and_completed_model_identical": true,
+          "checks": 1119,
+          "examples": 101,
+          "modelExamples": 100
+        }
+      },
+      {
+        "suite": "audit013_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[7]",
+        "case": {
+          "scenario": "alias_lifecycle",
+          "engine": "lua54",
+          "version": "0.1.3",
+          "passed": false,
+          "full_trace_identical_to_reference": false,
+          "logout_reload_export_and_completed_model_identical": true,
+          "checks": 1119,
+          "examples": 101,
+          "modelExamples": 100
+        }
+      },
+      {
+        "suite": "temporal",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[6]",
+        "case": {
+          "engine": "lua51",
+          "error": "[string \"<python>\"]:61: future witness hid valid earlier witness",
+          "name": "defensive_witness_projection_preserves_earlier_positive",
+          "passed": false
+        }
+      },
+      {
+        "suite": "temporal",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[20]",
+        "case": {
+          "engine": "lua54",
+          "name": "defensive_witness_projection_preserves_earlier_positive",
+          "error": "[string \"<python>\"]:61: future witness hid valid earlier witness",
+          "passed": false
+        }
+      },
+      {
+        "suite": "temporal_independent",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[19]",
+        "case": {
+          "runtime": "lua51",
+          "name": "future_aura_does_not_hide_earlier_readable_witness",
+          "passed": false,
+          "detail": null,
+          "error": "[string \"<python>\"]:4: mismatch: 0.875 ~= 1"
+        }
+      },
+      {
+        "suite": "temporal_independent",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[42]",
+        "case": {
+          "runtime": "lua54",
+          "name": "future_aura_does_not_hide_earlier_readable_witness",
+          "passed": false,
+          "detail": null,
+          "error": "[string \"<python>\"]:4: mismatch: 0.875 ~= 1"
+        }
+      },
+      {
+        "suite": "review014",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[0]",
+        "case": {
+          "engine": "lua51",
+          "error": "[string \"<python>\"]:3: export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "passed": false,
+          "name": "native_observed_core_trajectory_matches_013"
+        }
+      },
+      {
+        "suite": "review014",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[6]",
+        "case": {
+          "engine": "lua54",
+          "passed": false,
+          "error": "[string \"<python>\"]:3: export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "name": "native_observed_core_trajectory_matches_013"
+        }
+      },
+      {
+        "suite": "audit014_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[4]",
+        "case": {
+          "engine": "lua51",
+          "error": "[string \"<python>\"]:3: observed export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "passed": false,
+          "name": "observed_boundary_revisions_match_013_with_real_models"
+        }
+      },
+      {
+        "suite": "audit014_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[11]",
+        "case": {
+          "engine": "lua54",
+          "error": "[string \"<python>\"]:3: observed export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "name": "observed_boundary_revisions_match_013_with_real_models",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit014_native",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[16]",
+        "case": {
+          "engine": "lua51",
+          "case": "future-only native bus witness enters later anchor and leaves first input immutable",
+          "passed": false,
+          "checks": 10,
+          "error": "[string \"<python>\"]:48: equal: 0.8125 ~= 1\nstack traceback:\n\t[string \"<python>\"]:7: in main chunk\n\t[string \"<python>\"]:48: in function 'Equal'\n\t[string \"<python>\"]:47: in function 'Check'\n\t[C]: in function 'error'",
+          "detail": null
+        }
+      },
+      {
+        "suite": "audit014_native",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[20]",
+        "case": {
+          "engine": "lua51",
+          "case": "native bus anchor preserves eligible witness despite later future publication",
+          "passed": false,
+          "checks": 7,
+          "error": "[string \"<python>\"]:48: equal: 0.90625 ~= 1\nstack traceback:\n\t[string \"<python>\"]:5: in main chunk\n\t[string \"<python>\"]:48: in function 'Equal'\n\t[string \"<python>\"]:47: in function 'Check'\n\t[C]: in function 'error'",
+          "detail": null
+        }
+      },
+      {
+        "suite": "audit014_native",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[43]",
+        "case": {
+          "engine": "lua54",
+          "case": "future-only native bus witness enters later anchor and leaves first input immutable",
+          "passed": false,
+          "checks": 10,
+          "error": "[string \"<python>\"]:48: equal: 0.8125 ~= 1\nstack traceback:\n\t[string \"<python>\"]:7: in main chunk\n\t[string \"<python>\"]:48: in function 'Equal'\n\t[string \"<python>\"]:47: in function 'Check'\n\t[C]: in function 'error'",
+          "detail": null
+        }
+      },
+      {
+        "suite": "audit014_native",
+        "classification": "superseded_binary_witness_expectation_with_adapted_pass",
+        "path": "$.cases[47]",
+        "case": {
+          "engine": "lua54",
+          "case": "native bus anchor preserves eligible witness despite later future publication",
+          "passed": false,
+          "checks": 7,
+          "error": "[string \"<python>\"]:48: equal: 0.90625 ~= 1\nstack traceback:\n\t[string \"<python>\"]:5: in main chunk\n\t[string \"<python>\"]:48: in function 'Equal'\n\t[string \"<python>\"]:47: in function 'Check'\n\t[C]: in function 'error'",
+          "detail": null
+        }
+      },
+      {
+        "suite": "audit014_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$",
+        "case": {
+          "passed": false,
+          "comparisons": 8,
+          "source_hashes": {
+            "Adapter.lua": "8d202f577b5c0abce58e7655e56b37597ccb17f465233333952614370a614c88",
+            "Bootstrap.lua": "09df443d5b2ccb41b6a600bec40334d49ff25b051b3c154c163af7820f7cf4fb",
+            "Core.lua": "255d901e30ad58e1b5e3c2b63a8fe495d7500461de8b77862315909316e0acb9",
+            "Main.lua": "10339ce448b097b66534fcd6c833787b3c549e820fde5391d994de344e23c195",
+            "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+            "Rules.lua": "23374379039e8600fcc0c55f5daff513e971bc90c7d086f987cbafa1dda790e3"
+          },
+          "source_unchanged": true,
+          "cases": [
+            {
+              "runtime": "lua51",
+              "version": "0.1.3",
+              "trace_equal": true,
+              "reload_equal": true,
+              "checks": 562,
+              "examples": 256,
+              "modelVersion": 1
+            },
+            {
+              "runtime": "lua51",
+              "version": "0.1.4",
+              "trace_equal": false,
+              "reload_equal": true,
+              "checks": 562,
+              "examples": 256,
+              "modelVersion": 1
+            },
+            {
+              "runtime": "lua54",
+              "version": "0.1.3",
+              "trace_equal": true,
+              "reload_equal": true,
+              "checks": 562,
+              "examples": 256,
+              "modelVersion": 1
+            },
+            {
+              "runtime": "lua54",
+              "version": "0.1.4",
+              "trace_equal": false,
+              "reload_equal": true,
+              "checks": 562,
+              "examples": 256,
+              "modelVersion": 1
+            }
+          ],
+          "scope": "280 native multi-actor cycles, alias and identity churn, missing focus, unreadable cast identity, world and disable/enable resets, 2520 scheduled updates, 400 finishing updates, fresh native logout/reload; exact status/export/model equality across both releases and both Lua runtimes."
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[0]",
+        "case": {
+          "assertions": 28,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:8: mismatch: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "fixed_resource_and_schema_contract",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[1]",
+        "case": {
+          "assertions": 73,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: actor_revision_and_cached_forecast_invalidation/initial.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "actor_revision_and_cached_forecast_invalidation",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[2]",
+        "case": {
+          "assertions": 53,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: asof_cast_aura_projections_are_copied_and_pure/pure.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "asof_cast_aura_projections_are_copied_and_pure",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[3]",
+        "case": {
+          "assertions": 45,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: reattribution_invalidates_old_and_new_actor/reattributed.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "reattribution_invalidates_old_and_new_actor",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[4]",
+        "case": {
+          "assertions": 54,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: lead_only_change_updates_lead_without_label_revision/leadOnlyUntrained.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "lead_only_change_updates_lead_without_label_revision",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[5]",
+        "case": {
+          "assertions": 34,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: no_op_correction_keeps_model_and_corpus/train1.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "no_op_correction_keeps_model_and_corpus",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[6]",
+        "case": {
+          "assertions": 80,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: interval_boundaries_and_maturity/before.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "interval_boundaries_and_maturity",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[7]",
+        "case": {
+          "assertions": 78,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: retired_actor_future_backdate_retraction_and_due/retired.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "retired_actor_future_backdate_retraction_and_due",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[8]",
+        "case": {
+          "assertions": 339,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: simultaneous_maturity_is_one_corpus_change/mature120.core.actors.capacity2.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "simultaneous_maturity_is_one_corpus_change",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[9]",
+        "case": {
+          "assertions": 173,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: ordinary_cast_retirement_preserves_frozen_serving_model/train1.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "ordinary_cast_retirement_preserves_frozen_serving_model",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[10]",
+        "case": {
+          "assertions": 295,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: aura_retirement_invalidates_actor_cache_without_dirtying_labels/auraRetired.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "aura_retirement_invalidates_actor_cache_without_dirtying_labels",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[11]",
+        "case": {
+          "assertions": 40,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_eviction_guards_old_side_correction/replayEvicted.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "replay_eviction_guards_old_side_correction",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[12]",
+        "case": {
+          "assertions": 33,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_eviction_guards_new_side_correction/newSideWithdraw.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "replay_eviction_guards_new_side_correction",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[13]",
+        "case": {
+          "assertions": 69,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_eviction_guards_future_maturity/guarded.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "replay_eviction_guards_future_maturity",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[14]",
+        "case": {
+          "assertions": 67,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: unrelated_or_retracted_due_keeps_model/nonAffectingDue.core.actors.capacity7.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "unrelated_or_retracted_due_keeps_model",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[15]",
+        "case": {
+          "assertions": 294,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: latestEver_floor_rejects_identity_replay_and_lost_revision/floorReject.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "latestEver_floor_rejects_identity_replay_and_lost_revision",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[16]",
+        "case": {
+          "assertions": 289,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: below_floor_attempt_withdraws_affected_model/floorAffectsModel.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "below_floor_attempt_withdraws_affected_model",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[17]",
+        "case": {
+          "assertions": 61,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: lead_only_due_does_not_revise_same_labels/unchangedLabelsAndLead.core.actors.capacity2.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "lead_only_due_does_not_revise_same_labels",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[18]",
+        "case": {
+          "assertions": 99,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: training_candidate_exact_state_and_correction_cancellation/candidate4.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "training_candidate_exact_state_and_correction_cancellation",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[19]",
+        "case": {
+          "assertions": 84,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: supported_scores_prequential_metrics_and_public_copy/train1.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "supported_scores_prequential_metrics_and_public_copy",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[20]",
+        "case": {
+          "assertions": 63,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: reset_seals_rows_and_clears_transient_guards/sealed.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "reset_seals_rows_and_clears_transient_guards",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[21]",
+        "case": {
+          "assertions": 33,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: rollback_uses_observed_frontier_before_clearing/rollback.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "rollback_uses_observed_frontier_before_clearing",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[22]",
+        "case": {
+          "assertions": 58,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: restore_validates_atomically_and_rebuilds_sealed_rows/train1.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "restore_validates_atomically_and_rebuilds_sealed_rows",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[23]",
+        "case": {
+          "assertions": 66,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: actor_capacity_tie_order_pause_and_reappearance/tieEviction.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "actor_capacity_tie_order_pause_and_reappearance",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[24]",
+        "case": {
+          "assertions": 31,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: aura_revision_expiry_and_future_projection/auraRevisions.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "aura_revision_expiry_and_future_projection",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[25]",
+        "case": {
+          "assertions": 199,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: deterministic_mixed_public_trace/trace24.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "deterministic_mixed_public_trace",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[26]",
+        "case": {
+          "assertions": 50,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: native_adapter_cast_aura_aliases_and_reset/nativeDelivery.core.actors.Player-1-Q.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "native_adapter_cast_aura_aliases_and_reset",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[27]",
+        "case": {
+          "assertions": 404,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_and_model_dependency_capacity_saturate_at_256/retained64.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "replay_and_model_dependency_capacity_saturate_at_256",
+          "passed": false,
+          "runtime": "lua51"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[28]",
+        "case": {
+          "assertions": 28,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:8: mismatch: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "fixed_resource_and_schema_contract",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[29]",
+        "case": {
+          "assertions": 73,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: actor_revision_and_cached_forecast_invalidation/initial.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "actor_revision_and_cached_forecast_invalidation",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[30]",
+        "case": {
+          "assertions": 53,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: asof_cast_aura_projections_are_copied_and_pure/pure.core.actors.P.window.x.47 1 ~= 0.875",
+          "modelSnapshots": 0,
+          "name": "asof_cast_aura_projections_are_copied_and_pure",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[31]",
+        "case": {
+          "assertions": 45,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: reattribution_invalidates_old_and_new_actor/reattributed.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "reattribution_invalidates_old_and_new_actor",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[32]",
+        "case": {
+          "assertions": 54,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: lead_only_change_updates_lead_without_label_revision/leadOnlyUntrained.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "lead_only_change_updates_lead_without_label_revision",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[33]",
+        "case": {
+          "assertions": 34,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: no_op_correction_keeps_model_and_corpus/train1.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "no_op_correction_keeps_model_and_corpus",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[34]",
+        "case": {
+          "assertions": 80,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: interval_boundaries_and_maturity/before.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "interval_boundaries_and_maturity",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[35]",
+        "case": {
+          "assertions": 78,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: retired_actor_future_backdate_retraction_and_due/retired.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "retired_actor_future_backdate_retraction_and_due",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[36]",
+        "case": {
+          "assertions": 339,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: simultaneous_maturity_is_one_corpus_change/mature120.core.actors.capacity2.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "simultaneous_maturity_is_one_corpus_change",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[37]",
+        "case": {
+          "assertions": 173,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: ordinary_cast_retirement_preserves_frozen_serving_model/train1.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "ordinary_cast_retirement_preserves_frozen_serving_model",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[38]",
+        "case": {
+          "assertions": 295,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: aura_retirement_invalidates_actor_cache_without_dirtying_labels/auraRetired.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "aura_retirement_invalidates_actor_cache_without_dirtying_labels",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[39]",
+        "case": {
+          "assertions": 40,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_eviction_guards_old_side_correction/replayEvicted.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "replay_eviction_guards_old_side_correction",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[40]",
+        "case": {
+          "assertions": 33,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_eviction_guards_new_side_correction/newSideWithdraw.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "replay_eviction_guards_new_side_correction",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[41]",
+        "case": {
+          "assertions": 69,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_eviction_guards_future_maturity/guarded.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "replay_eviction_guards_future_maturity",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[42]",
+        "case": {
+          "assertions": 67,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: unrelated_or_retracted_due_keeps_model/nonAffectingDue.core.actors.capacity7.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "unrelated_or_retracted_due_keeps_model",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[43]",
+        "case": {
+          "assertions": 294,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: latestEver_floor_rejects_identity_replay_and_lost_revision/floorReject.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "latestEver_floor_rejects_identity_replay_and_lost_revision",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[44]",
+        "case": {
+          "assertions": 289,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: below_floor_attempt_withdraws_affected_model/floorAffectsModel.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "below_floor_attempt_withdraws_affected_model",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[45]",
+        "case": {
+          "assertions": 61,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: lead_only_due_does_not_revise_same_labels/unchangedLabelsAndLead.core.actors.capacity2.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "lead_only_due_does_not_revise_same_labels",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[46]",
+        "case": {
+          "assertions": 99,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: training_candidate_exact_state_and_correction_cancellation/candidate4.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "training_candidate_exact_state_and_correction_cancellation",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[47]",
+        "case": {
+          "assertions": 84,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: supported_scores_prequential_metrics_and_public_copy/train1.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "supported_scores_prequential_metrics_and_public_copy",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[48]",
+        "case": {
+          "assertions": 63,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: reset_seals_rows_and_clears_transient_guards/sealed.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "reset_seals_rows_and_clears_transient_guards",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[49]",
+        "case": {
+          "assertions": 33,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: rollback_uses_observed_frontier_before_clearing/rollback.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "rollback_uses_observed_frontier_before_clearing",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[50]",
+        "case": {
+          "assertions": 58,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: restore_validates_atomically_and_rebuilds_sealed_rows/train1.export.compat learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "modelSnapshots": 0,
+          "name": "restore_validates_atomically_and_rebuilds_sealed_rows",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[51]",
+        "case": {
+          "assertions": 66,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: actor_capacity_tie_order_pause_and_reappearance/tieEviction.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "actor_capacity_tie_order_pause_and_reappearance",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[52]",
+        "case": {
+          "assertions": 31,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: aura_revision_expiry_and_future_projection/auraRevisions.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "aura_revision_expiry_and_future_projection",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[53]",
+        "case": {
+          "assertions": 199,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: deterministic_mixed_public_trace/trace24.public.1.queries.1.context.candidates.silence.basis forever-provisional-class-v1 ~= forever-provisional-class-v2",
+          "modelSnapshots": 0,
+          "name": "deterministic_mixed_public_trace",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[54]",
+        "case": {
+          "assertions": 50,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: native_adapter_cast_aura_aliases_and_reset/nativeDelivery.core.actors.Player-1-Q.window.x.36 0 ~= 1",
+          "modelSnapshots": 0,
+          "name": "native_adapter_cast_aura_aliases_and_reset",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "refactor_differential",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[55]",
+        "case": {
+          "assertions": 404,
+          "candidateSnapshots": 0,
+          "checkpoints": 0,
+          "equalLeaves": 0,
+          "error": "[string \"<python>\"]:18: replay_and_model_dependency_capacity_saturate_at_256/retained64.core.actors.P.forecast.target cast-delivery-v1 ~= cast-delivery-v2",
+          "modelSnapshots": 0,
+          "name": "replay_and_model_dependency_capacity_saturate_at_256",
+          "passed": false,
+          "runtime": "lua54"
+        }
+      },
+      {
+        "suite": "audit015_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[30]",
+        "case": {
+          "engine": "lua51",
+          "source_version": "0.1.5_vs_0.1.4",
+          "passed": false,
+          "name": "differential_full_state_seed_19073",
+          "error": "[string \"<python>\"]:3: coverage export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1"
+        }
+      },
+      {
+        "suite": "audit015_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[31]",
+        "case": {
+          "engine": "lua51",
+          "source_version": "0.1.5_vs_0.1.4",
+          "passed": false,
+          "name": "differential_full_state_seed_73913",
+          "error": "[string \"<python>\"]:3: coverage export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1"
+        }
+      },
+      {
+        "suite": "audit015_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[32]",
+        "case": {
+          "engine": "lua51",
+          "source_version": "0.1.5_vs_0.1.4",
+          "passed": false,
+          "name": "differential_full_state_seed_81317",
+          "error": "[string \"<python>\"]:3: coverage export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1"
+        }
+      },
+      {
+        "suite": "audit015_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[63]",
+        "case": {
+          "engine": "lua54",
+          "source_version": "0.1.5_vs_0.1.4",
+          "name": "differential_full_state_seed_19073",
+          "error": "[string \"<python>\"]:3: coverage export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[64]",
+        "case": {
+          "engine": "lua54",
+          "source_version": "0.1.5_vs_0.1.4",
+          "name": "differential_full_state_seed_73913",
+          "error": "[string \"<python>\"]:3: coverage export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_core",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.cases[65]",
+        "case": {
+          "engine": "lua54",
+          "source_version": "0.1.5_vs_0.1.4",
+          "name": "differential_full_state_seed_81317",
+          "error": "[string \"<python>\"]:3: coverage export.compat: learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1 ~= learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "alias changes between same-time deliveries preserve dedup and self context",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "bus capacity retirement removes native cast history from future features",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "combat event callbacks never execute optimizer samples including restored data",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "failure in adapter event pauses collection and enable recovers with one listener",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "failure in update pauses without exposing a stale forecast and reset recovers",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "live future bus publish preserves earlier witness and expires forecast at maturity",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "mixed native lifecycle differential seed 17017",
+          "public_projection_equal": false,
+          "trace_equal": false
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "mixed native lifecycle differential seed 99137",
+          "public_projection_equal": false,
+          "trace_equal": false
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary InCombatLockdown inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary InCombatLockdown opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary InCombatLockdown throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitAffectingCombat inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitAffectingCombat opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitAffectingCombat throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitCanAttack inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitCanAttack opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitCanAttack throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitClassBase inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitClassBase opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitClassBase throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitGUID inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitGUID opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitGUID throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitHealth inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitHealth opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitHealth throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitHealthMax inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitHealthMax opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitHealthMax throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitIsDeadOrGhost inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitIsDeadOrGhost opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitIsDeadOrGhost throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitIsPlayer inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitIsPlayer opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitIsPlayer throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPower inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPower opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPower throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPowerMax inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPowerMax opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPowerMax throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPowerType inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPowerType opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native boundary UnitPowerType throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native history feeds the next anchor after all six cast families",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native registration false survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native registration nil survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native registration number survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native registration opaque survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native registration throws survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "native registration true survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "public queries at varied clocks do not mutate the core or train",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "replay filters future publication while later live publication is accepted",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "retired native actor rebinds from retained registry evidence",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "unreadable clock during disable enable cannot produce absence labels",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua51",
+          "case": "world reset with a future live bus row replays only clock-eligible rows",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "alias changes between same-time deliveries preserve dedup and self context",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "bus capacity retirement removes native cast history from future features",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "combat event callbacks never execute optimizer samples including restored data",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "failure in adapter event pauses collection and enable recovers with one listener",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "failure in update pauses without exposing a stale forecast and reset recovers",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "live future bus publish preserves earlier witness and expires forecast at maturity",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "mixed native lifecycle differential seed 17017",
+          "public_projection_equal": false,
+          "trace_equal": false
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "mixed native lifecycle differential seed 99137",
+          "public_projection_equal": false,
+          "trace_equal": false
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary InCombatLockdown inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary InCombatLockdown opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary InCombatLockdown throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitAffectingCombat inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitAffectingCombat opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitAffectingCombat throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitCanAttack inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitCanAttack opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitCanAttack throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitClassBase inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitClassBase opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitClassBase throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitGUID inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitGUID opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitGUID throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitHealth inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitHealth opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitHealth throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitHealthMax inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitHealthMax opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitHealthMax throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitIsDeadOrGhost inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitIsDeadOrGhost opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitIsDeadOrGhost throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitIsPlayer inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitIsPlayer opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitIsPlayer throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPower inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPower opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPower throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPowerMax inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPowerMax opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPowerMax throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPowerType inaccessible",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPowerType opaque",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native boundary UnitPowerType throws",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native history feeds the next anchor after all six cast families",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native registration false survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native registration nil survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native registration number survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native registration opaque survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native registration throws survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "native registration true survives world reset and enable",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "public queries at varied clocks do not mutate the core or train",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "replay filters future publication while later live publication is accepted",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "retired native actor rebinds from retained registry evidence",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "unreadable clock during disable enable cannot produce absence labels",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_native",
+        "classification": "retired_cross_version_projection_or_trace_equality",
+        "case": {
+          "engine": "lua54",
+          "case": "world reset with a future live bus row replays only clock-eligible rows",
+          "public_projection_equal": false,
+          "trace_equal": true
+        }
+      },
+      {
+        "suite": "audit015_network-restore",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[10]",
+        "case": {
+          "name": "capacity_replay",
+          "comparison": "lua51 current-baseline",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_network-restore",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[11]",
+        "case": {
+          "name": "profiled_replay",
+          "comparison": "lua51 current-baseline",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_network-restore",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[12]",
+        "case": {
+          "name": "reset_replay",
+          "comparison": "lua51 current-baseline",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_network-restore",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[15]",
+        "case": {
+          "name": "capacity_replay",
+          "comparison": "lua54 current-baseline",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_network-restore",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[16]",
+        "case": {
+          "name": "profiled_replay",
+          "comparison": "lua54 current-baseline",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_network-restore",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[17]",
+        "case": {
+          "name": "reset_replay",
+          "comparison": "lua54 current-baseline",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[2]",
+        "case": {
+          "kind": "014_015_complete_trace",
+          "seed": 101,
+          "runtime": "lua51",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[7]",
+        "case": {
+          "kind": "014_015_complete_trace",
+          "seed": 101,
+          "runtime": "lua54",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[10]",
+        "case": {
+          "kind": "014_015_complete_trace",
+          "seed": 211,
+          "runtime": "lua51",
+          "passed": false
+        }
+      },
+      {
+        "suite": "audit015_integration",
+        "classification": "retired_cross_version_equivalence",
+        "path": "$.comparisons[15]",
+        "case": {
+          "kind": "014_015_complete_trace",
+          "seed": 211,
+          "runtime": "lua54",
+          "passed": false
+        }
+      }
+    ],
+    "separate_counts": {
+      "policy_state_comparisons_passed": 46080,
+      "boundary_checks_passed": 22136,
+      "independent015_core_focused_executions_passed": 60,
+      "independent015_native_executions_passed": 224,
+      "independent015_network_restore_executions_passed": 48,
+      "independent015_integration_reload_and_cross_lua_comparisons_passed": 12,
+      "current016_only_core_focused_executions_passed": 30,
+      "current016_only_native_executions_passed": 112,
+      "current016_only_network_restore_executions_passed": 24,
+      "current016_only_integration_reload_and_cross_lua_comparisons_passed": 6
+    },
+    "claim_ceiling": [
+      "Offline Lua5.1/5.4 with modeled WoW APIs; no live-client proof.",
+      "No grand total sums suites, assertions, seed cases, and trace comparisons.",
+      "Old whole-model/public-state equality is retired, not silently normalized into a passing claim.",
+      "Same-release repetition does not establish intended feature semantics; separate0.1.6 tests are required."
+    ],
+    "report_source_tree_notes": {
+      "baseline": {
+        "whole_source_unchanged": true,
+        "runtime_unchanged": true,
+        "reason": "Release documentation may be updated concurrently; staged source and runtime hashes must remain exact."
+      },
+      "raw": {
+        "whole_source_unchanged": true,
+        "runtime_unchanged": true,
+        "reason": "Release documentation may be updated concurrently; staged source and runtime hashes must remain exact."
+      },
+      "adapted": {
+        "whole_source_unchanged": true,
+        "runtime_unchanged": true,
+        "reason": "Release documentation may be updated concurrently; staged source and runtime hashes must remain exact."
+      }
+    },
+    "aligned_reference": {
+      "passed": true,
+      "counts": {
+        "cases": 56,
+        "passed": 56,
+        "checkpoints": 208,
+        "equalLeaves": 1819360,
+        "assertions": 8448,
+        "modelSnapshots": 66,
+        "candidateSnapshots": 34
+      },
+      "adaptations": [
+        {
+          "file": "Bootstrap.lua",
+          "original": "learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "replacement": "learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "count": 1,
+          "reason": "Declared saved-learning compatibility key.",
+          "before_sha256": "2e0f3a40ec71d486c6cc920368d235aa1eb38be2565ef662465fef93f7548da0",
+          "after_sha256": "d5e19b6c964fa3adfb91fc3962cbee91063ca387ef0d43cb399e8db3f590c19c"
+        },
+        {
+          "file": "Core.lua",
+          "original": "target=\"cast-delivery-v1\"",
+          "replacement": "target=\"cast-delivery-v2\"",
+          "count": 1,
+          "reason": "Declared forecast target metadata.",
+          "before_sha256": "6486032197b8980c26b954d9514e8945da4f6b1d8425a6d2de777aa028d01df4",
+          "after_sha256": "fd93e599386e15d3d02c67beeeb11d8b0f8fe2c7b81aa2f28fe508805e7cdbc3"
+        },
+        {
+          "file": "Rules.lua",
+          "original": "basis=\"forever-provisional-class-v1\"",
+          "replacement": "basis=\"forever-provisional-class-v2\"",
+          "count": 1,
+          "reason": "Declared class-association basis metadata.",
+          "before_sha256": "789223cf93b3c6fb16c584b379ba2b846042ffb9912745a192630127c87fb68f",
+          "after_sha256": "3770c5754cccf54c8c997b846755edb4eed11940aa684a7c6744d0e191449bf5"
+        },
+        {
+          "file": "Rules.lua",
+          "original": "1242634})",
+          "replacement": "1242634,339,1062,5195,5196,9852,9853})",
+          "count": 1,
+          "reason": "Six declared Entangling Roots cast IDs.",
+          "before_sha256": "3770c5754cccf54c8c997b846755edb4eed11940aa684a7c6744d0e191449bf5",
+          "after_sha256": "ded5129e7120cbe33c6e646eacec62d1945b160f78220375899c869616882071"
+        },
+        {
+          "file": "Rules.lua",
+          "original": "DRUID = {stun=\"conditional\",defensive=\"candidate\"}",
+          "replacement": "DRUID = {stun=\"conditional\",root=\"candidate\",defensive=\"candidate\"}",
+          "count": 1,
+          "reason": "Druid root possibility and its feature; other classes unchanged.",
+          "before_sha256": "ded5129e7120cbe33c6e646eacec62d1945b160f78220375899c869616882071",
+          "after_sha256": "e41ab712787b502acdce09944e6059e86be2deca5d752470bc2c9d9ce5e89a55"
+        },
+        {
+          "file": "Rules.lua",
+          "original": "push(fresh and 1 or 0); push(fresh and 1 or 0)",
+          "replacement": "push(fresh and (8-(now-witness.at))/8 or 0); push(fresh and 1 or 0)",
+          "count": 1,
+          "reason": "Independent recency calculation from reference witness; existing freshness/known rules retained.",
+          "before_sha256": "e41ab712787b502acdce09944e6059e86be2deca5d752470bc2c9d9ce5e89a55",
+          "after_sha256": "19f2ad6bfb16e8153ff1102e339603838aa69f0d3e65caf5d5fcf63a909b631f"
+        },
+        {
+          "file": "probes.lua",
+          "original": "learn1/forever16001-provisional1/features48-v1/cast-delivery-v1/h2/player-combat-v1/mlp12-sgd4-v1",
+          "replacement": "learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/h2/player-combat-v1/mlp12-sgd4-v1",
+          "count": 1,
+          "reason": "Exact schema assertion follows declared semantics; every other assertion unchanged.",
+          "before_sha256": "b7d942aac4014fe9dfb21fdc0b979bb0499caa6a9dd9932ec6f0259068cfa733",
+          "after_sha256": "1a1c1db171ecd4a69e88108e6988be6005e766dcb7589bf898e0f53cf59575d3"
+        }
+      ],
+      "verifier_hashes": {
+        "aligned.py": "affea0e738c025cee16d6ec96c17408ef1cc302e0b3ac59c4a5040208c82e7fa",
+        "aligned-contract.json": "a4dae388915f0b6813f26b9c110f2755b52a8c5d660cd9671948b833655d6674"
+      }
+    }
+  },
+  "verification_revision": 9,
+  "run_id": "474690d6a1384b6281547fb364de5c42",
+  "started_utc": "2026-10-30T14:47:19.920121+00:00",
+  "completed_utc": "2026-10-30T14:58:53.221222+00:00",
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "lupa": "2.8"
+  },
+  "aligned_reference": {
+    "cases": 56,
+    "passed": 56,
+    "checkpoints": 208,
+    "equalLeaves": 1819360,
+    "assertions": 8448,
+    "modelSnapshots": 66,
+    "candidateSnapshots": 34
+  },
+  "aligned_controls": {
+    "paired_mutation_controls": 14,
+    "controls_passed": 14,
+    "oracle_cases_total": 112,
+    "oracle_cases_passed": 112,
+    "oracle_assertions": 2940
+  },
+  "workflow_safety": {
+    "passed": 9,
+    "total": 9
+  },
+  "locking_safety": {
+    "passed": 12,
+    "total": 12
+  },
+  "staging_safety": {
+    "passed": 8,
+    "total": 8
+  },
+  "publication_safety": {
+    "passed": 13,
+    "total": 13
+  },
+  "environment_safety": {
+    "passed": 12,
+    "total": 12
+  },
+  "drive_path_safety": {
+    "passed": 10,
+    "total": 10,
+    "evidence_scope": {
+      "native_platform": "nt",
+      "native_windows_semantics": true,
+      "modeled_cross_drive_resolution": true,
+      "actual_cross_drive_execution": false,
+      "native_child_execution": "same physical drive",
+      "unc_evidence": "string preservation only; no UNC I/O",
+      "windows_cases_not_executed": [],
+      "limitations": "No second-drive subprocess, network-share access, live WoW, or gameplay claim."
+    }
+  },
+  "collector_platform_safety": {
+    "passed": 28,
+    "total": 28
+  },
+  "workflow_environment_safety": {
+    "passed": 12,
+    "total": 12
+  },
+  "publication_name_safety": {
+    "passed": 12,
+    "total": 12
+  },
+  "generated_metadata_safety": {
+    "passed": 19,
+    "total": 19
+  },
+  "output_path_safety": {
+    "passed": 24,
+    "total": 24
+  },
+  "classifier_controls": {
+    "passed": 19,
+    "total": 19,
+    "negative_controls": 16,
+    "diagnostic_order_controls": 3
+  },
+  "syntax": {
+    "passed": 12,
+    "total": 12,
+    "cases": [
+      {
+        "engine": "lua51",
+        "file": "Bootstrap.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua51",
+        "file": "Rules.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua51",
+        "file": "Network.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua51",
+        "file": "Core.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua51",
+        "file": "Adapter.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua51",
+        "file": "Main.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua54",
+        "file": "Bootstrap.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua54",
+        "file": "Rules.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua54",
+        "file": "Network.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua54",
+        "file": "Core.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua54",
+        "file": "Adapter.lua",
+        "passed": true
+      },
+      {
+        "engine": "lua54",
+        "file": "Main.lua",
+        "passed": true
+      }
+    ]
+  },
+  "preserved_files": {
+    "baseline/source/bjarkiLearn": 14,
+    "prior": 421,
+    "audit015": 469
+  },
+  "inventory": 14,
+  "toc_load_references_verified": 2,
+  "limits": "Offline Lua 5.1/5.4 with modeled WoW APIs; no live client or predictive usefulness claim."
+}

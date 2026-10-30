@@ -1,0 +1,663 @@
+{
+  "audit_utc": "2026-10-30T15:01:10.057386+00:00",
+  "task": "Read-only deep parse of exact bjarkiLearn verification-r9 ZIP",
+  "archive": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\outputs\\bjarkiLearn-0.1.6-shadow-verification-r9.zip",
+  "sha256": "d978df2e8895cd505f24d712d73e92bc8cb59cfe7177c51dcba384c2b86adf34",
+  "confirmed_findings": 2,
+  "findings": [
+    {
+      "id": "R9-AUDIT-1",
+      "priority": "P2",
+      "title": "Extended Windows path aliases bypass protected-output validation",
+      "source": "build_verification_r9.py",
+      "lines": [
+        50,
+        57
+      ],
+      "introduced_in_r9": false,
+      "trigger": "Invoke an ordinary-path builder with an extended \\\\?\\C:\\... output naming a protected input directory or missing descendant; reversed extended-root/ordinary-output also reproduces.",
+      "observed": "Actual unmodified builders exit 0 and create ZIP, receipt and publication lock inside protected smoke or source/bjarkiLearn. The original runtime bytes are unchanged, but the new files change the sealed input inventory. The next completed validation and normal builder fail.",
+      "root_cause": "Path.resolve retains different ordinary/extended namespace anchors for filesystem-identical paths. Normalizing case on individual components does not unify those anchors.",
+      "controls": "Ordinary protected paths reject before writes; native-distinct Unicode siblings remain accepted. Private root reproduction confirms samefile and 14 original installation files unchanged.",
+      "evidence": [
+        "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\audit\\review-outputs\\cli-results.json",
+        "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\audit\\review-outputs\\postpublish-results.json",
+        "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\root-output-confirmation\\result.json"
+      ]
+    },
+    {
+      "id": "R9-AUDIT-2",
+      "priority": "P2",
+      "title": "Unsafe payload entries can disappear before the rejection check",
+      "source": "build_verification_r9.py",
+      "lines": [
+        107,
+        113
+      ],
+      "supporting_lines": [
+        85,
+        86
+      ],
+      "introduced_in_r9": false,
+      "trigger": "A Windows extended-name supplemental file ends in a dot and has no ordinary canonical sibling, or a supplemental directory ends in a dot. Invoke the builder through its ordinary path.",
+      "observed": "Actual completed builders exit 0 with valid ZIP/receipt and unchanged completed seal/runtime, but omit the physical supplemental file or directory subtree from both archive and inventory. A matched ordinary docs file is retained.",
+      "root_cause": "Ordinary Path.is_file returns false for the unpaired file and ordinary traversal cannot enter the directory, so capture() never receives the entry and cannot apply its new rejection guard.",
+      "history": "The omission reproduces with exact archived r8 collection as well. It is a remaining gap in r9 rejection coverage, not a newly introduced omission.",
+      "controls": "Adding a canonical sibling reaches the expected rejection; explicit extended-root collection also rejects; ordinary supplemental payload bytes survive.",
+      "evidence": [
+        "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\audit\\review-metadata\\completed-probe-results.json",
+        "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\audit\\review-metadata\\completed-traversal-results.json",
+        "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\root-metadata-confirmation\\result.json"
+      ]
+    }
+  ],
+  "archive_checks": {
+    "passed": true,
+    "archive": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\outputs\\bjarkiLearn-0.1.6-shadow-verification-r9.zip",
+    "sha256": "d978df2e8895cd505f24d712d73e92bc8cb59cfe7177c51dcba384c2b86adf34",
+    "bytes": 5570981,
+    "files": 1815,
+    "crc": true,
+    "inventory": true,
+    "native_extraction_bytes_match": true,
+    "supplemental_evidence_records": {
+      "8": 137,
+      "9": 112
+    },
+    "python_sources_parse": 183,
+    "runtime_matches_original_016": true,
+    "runtime_files_unchanged": 14
+  },
+  "fresh_full_run": {
+    "run_id": "474690d6a1384b6281547fb364de5c42",
+    "jobs": 23,
+    "sealed_inputs": 1037,
+    "sealed_outputs": 193,
+    "invocation": {
+      "command": [
+        "C:\\Users\\Mewn\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\fresh-run\\run_all.py",
+        "--lupa-path",
+        "..\\..\\..\\..\\..\\2026-10-16\\let\\work\\deps"
+      ],
+      "cwd": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\caller with spaces",
+      "PYTHONPATH": "shadow modules",
+      "explicit_relative_lupa_path": true,
+      "inherited_shadow_is_an_unused_failure_sentinel": true,
+      "job_or_report_substitutions": false
+    },
+    "exit": {
+      "exit_code": 0,
+      "seconds": 707.234,
+      "runtime_unchanged": true,
+      "dependencies_unchanged": true,
+      "native_platform": "nt"
+    },
+    "summary": {
+      "smoke": {
+        "passed": 8,
+        "total": 8
+      },
+      "semantic": {
+        "passed": 42,
+        "total": 42,
+        "checks": 67624
+      },
+      "baseline_red": {
+        "unchanged_controls_passed": 14,
+        "expected_semantic_failures": 28,
+        "total": 42
+      },
+      "independent": {
+        "passed": 34,
+        "total": 34
+      },
+      "aligned_reference": {
+        "cases": 56,
+        "passed": 56,
+        "checkpoints": 208,
+        "equalLeaves": 1819360,
+        "assertions": 8448,
+        "modelSnapshots": 66,
+        "candidateSnapshots": 34
+      },
+      "aligned_controls": {
+        "paired_mutation_controls": 14,
+        "controls_passed": 14,
+        "oracle_cases_total": 112,
+        "oracle_cases_passed": 112,
+        "oracle_assertions": 2940
+      },
+      "workflow_safety": {
+        "passed": 9,
+        "total": 9
+      },
+      "locking_safety": {
+        "passed": 12,
+        "total": 12
+      },
+      "staging_safety": {
+        "passed": 8,
+        "total": 8
+      },
+      "publication_safety": {
+        "passed": 13,
+        "total": 13
+      },
+      "environment_safety": {
+        "passed": 12,
+        "total": 12
+      },
+      "drive_path_safety": {
+        "passed": 10,
+        "total": 10,
+        "evidence_scope": {
+          "native_platform": "nt",
+          "native_windows_semantics": true,
+          "modeled_cross_drive_resolution": true,
+          "actual_cross_drive_execution": false,
+          "native_child_execution": "same physical drive",
+          "unc_evidence": "string preservation only; no UNC I/O",
+          "windows_cases_not_executed": [],
+          "limitations": "No second-drive subprocess, network-share access, live WoW, or gameplay claim."
+        }
+      },
+      "collector_platform_safety": {
+        "passed": 28,
+        "total": 28
+      },
+      "workflow_environment_safety": {
+        "passed": 12,
+        "total": 12
+      },
+      "publication_name_safety": {
+        "passed": 12,
+        "total": 12
+      },
+      "generated_metadata_safety": {
+        "passed": 19,
+        "total": 19
+      },
+      "output_path_safety": {
+        "passed": 24,
+        "total": 24
+      },
+      "classifier_controls": {
+        "passed": 19,
+        "total": 19,
+        "negative_controls": 16,
+        "diagnostic_order_controls": 3
+      },
+      "syntax": {
+        "passed": 12,
+        "total": 12,
+        "cases": [
+          {
+            "engine": "lua51",
+            "file": "Bootstrap.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua51",
+            "file": "Rules.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua51",
+            "file": "Network.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua51",
+            "file": "Core.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua51",
+            "file": "Adapter.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua51",
+            "file": "Main.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua54",
+            "file": "Bootstrap.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua54",
+            "file": "Rules.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua54",
+            "file": "Network.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua54",
+            "file": "Core.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua54",
+            "file": "Adapter.lua",
+            "passed": true
+          },
+          {
+            "engine": "lua54",
+            "file": "Main.lua",
+            "passed": true
+          }
+        ]
+      },
+      "preserved_files": {
+        "baseline/source/bjarkiLearn": 14,
+        "prior": 421,
+        "audit015": 469
+      },
+      "inventory": 14
+    }
+  },
+  "output_review": {
+    "audit": "verification-r9 independent output/containment review",
+    "subject": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\subject",
+    "input_archive_sha256": "d978df2e8895cd505f24d712d73e92bc8cb59cfe7177c51dcba384c2b86adf34",
+    "findings": [
+      {
+        "id": "OUTPUT-001",
+        "priority": "P2",
+        "title": "Extended Windows namespace aliases bypass protected-output validation",
+        "status": "confirmed native Windows, including actual completed-bundle CLI",
+        "introduced_in_r9": false,
+        "inherited_evidence": "Same real native alias fixture accepted by preserved exact r8 validator and r9 validator; no r8 full CLI claimed.",
+        "root_cause": "Path.resolve retains the \\\\?\\C: namespace anchor for extended inputs while ordinary paths resolve to C:. normcase of the path-component tuples does not unify these two names of the same directory. Prefix containment returns false.",
+        "trigger": "Run normal build_verification_r9.py with --output \\\\?\\C:\\...\\bundle\\smoke (or missing descendant), or run the script through an extended root and pass ordinary C:\\...\\bundle\\smoke.",
+        "observed": "Three real completed-bundle CLI invocations exited 0, revalidated the real collector, published matching ZIP/receipt inside protected smoke, and created the publication lock; the missing-descendant case also created directories.",
+        "impact": "All three source copies become invalid completed bundles: publication ZIP, receipt and lock are new sealed smoke inputs. validate_completed and a second ordinary external-output build fail. No pre-existing file bytes changed; published archive SHA remains exactly the reviewed archive SHA.",
+        "expected": "Equivalent protected paths must be rejected before collector, directory creation or any lock/publication write.",
+        "recommendation": "Compare equivalent Windows namespaces as the same filesystem identity before the protected-ancestor check, including a missing output descendant; retain the native-distinct Unicode sibling behavior. Add completed-bundle regressions for both root/output prefix directions.",
+        "references": [
+          {
+            "file": "build_verification_r9.py",
+            "lines": [
+              48,
+              59
+            ],
+            "role": "Resolved path parts comparison preserves namespace anchor distinction"
+          },
+          {
+            "file": "build_verification_r9.py",
+            "lines": [
+              168,
+              182
+            ],
+            "role": "Only output guard before completed-run checks and real collector"
+          },
+          {
+            "file": "build_verification_r9.py",
+            "lines": [
+              193,
+              215
+            ],
+            "role": "Archive and receipt then passed to publication helper"
+          },
+          {
+            "file": "verification_publish.py",
+            "lines": [
+              45,
+              51
+            ],
+            "role": "Accepted output directory created and publication lock opened"
+          },
+          {
+            "file": "verification_publish.py",
+            "lines": [
+              72,
+              74
+            ],
+            "role": "Staged ZIP and receipt promoted into accepted output"
+          },
+          {
+            "file": "verification_state.py",
+            "lines": [
+              60,
+              85
+            ],
+            "role": "New smoke files become sealed inputs"
+          },
+          {
+            "file": "verification_state.py",
+            "lines": [
+              184,
+              187
+            ],
+            "role": "Next validation rejects changed input inventory"
+          },
+          {
+            "file": "verification-r9/history/build_verification_r8.py",
+            "lines": [
+              48,
+              55
+            ],
+            "role": "Preserved r8 also treats ordinary and extended anchors as distinct"
+          },
+          {
+            "file": "verification-r9/test_output_paths.py",
+            "lines": [
+              31,
+              56
+            ],
+            "role": "Required cases omit extended namespace aliases"
+          }
+        ]
+      }
+    ],
+    "subject_inventory_unchanged": true,
+    "subject_files": 1815,
+    "tests": {
+      "native_matrix_cases": 99,
+      "native_matrix_valid_cases": 93,
+      "native_matrix_guard_mismatches": 18,
+      "native_guard_no_writes": true,
+      "additional_native_controls": 58,
+      "all_18_protected_roots_and_18_missing_descendants_extended_bypass": true,
+      "cli_cases": 5,
+      "cli_forbidden_publications": 3,
+      "postpublish_seal_invalid": 3,
+      "all_failed_followups_no_writes": true
+    },
+    "positive_controls": [
+      "Ordinary protected paths rejected with no writes by real CLI",
+      "Device \\\\.\\C: spelling resolves to ordinary anchor and is rejected with no writes by real CLI",
+      "Native 8.3 alias resolves to protected target and is rejected",
+      "Ordinary trailing-dot/space aliases resolve to protected target and are rejected",
+      "Dotdot into/out of protected trees behaves as expected for valid native spellings",
+      "Native-distinct Kelvin sibling, existing child and missing child accepted in all valid root/output namespace combinations",
+      "Matching ordinary/ordinary and extended/extended namespaces reject protected paths"
+    ],
+    "limitations": [
+      "Symlink creation unavailable (required privilege absent); junction creation unavailable (access denied). Neither counted passing.",
+      "Extended-prefix dotdot inputs returned WinError 123 for native identity, recorded as invalid spellings and excluded from valid native matrix cases.",
+      "No UNC/network share, second drive, native POSIX, live WoW, concurrency/crash, or gameplay claims.",
+      "No full 23-job run duplicated; CLI probes use real collect-existing acceptance over exact completed private copies.",
+      "No source fixes, shared subject changes, or release writes."
+    ],
+    "artifacts": [
+      "probe_native.py",
+      "native-results.json",
+      "probe_aliases.py",
+      "alias-results.json",
+      "probe_cli.py",
+      "cli-results.json",
+      "probe_postpublish.py",
+      "postpublish-results.json",
+      "*.stdout.log",
+      "*.stderr.log"
+    ]
+  },
+  "metadata_review": {
+    "scope": "Native Windows metadata/member-identity audit; current completed-copy builder CLIs plus focused real-collector probes",
+    "subject": "C:/Users/Mewn/Documents/Codex/2026-10-22/de/work/learn-verification-r9-audit-2026-10-30/subject",
+    "release_sha256": "d978df2e8895cd505f24d712d73e92bc8cb59cfe7177c51dcba384c2b86adf34",
+    "production_edits": false,
+    "findings": [
+      {
+        "title": "[P2] Reject unsafe native entries before ordinary traversal can skip them",
+        "priority": 2,
+        "confidence": 1.0,
+        "file": "build_verification_r9.py",
+        "start": 107,
+        "end": 113,
+        "supporting_lines": [
+          85,
+          86
+        ],
+        "body": "When a physical Windows extended-name payload ends in a dot and has no canonical sibling, ordinary Path.is_file() returns false, so the loop never calls capture() and the new Win32-name guard never runs. A trailing-dot directory similarly appears in ordinary rglob but its subtree is not traversed. Actual completed-copy r9 CLIs exit 0, preserve the seal/source bytes, and publish a verified ZIP/receipt silently missing these docs payloads; a matched normal docs .txt is archived with exact bytes. Check enumerated names before ordinary native file/traversal predicates can lose them, so unsupported names reject rather than produce successful incomplete payloads.",
+        "manifestations": [
+          "Unpaired trailing-dot file silently omitted",
+          "Trailing-dot directory subtree silently omitted"
+        ],
+        "history": "Silent omission also occurs in the exact archived r8 collector. This is a remaining rejection-coverage gap, not a newly introduced omission regression.",
+        "trigger_scope": "Uncommon native Windows extended-path entries, ordinary-path builder invocation, no canonical sibling for the omitted entry",
+        "limitations": "Does not establish missing evidence in the clean supplied ZIP, live-WoW behavior, native POSIX behavior, or a physical second-drive result.",
+        "evidence": [
+          "completed-probe-results.json",
+          "completed-traversal-results.json",
+          "unsafe-no-canonical-sibling.log",
+          "unsafe-with-canonical-sibling.log",
+          "traversal-completed.log",
+          "traversal-results.json",
+          "r8-comparison.json"
+        ],
+        "test_gap": "test_generated_metadata.py 238-239 creates a canonical sibling for each unsafe name, making ordinary is_file true and concealing the bypass. All 19 existing cases pass."
+      }
+    ],
+    "non_findings": [
+      {
+        "topic": "Unsafe artifacts under already-ignored caches",
+        "result": "Actual r9 completed CLI rejects paired trailing-dot cache entry before publication; exact r8 collector excluded it.",
+        "reason_not_finding": "r9 explicitly documents broad trailing-component rejection. No separate material bug inferred from that stricter policy.",
+        "evidence": [
+          "unsafe-in-ignored-cache.log",
+          "r8-comparison.json"
+        ]
+      },
+      {
+        "topic": "Generated metadata normalization and bound-name exclusions",
+        "result": "Current focused suite passes 19/19. No additional actionable finding from bound spelling, nested metadata, native Unicode lookalikes or preserved modeled POSIX distinctions.",
+        "evidence": [
+          "current-metadata-tests.json",
+          "native-names.json"
+        ]
+      }
+    ],
+    "validation": {
+      "clean_completed_cli": "Exit 0, 1815 members, original supplied SHA reproduced",
+      "unpaired_trailing_file_cli": "Exit 0, 1815 members, identical SHA, file absent",
+      "paired_trailing_file_cli": "Exit 1, expected Win32 round-trip rejection",
+      "ignored_cache_pair_cli": "Exit 1, expected broad Win32-name rejection",
+      "file_directory_and_normal_control_cli": "Exit 0, 1816 members, only normal supplemental file retained",
+      "source_and_completed_manifest": "Unchanged throughout current CLI probes",
+      "full_suite": "Not duplicated by this agent"
+    }
+  },
+  "integrity_review": {
+    "reviewer": "audit_r9_integrity",
+    "scope": "Revision-9 sealed 23-job integration, strict 19/24-case collector gates, r8 exec/compile compatibility shim and legacy builder chain, dependency anchoring, captured-byte validation and publication boundary.",
+    "subject": "../../subject",
+    "released_archive_sha256": "d978df2e8895cd505f24d712d73e92bc8cb59cfe7177c51dcba384c2b86adf34",
+    "status": "NO_FINDINGS_IN_REVIEWED_SCOPE",
+    "findings": [],
+    "fresh_evidence": [
+      {
+        "name": "Canonical clean builder reproduces released archive",
+        "evidence": "clean-builder.json",
+        "result": "Real collector succeeded; 1815 files, 5570981 bytes; exact released SHA256."
+      },
+      {
+        "name": "Legacy chain and dependency compatibility",
+        "evidence": "integration-controls.json",
+        "result": "18/18 controls; all eight old entry points resolve current main. build_release.py actually rebuilt with caller-relative inherited PYTHONPATH and root output; exact released SHA256. r8 and r9 functions have isolated globals; r8 POSIX model binding cannot change canonical module. All 46 prior Assert ASTs retained among 48 current assertions."
+      },
+      {
+        "name": "Real new collector gates",
+        "evidence": "collector-negative-controls.json",
+        "result": "10/10 mutations rejected at the intended run_all.py assertion line, five each for 19-case metadata and 24-case path reports: false aggregate, truthy integer aggregate, shortened cases, false case, truthy integer case. Scratch report/receipt hashes were rebound solely to reach semantic gates, not to test execution attestation."
+      },
+      {
+        "name": "Sealed state and fresh reports",
+        "evidence": "state-freshness-controls.json",
+        "result": "12/12 controls. New jobs reject missing job, missing report binding, wrong run identity, wrong exit, old revision; stale old report is deleted and exit-zero job producing no fresh report rejected. Actual seal has 23 jobs, 1037 inputs, 193 outputs."
+      },
+      {
+        "name": "Captured bytes and publication",
+        "evidence": "captured-byte-controls.json",
+        "result": "2/2 controls. Post-capture disk mutation cannot alter archive (exact released SHA); in-memory captured report mutation makes actual canonical build reject before publishing, preserving both sentinel deliverables."
+      }
+    ],
+    "reviewed_locations": [
+      {
+        "file": "run_all.py",
+        "lines": [
+          124,
+          127
+        ],
+        "purpose": "New strict bool, aggregate count, case count, per-case gates."
+      },
+      {
+        "file": "run_all.py",
+        "lines": [
+          185,
+          190
+        ],
+        "purpose": "Full run includes both real new suite producers."
+      },
+      {
+        "file": "build_verification_r8.py",
+        "lines": [
+          9,
+          10
+        ],
+        "purpose": "Exec canonical source in isolated compatibility namespace."
+      },
+      {
+        "file": "verification_state.py",
+        "lines": [
+          119,
+          136
+        ],
+        "purpose": "Delete old reports before launch and require new parseable reports."
+      },
+      {
+        "file": "verification_state.py",
+        "lines": [
+          174,
+          182
+        ],
+        "purpose": "Exact job inventory, identities, exits, and output bindings."
+      },
+      {
+        "file": "verification_state.py",
+        "lines": [
+          194,
+          200
+        ],
+        "purpose": "Captured manifest/input/output byte verification."
+      },
+      {
+        "file": "build_verification_r9.py",
+        "lines": [
+          175,
+          190
+        ],
+        "purpose": "Real collector and before/after completed seal checks, followed by captured-byte verification."
+      },
+      {
+        "file": "build_verification_r9.py",
+        "lines": [
+          195,
+          215
+        ],
+        "purpose": "Prepare and validate archive and receipt before coordinated publication."
+      },
+      {
+        "file": "verification_environment.py",
+        "lines": [
+          5,
+          20
+        ],
+        "purpose": "Bind caller-relative inherited dependency paths before child cwd changes."
+      }
+    ],
+    "limits": [
+      "No fresh full 23-job suite duplicated; parent owns that rerun. This review ran real collect-existing paths, two successful actual builder publications, and one actual builder rejection.",
+      "Native Windows, Lupa lua51/lua54. No native POSIX full-suite, physical second-drive, live WoW, or predictive usefulness conclusion.",
+      "No execution-attestation claim from local manifest consistency. No new finding for already-disclosed caught-error versus crash-atomic publication or optional link availability.",
+      "No runtime, released subject, repository, or shared-review edits; mutations confined to this private audit directory."
+    ],
+    "evidence_sha256": {
+      "clean-builder.json": "0de0efde2b46182e5f0e09da4fac7b1da456262b5ac0475abeadc9a628cc74c2",
+      "clean-builder.log": "cbc5405c99e764a6cff4d431cca3ba90d46552877e257e1fabfcfba072034a8b",
+      "integration-controls.json": "3ecdb749b3d640c7d80e92a8364841058d879a5ef572e15b7f75d49f41855f5e",
+      "legacy-root-builder.log": "b93f36aac2783e48ae33b447cf18b95e219b5ad30a20de1c3d4ad12689f8146b",
+      "collector-negative-controls.json": "b14a3761947d69fb09cfa6b4de9d57bf49085ef0bc5c0484af024b3c6cf23b7e",
+      "state-freshness-controls.json": "db64c2abe4ceb0f3834c6a4af499feed60b8ca419f0316d7df1f2ac6e0e2c3c5",
+      "captured-byte-controls.json": "e284a10d17c0980323836561c411cfb0ef1af1d7df304030a665028e80a5d458",
+      "captured-byte-controls.log": "feff3c70bcb584f9db1b5a06513170ccab8a30311d01ee56ca884f54efd4eaac",
+      "clean_builder.py": "ff879ff2dbd92419241fdd7dde28455a470a6ea083ef664994033fe598030bea",
+      "integration_controls.py": "2053d437e737b21156c65ed1a05e1e798a4d3af50ef051026b8f6acac166baee",
+      "collector_negative_controls.py": "cca1ab287c4e0619e67c91142cfd87218af729ccc07e7650451da38d4b00356d",
+      "state_freshness_controls.py": "d2b6ea5dbbd621c6cda92603d0597fb99c1acf27874f5c417654833ac7c6f2f3",
+      "captured_byte_controls.py": "9c4ec0f448b68eb7d713797f2316ae39a325edf6f41bce4f579341ab1dc35637"
+    }
+  },
+  "independent_root_output_confirmation": {
+    "confirmed": true,
+    "native_platform": "nt",
+    "command": [
+      "C:\\Users\\Mewn\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-B",
+      "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\root-output-confirmation\\bundle\\build_verification_r9.py",
+      "--output",
+      "\\\\?\\C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r9-audit-2026-10-30\\root-output-confirmation\\bundle\\source\\bjarkiLearn",
+      "--lupa-path",
+      "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-16\\let\\work\\deps"
+    ],
+    "exit_code": 0,
+    "ordinary_protected_path_rejected": true,
+    "extended_path_samefile": true,
+    "protected_runtime_tree_new_files": [
+      ".verification-publish.lock",
+      "bjarkiLearn-0.1.6-shadow-verification-r9-receipt.json",
+      "bjarkiLearn-0.1.6-shadow-verification-r9.zip"
+    ],
+    "original_runtime_bytes_unchanged": true,
+    "archive_matches_original": true,
+    "receipt_claimed_verified": true,
+    "completed_manifest_bytes_unchanged": true,
+    "completed_seal_valid_after_publication": false,
+    "seal_error": "Verification runner, fixture or source inputs changed",
+    "scope": "Unmodified completed-r9 builder, native Windows extended path, actual ZIP/receipt writes"
+  },
+  "independent_root_metadata_confirmation": {
+    "confirmed": true,
+    "native_platform": "nt",
+    "ordinary_enumeration_includes_file": true,
+    "ordinary_is_file_false": true,
+    "extended_file_exists_and_sha256": "2df23424f4d6f6981bea5311019206ebb76a9f80eb644d32fc195463b0c370d4",
+    "current_capture_paths": [
+      "docs/ordinary.txt"
+    ],
+    "old_capture_paths": [
+      "docs/ordinary.txt"
+    ],
+    "inherited_ordinary_file_omission": true,
+    "inherited_ordinary_directory_omission": true,
+    "noncanonical_directory_payload_sha256": "6784758683a0b606fb0e00e6666f7714597a136c7673f26de9ed4f2d799e94d9",
+    "current_directory_capture_paths": [
+      "docs/ordinary.txt"
+    ],
+    "extended_root_control_error": "Payload name cannot round-trip through Win32 extraction: docs/evidence.txt.",
+    "canonical_sibling_control_error": "Payload name cannot round-trip through Win32 extraction: docs/evidence.txt.",
+    "ordinary_payload_bytes_retained": true,
+    "scope": "Direct unchanged r9/r8 collectors on native Windows fixtures; no modeled filesystem or full builder claim"
+  },
+  "release_and_subject_unchanged": true,
+  "fixes_applied": false,
+  "conclusions": [
+    "The supplied clean ZIP is intact and reproducible; the two bugs affect later builds under specific Windows path conditions.",
+    "Both behaviors predate r9; no newly introduced runtime regression was confirmed.",
+    "Documented broad rejection of paired unsafe cache artifacts is not counted as a separate bug."
+  ],
+  "limits": [
+    "Native Windows Python 3.12.14 and Lupa Lua 5.1/5.4 with modeled WoW APIs.",
+    "No native POSIX full suite, physical second-drive, UNC/network-share, live WoW or gameplay claim.",
+    "Symlink/junction capabilities were unavailable in the output probes and not counted as passes.",
+    "Local seals establish consistency, not cryptographic execution attestation."
+  ]
+}

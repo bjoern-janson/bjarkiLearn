@@ -1,0 +1,41 @@
+bjarkiLearn verification-r9 - deep audit
+
+Two confirmed P2 verification-tooling gaps remain. Both underlying behaviors
+predate r9. The delivered clean ZIP is intact; no fixes were applied.
+
+1. Extended Windows path aliases bypass protected-output validation.
+   build_verification_r9.py:50-57
+   An extended \\?\C: spelling can name the same protected input directory as
+   its ordinary C: spelling while passing the normalized component comparison.
+   Real builders exit 0 and write ZIP/receipt/lock inside protected inputs.
+   This changes the sealed input inventory: subsequent validation/building fails.
+   Root independently reproduced this inside source/bjarkiLearn, preserving all
+   fourteen original file bytes but adding three unwanted installation-tree files.
+   Missing descendants and reversed root/output prefix directions also reproduce.
+
+2. Unsafe payload entries can disappear before the rejection guard runs.
+   build_verification_r9.py:107-113; guard at 85-86
+   Without a canonical sibling, an extended-name trailing-dot file fails ordinary
+   is_file(); a trailing-dot directory is not traversed. The collector silently
+   skips them before capture() can reject. Actual completed builders succeed and
+   publish valid inventories that omit these files/subtrees. A matched ordinary
+   supplemental docs file is retained. This is a remaining rejection-coverage gap.
+
+Fresh verification
+- All 23 full-suite jobs completed with their expected exits, without substitutions.
+- Same 1,037 executable/source inputs as the release; 193 sealed outputs rechecked.
+- Explicit relative --lupa-path won over an inherited failing Lupa sentinel from
+  another working directory with spaces. Actual Lua 5.1 and 5.4 executed.
+- All 43 r9 regression cases passed; the demonstrated aliases/omissions are gaps.
+- All 1,815 archive files, CRC, inventory, 183 Python sources and 14 original runtime
+  files verified. 112 r9 and 137 r8 supplemental evidence records matched hashes.
+- Clean current and legacy builders reproduced the exact released archive SHA.
+- Independent integrity review passed 42 focused controls with no additional finding.
+
+No runtime/source/release edits. Native Windows and modeled WoW APIs only; no live
+WoW, native POSIX full suite, physical second drive or network-share proof.
+
+SHA-256: d978df2e8895cd505f24d712d73e92bc8cb59cfe7177c51dcba384c2b86adf34
+
+The companion JSON contains exact commands, local evidence paths, reviewed source
+locations, fresh-run totals, inherited behavior comparisons and scope limitations.
