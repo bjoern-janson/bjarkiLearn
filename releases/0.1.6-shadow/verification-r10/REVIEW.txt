@@ -1,0 +1,79 @@
+Independent read-only review of verification-r10 repairs
+Date: 2026-10-30
+
+Verdict: Ready for the parent's planned full-run and completed-bundle release
+checks. No concrete correctness or regression issue found in the reviewed
+changes. This verdict does not claim those pending checks have passed.
+
+Reviewed sources:
+  build_verification_r10.py
+  build_verification_r9.py
+  run_all.py
+  verification_state.py
+  verification-r10/test_native_paths.py
+Compared with exact r9 source preserved in verification-r10/history/ and the
+original sibling learn-verification-r9-audit-2026-10-30/subject tree.
+Exact reviewed source hashes are in probe-results.json.
+
+Strengths:
+- comparison_parts normalizes only equivalent resolved Windows namespace
+  anchors and retains the existing host component comparison. The protected
+  folder prefix check remains component-based, including missing descendants.
+- Traversal validates each enumerated name before is_file/is_dir can omit
+  unpaired unsupported names. Empty unsafe directories also reject. Ordinary
+  payload capture, metadata/publication filtering, and byte snapshot validation
+  remain in the existing capture path.
+- The r9 wrapper executes the canonical builder into its own globals. Isolated
+  platform models do not change canonical module globals, and old entry-point
+  imports retain their function-global binding semantics.
+- The new native-path job is included in the exact 24-job manifest inventory,
+  mandatory output hashes, and sealed input rules. Its aggregate acceptance
+  requires actual booleans, integer counts, 22 unique cases, current builder
+  hash, and platform scope consistent with a fresh run.
+- All 48 old assertion predicates are unchanged as ASTs. Four preserved r9
+  files match original bytes. All 14 addon runtime/package source files match
+  exact r9 bytes; no runtime/version edit is introduced.
+
+Independent executable checks (probe_review.py, exit 0):
+1. Eighteen native Windows root/output combinations using ordinary C:,
+   extended \\?\C:, and Win32 device \\.\C: spellings; existing protected
+   directories and missing descendants all reject.
+2. Five native unsafe empty-directory fixtures reject: trailing dot, trailing
+   space, unsafe cache descendant, unsafe root directory, and nested unsafe
+   directory. Deliberate fixture files remain under review/fixtures/.
+3. Mixed-case ordinary/extended UNC anchor models reject protected descendants
+   and accept distinct siblings. POSIX path models retain case-sensitive
+   containment. These are models, not network or POSIX-native I/O.
+4. Wrapper function globals are independent from the canonical and other
+   modeled module globals.
+5. Exact original/history hashes, 48 retained assertions, 24 jobs, required new
+   source inventory, and 14 unchanged runtime files independently checked.
+6. Exact r9 again accepts a protected extended output and omits an unpaired
+   trailing-dot file. R10 rejects both fixtures.
+
+Issues:
+  Critical: none.
+  Important: none.
+  Minor: none requiring a change for this repair.
+
+Remaining validation owned by parent:
+  Full current offline suite; completed-bundle CLI and acceptance mutation
+  controls; final archive inventory/CRC/hash checks and clean rebuild.
+
+Declined to judge:
+- Native POSIX execution and UNC share I/O: this reviewer runs Windows and
+  exercised only explicitly scoped path models for those environments.
+- Exotic volume-GUID or drive mapping aliases beyond tested namespace forms:
+  no such fixture is available; this review does not claim all possible Windows
+  namespace equivalences have been certified.
+- Hostile concurrent reparse-point replacement and hard-link provenance:
+  broader filesystem threat-model certification is outside these two repairs;
+  no race-resistance claim is made by these probes.
+- Live WoW behavior or predictive/gameplay usefulness: runtime bytes are
+  unchanged; this task and evidence concern offline verification tooling.
+
+Proof command:
+  & 'C:/Users/Mewn/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' -B 'C:/Users/Mewn/Documents/Codex/2026-10-22/de/work/learn-verification-r10-repair-2026-10-30/review/probe_review.py'
+
+Review touched only private review/ files and fixtures. Shared bundle/source,
+repository state, and parent output directories were not modified.

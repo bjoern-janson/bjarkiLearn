@@ -1,0 +1,13 @@
+{
+  "path": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\outputs\\bjarkiLearn-0.1.6-shadow-verification-r10.zip",
+  "sha256": "d8b8b4e1021af8cf8e5ab1cd2117db1ec3f3c127f8020afeb1d664de5767562f",
+  "bytes": 5678722,
+  "files": 1877,
+  "runtime_version": "0.1.6-shadow",
+  "verification_revision": 10,
+  "run_id": "a6de439da4954cbead63f654aebffd1e",
+  "install_files_unchanged": 14,
+  "collector_revalidated": true,
+  "captured_run_inputs_and_outputs_verified": true,
+  "crc_inventory_manifest_and_every_archived_byte_verified": true
+}

@@ -2,20 +2,20 @@
 
 This release repairs Druid root cast coverage and duplicated defensive-witness inputs against the exact 0.1.5-shadow install archive, SHA-256 `608ff7b953b0fa705ee11b0b517dfc0f433eaff6c0b7532d4a36f830d74184df`. Its semantic compatibility key changes; older learned examples are rejected, while enabled/disabled settings are retained. The saved structure remains schema 1.
 
-## Verification tooling revision 9 (2026-10-30)
+## Verification tooling revision 10 (2026-10-30)
 
-The [r9 artifact directory](releases/0.1.6-shadow/verification-r9/README.txt) contains the exact audited bundle, checksums, original release receipt, and subsequent audit results. The install ZIP and all six Lua files and both TOCs remain unchanged at 0.1.6-shadow. Root repository documentation is updated separately from the archived install documentation.
+The [r10 artifact directory](releases/0.1.6-shadow/verification-r10/README.txt) contains the repaired verification bundle, checksums, and evidence. The install ZIP, all six Lua files, and both TOCs remain unchanged at 0.1.6-shadow. Repository documentation is updated separately from the archived install documentation.
 
-The fresh audit run completed **23/23 jobs with their expected exits**. Its 1,037 input hashes match the release, and its 193 output hashes were checked. The r9 metadata and output-path suites passed **19/19** and **24/24** cases. Archive checks covered all 1,815 files and all 14 installation files. Clean builds reproduced the released archive SHA-256, `d978df2e8895cd505f24d712d73e92bc8cb59cfe7177c51dcba384c2b86adf34`.
+Both confirmed r9 packaging bugs are fixed:
 
-Two confirmed P2 verification-tooling gaps remain; both predate r9:
+- **Windows namespace containment:** equivalent ordinary and extended resolved paths are compared consistently, including reversed spellings and missing descendants. Native-distinct Unicode siblings remain supported.
+- **Early unsupported-name rejection:** every enumerated payload name is checked before file predicates or traversal can silently omit unpaired trailing-dot/space files or directories. Supported ordinary payload remains intact.
 
-- **Extended Windows namespace aliases:** `C:\...` and `\\?\C:\...` can identify the same directory while bypassing the protected-output comparison. Actual builders published into protected inputs, invalidating later completed-run verification.
-- **Unpaired trailing-dot entries:** ordinary Windows file predicates/traversal can skip a physical trailing-dot file or directory before the rejection guard runs. Actual builders succeeded while omitting supplemental payload files from both ZIP and inventory.
+The fresh full run completed **24/24 jobs with their expected exits**. All **22 new cases** and **43 unchanged r9 cases** passed. Exact r9 fails ten of the new cases; four deliberately broken implementations were rejected. Fifteen completed-copy real-builder controls and ten collector/seal negative controls passed. All 48 old acceptance predicates, 180 prior Python files outside the three intentionally updated root modules, and all 14 archived installation files were preserved. Independent review found no blocking or important issue in the repaired scope.
 
-These cases are absent from the existing 43 r9 cases. The delivered clean ZIP is intact; this repository publication applies no additional fixes. Use ordinary Windows paths and file names, and an output directory outside the bundle's payload trees. The [deep audit](releases/0.1.6-shadow/verification-r9/bjarkiLearn-0.1.6-shadow-verification-r9-audit.txt) supersedes the earlier repair review's no-remaining-findings statement for verification tooling.
+Final checks covered ZIP CRCs, inventory, captured bytes, the exact reviewed sources, native extraction, and a byte-identical rebuild through the legacy builder. [Final validation](releases/0.1.6-shadow/verification-r10/bjarkiLearn-0.1.6-shadow-verification-r10-validation.json) records the archive SHA-256 and completed run. The [r9 audit and artifacts](releases/0.1.6-shadow/verification-r9/README.txt) remain unchanged as historical evidence; their two findings are repaired in r10.
 
-The full rerun used native Windows and actual Lua 5.1/5.4 with modeled WoW APIs. It does not establish native POSIX full-suite behavior, physical cross-drive or network-share behavior, or live WoW performance and usefulness. Publication rechecks the exact archive and completed evidence; it does not replace the separately recorded fresh audit run.
+Evidence uses native Windows and actual Lua 5.1/5.4 with modeled WoW APIs. UNC/POSIX path models do not establish native network-share or POSIX execution. Physical cross-drive behavior, live WoW performance, and predictive usefulness remain unverified.
 
 ## Current evidence
 
@@ -36,16 +36,16 @@ Six pre-0.1.4 future-positive assertion executions remain superseded, as in 0.1.
 
 ## Reproduction and package integrity
 
-Extract `bjarkiLearn-0.1.6-shadow-verification-r9.zip`, then run:
+Extract `bjarkiLearn-0.1.6-shadow-verification-r10.zip`, then run:
 
 ```sh
 python -m pip install -r requirements-test.txt
 python run_all.py
-python build_verification_r9.py --output ../verification-dist
+python build_verification_r10.py --output ../verification-dist
 ```
 
 An optional `--lupa-path` points the runner to an existing Lupa installation. `run_all.py --collect-existing` validates completed report hashes and classifications without rerunning tests. Every packaged report is tied to the exact runtime files; document-only edits during an inherited run are identified separately from runtime changes.
 
 The package builder requires a passing exact-source aggregate and the final review's source manifest. It validates the 14-file install inventory, both TOCs, version metadata, load order, UTF-8, ZIP CRCs and every archived byte. The separate evidence ZIP includes source, exact 0.1.5 baseline, original tests, new tests, red/green reports, adaptations, independent review and payload hashes.
 
-These checks execute ordinary Lua with modeled WoW APIs. Live event delivery, rendering, taint/secret enforcement, frame-time cost and predictive usefulness remain unverified in WoW. Forecasts retain `usable=false`. Bounded, discarded identities and sealed deidentified examples cannot be reconstructed without limit. Preserved reports describe their original execution stages; this repository publication adds the exact r9 artifacts and current audit notes without modifying the installed addon or archived runtime.
+These checks execute ordinary Lua with modeled WoW APIs. Live event delivery, rendering, taint/secret enforcement, frame-time cost and predictive usefulness remain unverified in WoW. Forecasts retain `usable=false`. Bounded, discarded identities and sealed deidentified examples cannot be reconstructed without limit. Preserved reports describe their original execution stages; this repository publication adds the exact r10 artifacts and current repair evidence without modifying the installed addon or archived runtime.

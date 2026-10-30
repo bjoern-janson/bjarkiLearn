@@ -1,0 +1,29 @@
+{
+  "verdict": "ready_for_planned_final_validation",
+  "blocking_issues": [],
+  "important_issues": [],
+  "minor_issues": [],
+  "proof_passed": true,
+  "proof_script": "probe_review.py",
+  "proof_result": "probe-results.json",
+  "reviewed_sources": {
+    "build_verification_r10.py": "45dfb52dc1890fda5454d6865c5debaa5742159e3dd6e7cb8f845cd2d01734ec",
+    "build_verification_r9.py": "b66efec569c99d17aff3a2fb1a8daf8d20c4c7f33e7ee14406cf1327ad373ce8",
+    "run_all.py": "e0b9b32d074adda42b7ffe936eaac00094d87fea3ae9f6c07de5d6c274439cac",
+    "verification_state.py": "21c4e8ed2e60b4d03cd969c1a400e5f2ed305dbceeaabbe88475d4564ffd6b22",
+    "verification-r10/test_native_paths.py": "5e6ee3d12aa23bad34627a65ea7d1bcdd6abd4012672c3ab537efc8b542fe6e8"
+  },
+  "independent_probe_groups": 5,
+  "pending_parent_checks": [
+    "full_offline_suite",
+    "completed_bundle_cli_and_acceptance_mutations",
+    "archive_crc_inventory_hashes",
+    "clean_rebuild"
+  ],
+  "declined_to_judge": [
+    "native POSIX execution and UNC share I/O unavailable; scoped models only",
+    "exotic volume-GUID and drive mapping aliases not certified",
+    "hostile concurrent reparse replacement and hard-link provenance outside two-repair scope",
+    "live WoW and predictive or gameplay claims outside offline verification scope"
+  ]
+}
