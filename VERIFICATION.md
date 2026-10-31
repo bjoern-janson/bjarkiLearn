@@ -2,20 +2,21 @@
 
 This release repairs Druid root cast coverage and duplicated defensive-witness inputs against the exact 0.1.5-shadow install archive, SHA-256 `608ff7b953b0fa705ee11b0b517dfc0f433eaff6c0b7532d4a36f830d74184df`. Its semantic compatibility key changes; older learned examples are rejected, while enabled/disabled settings are retained. The saved structure remains schema 1.
 
-## Verification tooling revision 10 (2026-10-30)
+## Verification tooling revision 11 (2026-10-31)
 
-The [r10 artifact directory](releases/0.1.6-shadow/verification-r10/README.txt) contains the repaired verification bundle, checksums, and evidence. The install ZIP, all six Lua files, and both TOCs remain unchanged at 0.1.6-shadow. Repository documentation is updated separately from the archived install documentation.
+The [r11 artifact directory](releases/0.1.6-shadow/verification-r11/README.txt) contains the exact verified bundle, checksums, and evidence. The install ZIP, all six Lua files, and both TOCs remain unchanged at 0.1.6-shadow. Repository documentation is updated separately from archived install documentation.
 
-Both confirmed r9 packaging bugs are fixed:
+All three confirmed r10 verification-tooling bugs are fixed:
 
-- **Windows namespace containment:** equivalent ordinary and extended resolved paths are compared consistently, including reversed spellings and missing descendants. Native-distinct Unicode siblings remain supported.
-- **Early unsupported-name rejection:** every enumerated payload name is checked before file predicates or traversal can silently omit unpaired trailing-dot/space files or directories. Supported ordinary payload remains intact.
+- **Completed-copy checker containment:** equivalent ordinary and extended Windows paths cannot bypass source/output containment, including missing descendants. Checks happen before writes; distinct Unicode siblings remain supported.
+- **Checker dependency environment:** relative inherited `PYTHONPATH` entries are resolved against the caller before subprocess working-directory changes. Explicit dependency precedence, empty entries, UTF-8 logs and assertion safeguards are preserved.
+- **Reserved Windows payload names:** reserved components are rejected before predicates, traversal or exclusions can silently omit physical payload entries. This is a Windows portability policy; supported ordinary and near-name payload and POSIX exclusions remain intact.
 
-The fresh full run completed **24/24 jobs with their expected exits**. All **22 new cases** and **43 unchanged r9 cases** passed. Exact r9 fails ten of the new cases; four deliberately broken implementations were rejected. Fifteen completed-copy real-builder controls and ten collector/seal negative controls passed. All 48 old acceptance predicates, 180 prior Python files outside the three intentionally updated root modules, and all 14 archived installation files were preserved. Independent review found no blocking or important issue in the repaired scope.
+The final full run completed **26/26 jobs with their expected exits**, including **38/38 new cases**. All **19 completed-copy controls**, **42 direct report acceptance controls**, **eight collector rejection controls** and **two clean collector controls** passed. Fifteen deliberately wrong implementations were detected. All 51 original root assertions, 185 prior Python sources outside the four intentionally changed Python files, and all 14 archived installation files were preserved. Independent review found no outstanding issue in the repaired scope.
 
-Final checks covered ZIP CRCs, inventory, captured bytes, the exact reviewed sources, native extraction, and a byte-identical rebuild through the legacy builder. [Final validation](releases/0.1.6-shadow/verification-r10/bjarkiLearn-0.1.6-shadow-verification-r10-validation.json) records the archive SHA-256 and completed run. The [r9 audit and artifacts](releases/0.1.6-shadow/verification-r9/README.txt) remain unchanged as historical evidence; their two findings are repaired in r10.
+Final checks covered all 2,008 ZIP members, CRCs, inventory, sealed inputs/outputs, exact reviewed sources, and a byte-identical rebuild through the oldest builder from a fresh extraction. [Final validation](releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11-validation.json) records the archive hash and completed run `3c30799aa3af4ac8895397a42e13cca1`. Two POSIX expectations in a new test were corrected after the first Windows run; the full suite was rerun against the final source. Earlier attempts remain explicitly distinguished in the evidence. [R10 artifacts](releases/0.1.6-shadow/verification-r10/README.txt) and earlier releases remain unchanged as historical evidence.
 
-Evidence uses native Windows and actual Lua 5.1/5.4 with modeled WoW APIs. UNC/POSIX path models do not establish native network-share or POSIX execution. Physical cross-drive behavior, live WoW performance, and predictive usefulness remain unverified.
+Evidence uses native Windows and actual Lua 5.1/5.4 with modeled WoW APIs. POSIX/UNC models do not establish native POSIX or network-share execution. Physical cross-drive behavior, live WoW performance and predictive usefulness remain unverified.
 
 ## Current evidence
 
@@ -36,16 +37,16 @@ Six pre-0.1.4 future-positive assertion executions remain superseded, as in 0.1.
 
 ## Reproduction and package integrity
 
-Extract `bjarkiLearn-0.1.6-shadow-verification-r10.zip`, then run:
+Extract `bjarkiLearn-0.1.6-shadow-verification-r11.zip`, then run:
 
 ```sh
 python -m pip install -r requirements-test.txt
 python run_all.py
-python build_verification_r10.py --output ../verification-dist
+python build_verification_r11.py --output ../verification-dist
 ```
 
 An optional `--lupa-path` points the runner to an existing Lupa installation. `run_all.py --collect-existing` validates completed report hashes and classifications without rerunning tests. Every packaged report is tied to the exact runtime files; document-only edits during an inherited run are identified separately from runtime changes.
 
 The package builder requires a passing exact-source aggregate and the final review's source manifest. It validates the 14-file install inventory, both TOCs, version metadata, load order, UTF-8, ZIP CRCs and every archived byte. The separate evidence ZIP includes source, exact 0.1.5 baseline, original tests, new tests, red/green reports, adaptations, independent review and payload hashes.
 
-These checks execute ordinary Lua with modeled WoW APIs. Live event delivery, rendering, taint/secret enforcement, frame-time cost and predictive usefulness remain unverified in WoW. Forecasts retain `usable=false`. Bounded, discarded identities and sealed deidentified examples cannot be reconstructed without limit. Preserved reports describe their original execution stages; this repository publication adds the exact r10 artifacts and current repair evidence without modifying the installed addon or archived runtime.
+These checks execute ordinary Lua with modeled WoW APIs. Live event delivery, rendering, taint/secret enforcement, frame-time cost and predictive usefulness remain unverified in WoW. Forecasts retain `usable=false`. Bounded, discarded identities and sealed deidentified examples cannot be reconstructed without limit. Preserved reports describe their original execution stages; this repository publication adds the exact r11 artifacts and current repair evidence without modifying the installed addon or archived runtime.

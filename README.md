@@ -90,13 +90,13 @@ The current release implements the context, recording, revision, model and diagn
 
 ## Run verification
 
-Download and extract the separate [verification-r10 ZIP](releases/0.1.6-shadow/verification-r10/bjarkiLearn-0.1.6-shadow-verification-r10.zip). The addon runtime remains **0.1.6-shadow**. From the extracted bundle root:
+Download and extract the separate [verification-r11 ZIP](releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip). The addon runtime remains **0.1.6-shadow**. From the extracted bundle root:
 
 ```sh
 python3 -m pip install -r requirements-test.txt
 python3 run_all.py
 ```
 
-Verification-r10 repairs both confirmed Windows packaging bugs: equivalent extended paths now receive the same output protection, and unsupported trailing-dot/space entries are rejected before they can be silently omitted. All 24 full-suite jobs returned their expected results, including 22 new regression cases. See the [r10 release notes and evidence](releases/0.1.6-shadow/verification-r10/README.txt) for checksums and validation limits. The Lua runtime is unchanged.
+Verification-r11 repairs three tooling bugs: completed-copy checker path aliases, relative `PYTHONPATH` handling across working-directory changes, and reserved Windows payload names. All 26 full-suite jobs returned their expected results, including 38 new regression cases; all 19 completed-copy controls passed. The existing checks remain enforced. See the [r11 release notes and evidence](releases/0.1.6-shadow/verification-r11/README.txt) for checksums and validation limits. The Lua runtime is unchanged.
 
 The verification bundle contains the exact source, tests, before/after results and package manifest. Tests execute the real addon code in Lupa's Lua 5.1 and 5.4 runtimes. [VERIFICATION.md](VERIFICATION.md) records the checks and their limits; [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) records the lifecycle decisions.

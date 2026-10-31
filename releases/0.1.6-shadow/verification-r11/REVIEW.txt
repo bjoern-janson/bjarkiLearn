@@ -1,0 +1,73 @@
+Independent r11 code review
+
+Verdict: no outstanding actionable findings in the corrected sources recorded
+in REVIEW.json. This supersedes the first-attempt review.
+Proceed to the separate full-suite and final-package gates. This review did not
+run the full suite or the completed-copy 19-control suite and makes no claim that
+those release steps are finished.
+
+Independent checks passed:
+- All 51 prior root assertion ASTs remain. 185 of 189 prior Python sources remain
+  byte-identical; the four intentional Python changes and prior README are archived
+  exactly. All fourteen addon installation files are unchanged.
+- All ten old builder entry points reach the canonical r11 main. r8/r9/r10 retain
+  the separate module globals used by the unchanged platform-model tests.
+- Five additional native checker CLI alias combinations reject before filesystem
+  writes, including reversed namespace spelling, missing descendants, case changes,
+  slash changes and dot-dot normalization.
+- Four extra reserved device variants reject without changing physical input bytes.
+  Three ordinary near-name files survive capture, ZIP CRC check and ordinary extraction.
+- A real child import combines caller-relative directory, empty entry, ZIP and
+  explicit dependency precedence successfully, with assertions enabled.
+- Both new focused reports pass current production gates against the reviewed
+  source hashes. Both new CLI parsers accept --lupa-path. Reviewed Python sources
+  compile. The ordered mandatory state inventory has 26 jobs.
+
+Manual review confirmed preservation of the original fifteen completed-copy
+controls, addition of four NUL controls, source/output containment before writes,
+early payload component rejection, required-job/report integration, exact case
+inventories, source/platform report gates and completion-seal coverage.
+
+The prior three findings remain P2 tooling failures in their stated triggers.
+The repairs do not change addon runtime. The original NUL omission did not imply
+that the shipped r10 archive already contained a corrupted payload.
+
+Reserved extension rejection is an explicit Windows transport-portability policy,
+not a newly discovered failure. Some current host APIs accept those names; the
+README discloses this. POSIX policy support and ordinary near-name preservation
+remain. Historical builder docstrings are preserved; actual delegation reaches r11.
+
+Limits: native Windows focused probes and a separately labeled POSIX policy model. No full-suite duplication, native
+POSIX run, physical second-drive or UNC-share I/O, live WoW, rendering, taint,
+predictive-usefulness, or gameplay claim. Local evidence seals are consistency
+checks, not cryptographic execution attestation. The parent must still complete
+the real full run, completed-copy CLI controls and final archive validation.
+
+Evidence: probe_review.py, probe-results.json and REVIEW.json. All review artifacts
+are outside the candidate under review/. Reviewed source hashes were checked again
+when this report was written; no candidate source was edited.
+
+Correction to the initial review:
+The parent found a concrete POSIX test portability defect that this review missed.
+The __pycache__/NUL and NUL.tmp cases incorrectly expected those intentionally
+excluded files to be captured under POSIX. Independent reproduction of the original
+complete POSIX branch model passed 18/20 and failed exactly those two cases.
+
+The corrected test declares both generic exclusions and adds them to the existing
+modeled POSIX reserved-name case. It passes all 20 cases on native Windows and all
+20 in the complete POSIX branch model. This is a policy/branch model over real
+extended-path Windows fixtures, not native POSIX execution.
+
+Two independent Windows mutations bypassing reserved-name validation for cache or
+temporary-suffix fixtures each fail the intended rejection control. Two POSIX
+mutations retaining cache or temporary-suffix payload each fail the expanded
+modeled POSIX case. Thus the correction preserves Windows reject-before-exclusion
+checks and strengthens coverage of POSIX exclusions. The case inventory remains
+20, and no production builder, runtime, report gate or other reviewed source changed.
+
+The earlier platform limitation was not a reason to dismiss this concrete bug.
+It is now recorded as resolved finding R11-REVIEW-1 in REVIEW.json. Parent preserved
+the initial reports under first-attempt/. Correction evidence is in
+portability-original.json, portability-corrected.json and review_portability.py.
+Corrected test SHA-256:
+2aff46aac60a1f0bf179d121d9ed841dba0863c9a9326400242646c760966a86

@@ -4,10 +4,11 @@ Install ZIP (unchanged):
   releases/0.1.6-shadow/bjarkiLearn-0.1.6-shadow.zip
 
 Latest offline verification tools, audit, and checksums:
-  releases/0.1.6-shadow/verification-r10/
+  releases/0.1.6-shadow/verification-r11/
 
-Start with that directory's README.txt. Revision 10 fixes both confirmed
-Windows packaging gaps from the r9 audit, with the Lua runtime unchanged.
+Start with that directory's README.txt. Revision 11 fixes the three confirmed
+r10 tooling bugs in checker paths, dependency environment, and reserved Windows
+payload names. The Lua runtime remains unchanged.
 Python is only for offline verification, not for running the Lua addon.
 
 The six runtime Lua files and both TOCs match the install ZIP exactly.

@@ -1,0 +1,244 @@
+{
+  "passed": true,
+  "findings": [],
+  "reviewed_sources": {
+    "build_verification_r11.py": "76e70673593e2e6c3e6d7382a11e8428dc5e1eb6f90aa13cac41b30b4440e2f8",
+    "build_verification_r10.py": "dbb735a84eb6dce31262855e664596cf728f2d1b5279d4c2a7ae07464b1f87b6",
+    "verification-r10/check_completed.py": "766abc71bfe840f30c4c936f91d77e938ecd82552719acb7f8f070f0a59ec0a7",
+    "verification-r11/test_completed_checker.py": "6465e168d4f4d2a2b0bde08e234dcd1b5ea1c505cd18a13bf6cc01f79710b317",
+    "verification-r11/test_reserved_payload.py": "2aff46aac60a1f0bf179d121d9ed841dba0863c9a9326400242646c760966a86",
+    "verification_r11_reports.py": "65c2e4dace5cf22e2e354f315a37dade0ec0caa6474540a767c91406b30a8335",
+    "run_all.py": "e8563eab02dc7982b230eb2dbea0e24a4a57e14f4ebfa07e7b61e2e504a584d9",
+    "verification_state.py": "b5999abe12cf4e88a19df00e0b945846a8d1dbf42cf8a470dee8b9d08afa5e32",
+    "verification_environment.py": "8a13e87f2fc8f85a3a418cc4f150e02f172408f880a5a4ede14ddcf36dc84ece",
+    "verification_runs.py": "8cef506ed6535025cc0dd2295a84a30cbb3d7941d69722e4a4093e08d9892eb7",
+    "verification_publish.py": "1f6ed0f817fc7bbda8aedaf3dda100554c0fd77b16e915f0af7b73603e51caee",
+    "verification_lock.py": "f15d8a56fa10f31bb6ee5d05fbdaee4f35e9ddccdb02eb1fee5ea1ebbabe07c8",
+    "README-VERIFICATION.txt": "15c9ce0e3adaca0b0aedbd7a58fdd8bc4775c4bc400c30735c54164fdf29c3b6"
+  },
+  "tests": [
+    {
+      "name": "independent_preservation_and_inventory",
+      "passed": true,
+      "details": {
+        "original_python_sources": 189,
+        "unchanged_python_sources": 185,
+        "preserved_assertion_nodes": 51,
+        "preserved_history_files": 5,
+        "unchanged_installation_files": 14,
+        "required_jobs": 26
+      }
+    },
+    {
+      "name": "all_ten_compatibility_entrypoints",
+      "passed": true,
+      "details": {
+        "entry_points": [
+          "build_release.py",
+          "build_verification_r2.py",
+          "build_verification_r3.py",
+          "build_verification_r4.py",
+          "build_verification_r5.py",
+          "build_verification_r6.py",
+          "build_verification_r7.py",
+          "build_verification_r8.py",
+          "build_verification_r9.py",
+          "build_verification_r10.py"
+        ],
+        "isolated_platform_model_namespaces": [
+          "r8",
+          "r9",
+          "r10"
+        ]
+      }
+    },
+    {
+      "name": "five_additional_native_alias_cli_controls",
+      "passed": true,
+      "details": [
+        {
+          "source": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source",
+          "output": "\\\\?\\C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source\\missing\\child",
+          "rejected_before_writes": true
+        },
+        {
+          "source": "\\\\?\\C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source",
+          "output": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source\\missing\\child",
+          "rejected_before_writes": true
+        },
+        {
+          "source": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source",
+          "output": "\\\\?\\c:\\uSERS\\mEWN\\dOCUMENTS\\cODEX\\2026-10-22\\DE\\WORK\\LEARN-VERIFICATION-R11-REPAIR-2026-10-31\\REVIEW\\ALIAS-FIXTURES\\mIXED sOURCE\\MISSING\\CHILD",
+          "rejected_before_writes": true
+        },
+        {
+          "source": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source",
+          "output": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source\\one\\..\\two\\three",
+          "rejected_before_writes": true
+        },
+        {
+          "source": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source",
+          "output": "\\\\?\\C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\alias-fixtures\\Mixed Source\\missing\\child",
+          "rejected_before_writes": true
+        }
+      ]
+    },
+    {
+      "name": "reserved_variants_and_supported_roundtrip",
+      "passed": true,
+      "details": {
+        "rejections": [
+          {
+            "name": "nUl.tar..gz",
+            "rejected": true,
+            "physical_bytes_unchanged": true
+          },
+          {
+            "name": "COM9  .log",
+            "rejected": true,
+            "physical_bytes_unchanged": true
+          },
+          {
+            "name": "LPT\u00b3 .bin",
+            "rejected": true,
+            "physical_bytes_unchanged": true
+          },
+          {
+            "name": "CONIN$.proof",
+            "rejected": true,
+            "physical_bytes_unchanged": true
+          }
+        ],
+        "supported_files": 3,
+        "ordinary_extraction_bytes_equal": true
+      }
+    },
+    {
+      "name": "combined_relative_empty_zip_and_explicit_imports",
+      "passed": true,
+      "details": {
+        "values": [
+          "explicit",
+          "caller",
+          "zip"
+        ],
+        "optimize": 0,
+        "explicit": "C:\\Users\\Mewn\\Documents\\Codex\\2026-10-22\\de\\work\\learn-verification-r11-repair-2026-10-31\\review\\import-fixtures\\caller with spaces\\explicit"
+      }
+    },
+    {
+      "name": "current_focused_reports_match_candidate_gates",
+      "passed": true,
+      "details": {
+        "checker": 18,
+        "reserved": 20,
+        "native_platform": "nt",
+        "source_hashes_validated_against_reviewed_candidate": true
+      }
+    },
+    {
+      "name": "new_job_cli_and_syntax",
+      "passed": true,
+      "details": {
+        "new_job_cli_parsers": 2,
+        "reviewed_python_sources_compiled": 12
+      }
+    },
+    {
+      "name": "independent_portability_correction_review",
+      "passed": true,
+      "details": {
+        "original_model_passed": 18,
+        "original_model_total": 20,
+        "corrected_native_windows_passed": 20,
+        "corrected_complete_posix_branch_model_passed": 20,
+        "windows_reject_before_exclusion_mutants_detected": 2,
+        "posix_exclusion_mutants_detected": 2,
+        "case_inventory_unchanged": 20,
+        "production_builder_runtime_and_gates_unchanged": true,
+        "evidence": "portability-corrected.json",
+        "native_posix_execution": false
+      }
+    }
+  ],
+  "subject_edited": false,
+  "full_suite_run_by_reviewer": false,
+  "scope": "Native Windows focused verification review plus a complete POSIX branch policy model over real extended-path Windows fixtures; no native POSIX, UNC share, live WoW, or gameplay claim.",
+  "reviewed_utc": "2026-10-31T21:45:05.523592+00:00",
+  "verdict": "No outstanding actionable findings in the corrected r11 candidate. The initial POSIX test portability defect is fixed and independently checked; proceed to the separate final full-suite and package gates.",
+  "original_findings": [
+    {
+      "id": "R10-A1",
+      "prior_priority": 2,
+      "status": "repair confirmed by source review and native pre-write rejection probes",
+      "impact": "Optional checker could recursively copy into itself through a namespace alias; no addon gameplay impact established."
+    },
+    {
+      "id": "R10-A2",
+      "prior_priority": 2,
+      "status": "repair confirmed by source review and real child import probe",
+      "impact": "Optional checker could fail with valid caller-relative dependencies after changing child cwd; no addon gameplay impact established."
+    },
+    {
+      "id": "R10-A3",
+      "prior_priority": 2,
+      "status": "repair confirmed for reserved payload rejection; real completed-copy builder remains a parent final gate",
+      "impact": "A supplemental physical bare NUL could be omitted without error. The original shipped archive did not contain that file; no corruption of its existing payload was established."
+    }
+  ],
+  "manual_review": [
+    "Canonical collector validates each enumerated component before predicates, descent and exclusions; original capture behavior remains otherwise intact.",
+    "Checker validates output before mkdir/copytree, reuses namespace-aware comparison, and calls child_environment before the child cwd changes.",
+    "The original fifteen completed-copy control paths remain, with four additional NUL file/directory and namespace combinations.",
+    "Both new jobs accept the runner --lupa-path flag and are included in the ordered 26-job state inventory.",
+    "New report gates require ordered exact case inventories, true booleans, exact counts, candidate source hashes and truthful declared producer scope.",
+    "New report bytes and execution receipts are covered by existing completion/output seals; both new test sources and gate source are executable inputs.",
+    "README distinguishes preserved historical explanations and native Windows execution from POSIX policy models and unperformed live WoW validation.",
+    "Corrected POSIX expectations apply solely to the accepted/excluded capture branch; Windows early-rejection assertions are unchanged. The existing POSIX policy case now exercises reserved names that are also cache/suffix exclusions."
+  ],
+  "declined_judgments": [
+    {
+      "candidate": "Rejecting reserved device names with extensions although some current host APIs allow them",
+      "judgment": "Not a regression finding: this is the explicitly documented Windows transport-portability policy. It preserves ordinary and near-name payload and is disabled for POSIX policy."
+    },
+    {
+      "candidate": "Native POSIX, physical second-drive, UNC share and live WoW behavior were not exercised",
+      "judgment": "Unperformed native execution remains a validation limit, but it does not waive a demonstrated source-level portability failure. R11-REVIEW-1 was concrete, is explicitly recorded above, and is now fixed; the final complete branch model passes."
+    },
+    {
+      "candidate": "Reports/manifests can be manually rewritten by someone controlling all local source and evidence bytes",
+      "judgment": "Not an execution-attestation claim. The documented contract is local evidence consistency, and the changes do not weaken that contract."
+    },
+    {
+      "candidate": "Old builder docstrings mention earlier canonical revisions",
+      "judgment": "Preserved historical sources intentionally remain unchanged. Executable delegation resolves to r11, as independently checked."
+    }
+  ],
+  "reviewer_harness_note": "The first private probe incorrectly assumed all legacy wrappers exported collect_payload. It stopped before other probes. Inspection showed unchanged wrappers intentionally export main only; the probe was corrected to test that real interface, with isolated-global checks scoped to r8/r9/r10. This was not a candidate failure.",
+  "remaining_release_gates": [
+    "Complete the fresh 26-job real run with real Lupa and preserve its exact sealed sources/evidence.",
+    "Run the 19 completed-copy CLI controls against the real completed evidence, including the caller-relative dependency setup.",
+    "Build and independently check final ZIP CRC, exact inventory, every byte, run seals, original addon bytes, and repeat-build equality."
+  ],
+  "supersedes": "Initial REVIEW.json/TXT preserved by parent under first-attempt. The initial review missed the concrete reserved-test POSIX exclusion defect described below.",
+  "resolved_review_findings": [
+    {
+      "id": "R11-REVIEW-1",
+      "priority": 2,
+      "status": "fixed",
+      "file": "verification-r11/test_reserved_payload.py",
+      "title": "POSIX branch incorrectly expected intentionally excluded reserved-name fixtures in captured output",
+      "discovery": "Parent found this after the initial independent review; independent reproduction confirmed exactly two failures in the complete 20-case POSIX branch model.",
+      "cause": "The __pycache__/NUL and NUL.tmp host cases omitted their generic exclusion expectations. Windows rejected these fixtures as intended, masking the wrong POSIX expected inventory.",
+      "impact": "The required reserved-payload job would fail those two checks on POSIX despite correct production collector behavior. This is a test portability failure, not an addon/runtime or production collector failure.",
+      "repair": "Both host cases now declare their existing generic exclusions. The existing modeled_posix_reserved_names_preserved case additionally includes both excluded fixtures and checks their omission.",
+      "windows_strength_preserved": "unsafe=True, alias settings, fixture creation, should_reject condition and rejection assertion remain intact. The excluded list is used only in the non-rejection branch. Two isolated Windows mutations each fail the intended single exclusion-order control.",
+      "evidence": [
+        "portability-original.json",
+        "portability-corrected.json",
+        "review_portability.py"
+      ]
+    }
+  ],
+  "review_correction_note": "The first review did not exercise the entire test under its POSIX branch and missed two incorrect expected inventories. This follow-up reproduces that failure before correction, checks all twenty cases afterward, and proves retention of both Windows early-rejection controls with independent mutations."
+}
