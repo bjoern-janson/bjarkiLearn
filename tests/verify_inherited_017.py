@@ -75,6 +75,12 @@ def main() -> int:
         tmp = Path(folder)
         prefixes = ("tests-016/", "review-016/", "smoke/", "baseline/source/bjarkiLearn/")
         with ZipFile(ARCHIVE) as z:
+            # The numerical learner and class/feature rules remain byte-identical
+            # to 0.1.6; whole-state deviations must come from the declared
+            # collection, retention and serving-lifecycle changes.
+            for unchanged in ("Network.lua", "Rules.lua"):
+                if z.read("source/bjarkiLearn/" + unchanged) != (ROOT / unchanged).read_bytes():
+                    raise RuntimeError("undeclared mathematical/rule source drift: " + unchanged)
             for entry in z.infolist():
                 path = entry.filename
                 if entry.is_dir() or not (path.startswith(prefixes) or path == "input-manifest.json"):
