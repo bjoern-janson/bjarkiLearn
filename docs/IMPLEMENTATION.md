@@ -1,5 +1,15 @@
 # First learner implementation
 
+## 0.1.7 shadow repair boundary
+
+The runtime supplements the hostile-only Portraits bus with a one-second-throttled, positive-only native player aura lookup for Barkskin and Evasion. Missing/secret inputs remain unknown. Accepted self witnesses carry `native-player-aura` provenance; no effect or cast-label authority is added.
+
+Up to 16 recent unknown enemy windows remain in the existing 256-example buffer so a later corrected cast can still be reattributed into an initially unlabeled enemy window. Older unknown windows retire. Neither unknown nor positive enemy windows can evict player data when all 256 slots are occupied by player examples; such arrivals are dropped as needed. The bounded occurrence registry still retains positive enemy evidence. This restores the original late-reattribution contract without allowing unlimited enemy history to starve player training.
+
+An in-progress training candidate freezes features, labels and correction descriptors. Clean corpus updates do not restart the candidate; a complete snapshot may publish while newer data is pending, and the next outside-combat rebuild catches up. Corrections and delayed maturity invalidate affected serving and candidate snapshots, including after replay-row eviction. Session reset cancels a candidate rather than transporting raw occurrence identities.
+
+The version and compatibility key change for new collection/retention semantics. The 0.1.6 r11 archive does not verify this altered runtime. Focused regressions are in `tests/test_017.lua`, with version-scoped archived semantic/lifecycle/smoke controls in `tests/verify_inherited_017.py`. Their scoped offline gate passes, with six 0.1.5 whole-state comparisons explicitly non-comparable. Actual WoW event access, profiling and predictive utility remain unverified.
+
 ## Goal and release boundary
 
 Ship an installable, optional Lua addon that maintains semantic actor context, records revisable evidence, and learns a small anticipatory model in shadow mode. Existing CC tracking, portrait election, colours and layout retain their current owners. No consumer receives authority to change behavior in this release.

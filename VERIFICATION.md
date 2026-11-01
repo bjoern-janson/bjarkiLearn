@@ -1,3 +1,11 @@
+# 0.1.7-shadow verification boundary
+
+The current review branch changes native self-aura observation, example retention and model-candidate lifecycle. The historical 0.1.6 verification-r11 archive below is **not** evidence that these changed Lua files pass its old source checks.
+
+Focused source-executed Lua regressions are in `tests/test_017.lua` and GitHub Actions runs them under Lua 5.1 and 5.4. The mandatory `tests/verify_inherited_017.py` gate reads the exact historical r11 ZIP by its published SHA-256; it copies, narrowly adapts and reruns the original Lua semantic/lifecycle/smoke cases without altering that archived evidence. Verified results: **42/42 semantic, 8/8 smoke and 28/34 lifecycle/comparison** with exactly six declared historical-only 0.1.5 whole-state comparison mismatches, no unexpected failures. The original strict tests remain archived and their non-comparability is visible. The launch-candidate ZIP is built in CI from 14 source files and checked byte-for-byte. This is **not** a rerun of all 26 historical r11 Windows tooling/packaging jobs. Live Forever event behavior, secret-value enforcement, runtime cost and gameplay usefulness remain unverified.
+
+---
+
 # bjarkiLearn 0.1.6-shadow verification
 
 This release repairs Druid root cast coverage and duplicated defensive-witness inputs against the exact 0.1.5-shadow install archive, SHA-256 `608ff7b953b0fa705ee11b0b517dfc0f433eaff6c0b7532d4a36f830d74184df`. Its semantic compatibility key changes; older learned examples are rejected, while enabled/disabled settings are retained. The saved structure remains schema 1.

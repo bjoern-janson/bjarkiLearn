@@ -1,0 +1,66 @@
+name: Learner focused Lua regressions
+on:
+  push:
+    paths:
+      - '*.lua'
+      - 'tests/**'
+      - '.github/workflows/learner-smoke.yml'
+  pull_request:
+    paths:
+      - '*.lua'
+      - 'tests/**'
+      - '.github/workflows/learner-smoke.yml'
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua runtimes
+        run: sudo apt-get update -qq && sudo apt-get install -y lua5.1 lua5.4
+      - name: Lua 5.1 source regression
+        run: lua5.1 tests/test_017.lua
+      - name: Lua 5.4 source regression
+        run: lua5.4 tests/test_017.lua
+      - name: Re-run historically scoped Lua integration tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install -q lupa
+          python3 tests/verify_inherited_017.py
+      - name: Publish adapted-test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bjarkiLearn-0.1.7-adapted-regressions
+          path: inherited-017-results.json
+          if-no-files-found: ignore
+      - name: Build and validate install ZIP
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          paths = [
+              'Bootstrap.lua', 'Rules.lua', 'Network.lua', 'Core.lua',
+              'Adapter.lua', 'Main.lua', 'bjarkiLearn.toc',
+              'bjarkiLearn_Camelot.toc', 'README.md', 'CHANGELOG.md',
+              'DESIGN.md', 'VERIFICATION.md', 'docs/API.md',
+              'docs/IMPLEMENTATION.md',
+          ]
+          output = 'bjarkiLearn-0.1.7-shadow.zip'
+          with ZipFile(output, 'w', ZIP_DEFLATED, compresslevel=9) as archive:
+              for path in paths:
+                  archive.write(path, 'bjarkiLearn/' + path)
+          with ZipFile(output) as archive:
+              assert archive.testzip() is None
+              assert sorted(archive.namelist()) == sorted('bjarkiLearn/' + p for p in paths)
+              for path in paths:
+                  assert archive.read('bjarkiLearn/' + path) == Path(path).read_bytes()
+          print('Verified 14 exact install-source files in', output)
+          PY
+      - name: Upload install candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: bjarkiLearn-0.1.7-shadow-install
+          path: bjarkiLearn-0.1.7-shadow.zip
+          if-no-files-found: error
