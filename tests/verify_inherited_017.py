@@ -16,7 +16,7 @@ from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE = ROOT / "releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip"
-RECEIPT = ROOT / "releases/0.1.6-shadow/verification-r11/repair-summary.json"
+RECEIPT = ROOT / "releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11-validation.json"
 REPORT = ROOT / "inherited-017-results.json"
 
 OLD_COMPAT = ("learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/"
@@ -69,7 +69,7 @@ def run(name: str, cmd: list[str], tmp: Path) -> dict:
 def main() -> int:
     receipt = json.loads(RECEIPT.read_text())
     actual = hashlib.sha256(ARCHIVE.read_bytes()).hexdigest()
-    if actual != receipt["original_archive_sha256"]:
+    if actual != receipt["sha256"]:
         raise RuntimeError("historical archive checksum mismatch")
     with tempfile.TemporaryDirectory(prefix="bjarki017-") as folder:
         tmp = Path(folder)
