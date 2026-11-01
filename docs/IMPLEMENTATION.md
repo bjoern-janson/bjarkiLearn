@@ -1,5 +1,15 @@
 # First learner implementation
 
+## 0.1.7 shadow repair boundary
+
+The runtime supplements the hostile-only Portraits bus with a one-second-throttled, positive-only native player aura lookup for Barkskin and Evasion. Missing/secret inputs remain unknown. Accepted self witnesses carry `native-player-aura` provenance; no effect or cast-label authority is added.
+
+Only enemy windows with positive observations enter the 256-example buffer. A new enemy positive replaces an older enemy window when full, or is dropped when all retained examples are player windows. Player window retention therefore has priority. Enemy positives are still recorded in the bounded occurrence registry.
+
+An in-progress training candidate freezes features, labels and correction descriptors. Clean corpus updates do not restart the candidate; a complete snapshot may publish while newer data is pending, and the next outside-combat rebuild catches up. Corrections and delayed maturity invalidate affected serving and candidate snapshots, including after replay-row eviction. Session reset cancels a candidate rather than transporting raw occurrence identities.
+
+The version and compatibility key change for new collection/retention semantics. The 0.1.6 r11 archive does not verify this altered runtime. Focused regressions are in `tests/test_017.lua`; real WoW event access, profiling and predictive utility remain unverified.
+
 ## Goal and release boundary
 
 Ship an installable, optional Lua addon that maintains semantic actor context, records revisable evidence, and learns a small anticipatory model in shadow mode. Existing CC tracking, portrait election, colours and layout retain their current owners. No consumer receives authority to change behavior in this release.

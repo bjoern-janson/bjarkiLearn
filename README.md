@@ -2,7 +2,7 @@
 
 A shared Lua learner for the Bjarki World of Warcraft addon suite. It combines readable encounter context with a small predictive model and revisable training records.
 
-**Status: 0.1.6-shadow — Druid root coverage and distinct defensive-witness inputs.** Native API behavior is tested with modeled WoW APIs under Lua 5.1 and 5.4. Live-client validation and demonstrated predictive usefulness remain pending.
+**Status: 0.1.7-shadow (review branch).** Adds accessible, positive-only local-player defensive witnesses, player-priority example retention, and progressive frozen-snapshot rebuilds. Fresh runtime and live-client validation remain pending; previous r11 checks apply only to 0.1.6.
 
 The addon starts in shadow mode. It records evidence and trains real models; its forecasts remain diagnostics. The suite's tracking, colours, layout and aura priorities keep their existing owners and behavior.
 
@@ -30,25 +30,25 @@ The first task is **registered readable cast-family deliveries in the next two s
 | --- | --- |
 | Semantic context | Readable player/target/focus identity, class, role, combat, health, power and supported Druid form witnesses |
 | Capability rules | Provisional class candidates before spells happen; Priest fear is relevant and Silence stays conditional |
-| Portraits bridge | Existing positive-aura protocol supplies identified Barkskin/Evasion witnesses, with revisions, bounded replay and no cast-label inference |
+| Defensive witnesses | Portraits' unchanged hostile-only bus supplies positive evidence; a throttled native player scan supplies local Barkskin/Evasion witnesses. Neither labels a cast or proves absence. |
 | Neural candidate | 48 inputs, 12 tanh hidden units, six sigmoid outputs: **666 trainable parameters** |
 | Comparators | Regularized logistic model and Laplace-smoothed event frequencies on the same eligible examples |
 | Learning lifecycle | Immutable anchors, per-output masks, deduplication, replacement of revised outcomes and deterministic clean rebuilds |
-| Limits | 16 actors, 128 occurrences, 256 retained windows/examples, and at most 256 serving-model correction descriptors; at most four sample updates per scheduled tick outside combat |
+| Limits | 16 actors, 128 occurrences, 256 retained examples (player-priority), and at most 256 serving-model correction descriptors; at most four sample updates per scheduled tick outside combat |
 
-The initial negative-label regime is the local player's continuously serviced readable event stream. Combat establishes eligibility at the anchor; an already opened two-second horizon can finish after a known combat exit. Registration failure, lost identity, unknown combat, unreadable relevant events and scheduler gaps censor absence labels. Enemy positives are tracked separately, and enemy examples never train the player model.
+The initial negative-label regime is the local player's continuously serviced readable event stream. Combat establishes eligibility at the anchor; an already opened two-second horizon can finish after a known combat exit. Registration failure, lost identity, unknown combat, unreadable relevant events and scheduler gaps censor absence labels. Enemy positives are tracked separately, and enemy examples never train the player model. Unlabeled enemy windows are dropped; positive enemy windows cannot evict player examples when the buffer is full.
 
 A head needs at least two player positives and eight negatives in the completed serving model's training snapshot before numeric shadow scores are exposed. This is a support floor, not a calibration result. Sparse families can remain withheld. The initial explicit spell vocabulary is in [docs/API.md](docs/API.md).
 
 Accepted future-dated casts stay in the same bounded registry. Context and forecast inputs use only evidence at or before their observation time, retaining an earlier valid witness when a later one is still in the future. A future cast becomes a positive outcome only after the observed clock reaches its complete timing interval. Corrections retain their existing authority; delayed maturity also checks serving-model dependencies after replay-row eviction. No additional identity queue or timer is introduced.
 
-Forecast inputs and comparator predictions are saved before outcomes. An event at the anchor cannot predict itself. A correction replaces affected labels and evaluation contributions, invalidates the affected adaptive generation, and schedules a clean replay of valid retained examples. Retiring examples or occurrences updates the next replay without interrupting an otherwise valid completed model. That model can retain older training influence until a replacement finishes outside combat. A bounded registry remembers its unsealed training windows, so late corrections invalidate it even after their replay rows have been evicted. Evicted occurrence dependencies become unknown in replay labels; a retirement time floor prevents stale evidence from restoring superseded labels. Actor-capacity pressure briefly pauses new windows to prevent overlapping lessons after actor recreation.
+Forecast inputs and comparator predictions are saved before outcomes. An event at the anchor cannot predict itself. A correction replaces affected labels and evaluation contributions, invalidates the affected adaptive generation, and schedules a clean replay of valid retained examples. Ordinary new examples and routine forgetting no longer restart an in-progress clean rebuild; it may finish as an explicitly older serving snapshot while another refresh is pending. Candidate snapshots retain bounded correction guards even when source replay rows retire. Retiring examples or occurrences updates the next replay without interrupting an otherwise valid completed model. That model can retain older training influence until a replacement finishes outside combat. A bounded registry remembers its unsealed training windows, so late corrections invalidate it even after their replay rows have been evicted. Evicted occurrence dependencies become unknown in replay labels; a retirement time floor prevents stale evidence from restoring superseded labels. Actor-capacity pressure briefly pauses new windows to prevent overlapping lessons after actor recreation.
 
 Forecasts and core status expose `modelCorpusRevision`, `corpusRevision`, `modelExamples` and `modelRefreshPending`. Core status also exposes `modelDependencyCount`. The refresh flag indicates a serving snapshot differs from current replay history; it does not promise a completion time. Sustained combat or changing history can delay replacement indefinitely. Retained evaluation counts may therefore differ from the serving model's support.
 
 `bjarkiLearnDB` stores enabled state and compatible deidentified examples. Reload discards pending windows, actor bindings and raw occurrence IDs, then rebuilds from the corpus. It does not claim to resume an interrupted optimizer step. No player GUIDs, raw cast IDs or names are saved in examples. Restore accepts a plain dense array of up to 256 valid records; malformed arrays are rejected before replacing live state.
 
-**Upgrading from 0.1.5 or earlier:** saved learning is incompatible and is not loaded. The enabled/disabled setting carries over. A chat notice and `/blearn status` explain the rejection; new observations build a fresh corpus. This is necessary because old root negatives and the age of old defensive witnesses cannot be reconstructed from deidentified examples. New 0.1.6 examples can be saved and rebuilt normally.
+**Upgrading from 0.1.6 or earlier:** saved learning is incompatible and is not loaded because observation and replay/retention semantics changed. The enabled/disabled setting carries over. A chat notice and `/blearn status` explain the rejection; new observations build a fresh corpus. This is necessary because old root negatives and the age of old defensive witnesses cannot be reconstructed from deidentified examples. New 0.1.7 examples can be saved and rebuilt normally.
 
 The addon measures update time when the client exposes a profiling clock. Training stops after its current sample if that clock exceeds a 1.5 ms soft budget. One sample cannot be preempted; actual client performance still needs measurement.
 
@@ -90,7 +90,7 @@ The current release implements the context, recording, revision, model and diagn
 
 ## Run verification
 
-Download and extract the separate [verification-r11 ZIP](releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip). The addon runtime remains **0.1.6-shadow**. From the extracted bundle root:
+The [verification-r11 ZIP](releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip) verifies the older **0.1.6-shadow** runtime, not this 0.1.7 branch. For historical reproduction, extract that ZIP and run from its root:
 
 ```sh
 python3 -m pip install -r requirements-test.txt
@@ -99,4 +99,4 @@ python3 run_all.py
 
 Verification-r11 repairs three tooling bugs: completed-copy checker path aliases, relative `PYTHONPATH` handling across working-directory changes, and reserved Windows payload names. All 26 full-suite jobs returned their expected results, including 38 new regression cases; all 19 completed-copy controls passed. The existing checks remain enforced. See the [r11 release notes and evidence](releases/0.1.6-shadow/verification-r11/README.txt) for checksums and validation limits. The Lua runtime is unchanged.
 
-The verification bundle contains the exact source, tests, before/after results and package manifest. Tests execute the real addon code in Lupa's Lua 5.1 and 5.4 runtimes. [VERIFICATION.md](VERIFICATION.md) records the checks and their limits; [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) records the lifecycle decisions.
+The historical verification bundle contains exact 0.1.6 source, tests, before/after results and package manifest. Focused source-executed 0.1.7 regressions are available in `tests/test_017.lua` for Lua 5.1 and 5.4. [VERIFICATION.md](VERIFICATION.md) records the checks and their limits; [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) records the lifecycle decisions.
