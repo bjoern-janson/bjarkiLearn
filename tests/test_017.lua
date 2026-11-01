@@ -121,9 +121,11 @@ context(corrected,SELF,"self",1)
 corrected:Tick(1,true)
 check("first cast",corrected:Cast({actor=SELF,id="old-cast",family=2,at=2,revision=1}))
 corrected:Tick(3.3,true)
+window(corrected,SELF,"self",5)
+window(corrected,SELF,"self",8)
 corrected:_Train()
 check("candidate with occurrence dependency",corrected.candidate~=nil)
-for i=1,256 do window(corrected,SELF,"self",5+i*3) end
+for i=1,256 do window(corrected,SELF,"self",11+i*3) end
 check("snapshot retained through row eviction",corrected.candidate~=nil
     and corrected.examples[1].anchor~=1)
 check("retraction accepted",corrected:Cast({actor=SELF,id="old-cast",
