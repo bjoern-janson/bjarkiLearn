@@ -64,8 +64,11 @@ function Core:_SnapshotStatus(out)
 end
 function Core:_Dirty(invalidate)
     self.corpusRevision=self.corpusRevision+1
-    self.dirty=true; self.candidate=nil
+    self.dirty=true
+    -- Clean arrivals/retirement must not starve an in-progress frozen rebuild.
+    -- Corrections still withdraw both the candidate and the serving model.
     if invalidate then
+        self.candidate=nil
         self:_WithdrawModel()
         ns.Bump(self.stats,"invalidations")
     end
@@ -159,7 +162,7 @@ function Core:_Evidence(id,now)
                 if not out.history[e.family] or out.history[e.family]<e.at then out.history[e.family]=e.at end
             elseif not out.defensiveWitness or out.defensiveWitness.at<=e.at then
                 out.defensiveWitness={at=e.at,expires=e.expires,spellID=e.spellID,
-                    revision=e.revision,kind="observed",source="bjarkiPortraits"}
+                    revision=e.revision,kind="observed",source=e.source or "bjarkiPortraits"}
             end
         end
     end
@@ -219,6 +222,19 @@ function Core:_AffectsModel(old,new)
     end
     return false
 end
+-- A clean candidate may outlive retired replay rows. Its snapshot rows carry
+-- their own bounded correction guards until the candidate completes.
+function Core:_AffectsCandidate(old,new)
+    local job=self.candidate
+    if not job then return false end
+    if old and new and old.actor==new.actor and old.family==new.family
+        and old.at==new.at and old.minAt==new.minAt and old.maxAt==new.maxAt
+        and old.retracted==new.retracted then return false end
+    for _,w in ipairs(job.data) do
+        if w.actor and (overlaps(w,old) or overlaps(w,new)) then return true end
+    end
+    return false
+end
 -- All triggers use the same outcome update. Lead-only refinements do not
 -- change training labels, so they leave the row revision and corpus intact.
 function Core:_ReviseWindow(w)
@@ -242,7 +258,7 @@ function Core:_ReviseAffectedWindows(old,new)
     return revised
 end
 function Core:_ReconcileEvidenceChange(old,new)
-    local affects=self:_AffectsModel(old,new)
+    local affects=self:_AffectsModel(old,new) or self:_AffectsCandidate(old,new)
     local revised=self:_ReviseAffectedWindows(old,new)
     if revised or affects then self:_Dirty(true) end
 end
@@ -253,11 +269,11 @@ function Core:_ReconcileHistoryRetirement(old)
 end
 function Core:_ReconcileTimeAdvance(since)
     local affects=false
-    if self.model then
+    if self.model or self.candidate then
         for _,key in ipairs(self.occurrenceOrder) do
             local e=self.occurrences[key]
             if e.kind=="cast" and not e.retracted and e.maxAt>since and e.maxAt<=self.evidenceTime
-                and self:_AffectsModel(nil,e) then affects=true; break end
+                and (self:_AffectsModel(nil,e) or self:_AffectsCandidate(nil,e)) then affects=true; break end
         end
     end
     local revised=false
@@ -357,9 +373,11 @@ function Core:Aura(raw)
     local freshApplication=old and raw.newApplication==true and at>old.at
     if not expiry and old and not freshApplication then expiry=old.expires end
     if old and old.expires==expiry and old.at==at then return false,"duplicate" end
+    local source=S.String(raw.source)
+    if source~="native-player-aura" then source="bjarkiPortraits" end
     local e={kind="aura",id=id,actor=actor,at=at,spellID=spell,
         expires=expiry,revision=old and old.revision+1 or 1,
-        firstSighting=not old,source="bjarkiPortraits"}
+        firstSighting=not old,source=source}
     self:_Insert(key,e); self:_InvalidateActorEvidence(actor)
     ns.Bump(self.stats,old and "auraRevisions" or "auraWitnesses")
     return true
@@ -409,15 +427,29 @@ function Core:_Open(a,now)
 end
 function Core:_Resolve(w)
     w.y,w.mask,w.lead=self:_Labels(w)
+    ns.Bump(self.stats,"resolvedWindows")
+    -- Enemy absence is never labeled. Unlabeled enemy windows must not displace
+    -- the player examples from which the only current model learns.
+    if w.regime~="player" and not any(w.mask) then
+        ns.Bump(self.stats,"unlabeledOtherDropped")
+        return
+    end
+    local replayChanged=w.regime=="player" and any(w.mask)
     if #self.examples>=C.maxExamples then
-        table.remove(self.examples,1); ns.Bump(self.stats,"exampleEvictions")
-        -- Retire this row from the next replay. Keep the completed serving
-        -- snapshot until replacement; its bounded correction guards survive.
-        self:_Dirty(false)
+        local victim
+        for i,old in ipairs(self.examples) do
+            if old.regime~="player" then victim=i; break end
+        end
+        if w.regime~="player" and not victim then
+            ns.Bump(self.stats,"otherCapacityDropped")
+            return
+        end
+        local retired=table.remove(self.examples,victim or 1)
+        ns.Bump(self.stats,"exampleEvictions")
+        if retired.regime=="player" and any(retired.mask) then replayChanged=true end
     end
     self.examples[#self.examples+1]=w
-    ns.Bump(self.stats,"resolvedWindows")
-    if w.regime=="player" and any(w.mask) then self:_Dirty(false) end
+    if replayChanged then self:_Dirty(false) end
 end
 
 function Core:_Train()
@@ -426,13 +458,17 @@ function Core:_Train()
         local data={}
         for _,w in ipairs(self.examples) do
             if w.regime=="player" and any(w.mask) then
-                data[#data+1]={x=ns.Copy(w.x),y=ns.Copy(w.y),mask=ns.Copy(w.mask)}
+                data[#data+1]={x=ns.Copy(w.x),y=ns.Copy(w.y),mask=ns.Copy(w.mask),
+                    actor=not w.sealed and w.actor or nil,
+                    anchor=not w.sealed and w.anchor or nil,
+                    deadline=not w.sealed and w.deadline or nil}
             end
         end
         if #data==0 then self:_WithdrawModel(); self.dirty=false; return end
         local model=ns.Models.New(C.featureCount,C.hiddenCount,C.outputCount,C.seed)
         if not model then self.dirty=false; ns.Bump(self.stats,"numericFailures"); return end
-        self.candidate={model=model,data=data,index=1,epoch=1,revision=self.corpusRevision}
+        self.candidate={model=model,data=data,index=1,epoch=1,
+            revision=self.corpusRevision,session=self.session}
     end
     local job=self.candidate
     local started=S.Number(S.Call(debugprofilestop))
@@ -448,20 +484,24 @@ function Core:_Train()
         if job.index>#job.data then
             job.index=1; job.epoch=job.epoch+1
             if job.epoch>C.epochs then
-                if job.model:Valid() and job.revision==self.corpusRevision then
+                -- New clean data does not invalidate an older complete model.
+                -- Publish this frozen snapshot, then keep refreshing if the
+                -- corpus advanced. A correction cancels the candidate earlier.
+                if job.model:Valid() and job.session==self.session then
                     self.model=job.model; self.modelVersion=self.modelVersion+1
                     self.modelCorpusRevision=job.revision; self.modelExamples=#job.data
-                    -- Same corpus revision guarantees these are the replay's
-                    -- windows. Reuse one bounded registry; the candidate holds
-                    -- no additional dependency copy. Sealed rows have no raw IDs.
-                    for i=#self.modelDependencies,1,-1 do self.modelDependencies[i]=nil end
-                    for _,w in ipairs(self.examples) do
-                        if not w.sealed and w.regime=="player" and any(w.mask) then
+                    -- Snapshot rows retain exact guards even if live replay
+                    -- evicted them during training. Still bounded to 256.
+                    self.modelDependencies={}
+                    for _,row in ipairs(job.data) do
+                        if row.actor then
                             self.modelDependencies[#self.modelDependencies+1]={
-                                actor=w.actor,anchor=w.anchor,deadline=w.deadline}
+                                actor=row.actor,anchor=row.anchor,deadline=row.deadline}
                         end
                     end
-                    self.dirty=false; ns.Bump(self.stats,"rebuilds")
+                    self.dirty=job.revision~=self.corpusRevision
+                    ns.Bump(self.stats,"rebuilds")
+                    if self.dirty then ns.Bump(self.stats,"laggedPublications") end
                     for _,a in pairs(self.actors) do a.forecast=nil end
                 end
                 self.candidate=nil
@@ -596,6 +636,9 @@ function Core:ResetSession(now)
     end
     self.actors={}; self.actorOrder={}; self.occurrences={}; self.occurrenceOrder={}
     self.modelDependencies={}
+    -- A frozen candidate cannot transport live occurrence IDs into a new
+    -- session after those identifiers have been deliberately sealed.
+    if self.candidate then self.candidate=nil; self.dirty=true end
     self.now=now; self.evidenceTime=now; self.nextCastAt=nil; self.inferenceCursor=0; self.session=self.session+1
     self.evidenceFloor=-1; self.openAfter=self.now
     ns.Bump(self.stats,"sessionResets")

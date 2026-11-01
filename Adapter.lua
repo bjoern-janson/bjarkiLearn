@@ -7,6 +7,7 @@ ns.Adapter = Adapter
 local UNITS = { 'player', 'target', 'focus' }
 local TRACKED = { player = true, target = true, focus = true }
 local BUS_KEY = 'bjarkiLearn.aura-evidence'
+local SELF_DEFENSIVES = { 22812, 5277, 26669 }
 local function guid(value)
     local v = S.String(value)
     if v and #v <= 128 and v:match('^Player%-[%w%-]+$') then return v end
@@ -49,7 +50,8 @@ end
 function Adapter.New(core)
     return setmetatable({ core = core, bindings = {}, registered = false, stopped = false,
         stats = { contexts = 0, casts = 0, unknownSpells = 0, rejected = 0,
-            gaps = 0, auras = 0, busErrors = 0, busConnected = false, registered = false } }, Adapter)
+            gaps = 0, auras = 0, selfAuraProbes = 0, selfAuraWitnesses = 0,
+            busErrors = 0, busConnected = false, registered = false } }, Adapter)
 end
 
 function Adapter:Gap(reason, actor)
@@ -79,6 +81,7 @@ function Adapter:Bind(unit, now)
     if S.Boolean(S.Call(UnitIsPlayer, unit)) == false then current = nil end
     local previous = self.bindings[unit]
     self.bindings[unit] = current
+    if unit == 'player' and previous ~= current then self.lastSelfAuraProbe = nil end
     if previous and previous ~= current then
         local stillBound = false
         for _, other in ipairs(UNITS) do
@@ -109,6 +112,42 @@ function Adapter:Bind(unit, now)
     return current
 end
 
+-- The Portraits bridge only publishes hostile-unit auras. Read a tiny,
+-- positive-only self shortlist directly; a missing/secret result is UNKNOWN,
+-- never evidence that a defensive was absent.
+function Adapter:ObserveSelfDefensives(now)
+    if self.stopped or not self.bindings.player then return end
+    if self.lastSelfAuraProbe and now >= self.lastSelfAuraProbe
+        and now - self.lastSelfAuraProbe < 1 then return end
+    self.lastSelfAuraProbe = now
+    local api = S.Table(C_UnitAuras)
+    local lookup = api and S.Field(api, 'GetUnitAuraBySpellID')
+    if type(lookup) ~= 'function' then return end
+    for _, requested in ipairs(SELF_DEFENSIVES) do
+        self.stats.selfAuraProbes = self.stats.selfAuraProbes + 1
+        local aura = S.Table(S.Call(lookup, 'player', requested))
+        if aura then
+            local spell = identifier(S.Field(aura, 'spellId'))
+            local helpful = S.Boolean(S.Field(aura, 'isHelpful'))
+            local instance = identifier(S.Field(aura, 'auraInstanceID'))
+            local expiry = stamp(S.Field(aura, 'expirationTime'))
+            if spell == requested and helpful == true and instance
+                and (not expiry or expiry > now) then
+                local duration = S.Number(S.Field(aura, 'duration'))
+                if duration and (duration <= 0 or duration > 300) then
+                    duration, expiry = nil, nil
+                end
+                local accepted = self.core:Aura({
+                    recipient = self.bindings.player, id = tostring(instance),
+                    spellID = spell, at = now, expires = expiry, duration = duration,
+                    newApplication = false, source = 'native-player-aura',
+                })
+                if accepted then self.stats.selfAuraWitnesses = self.stats.selfAuraWitnesses + 1 end
+            end
+        end
+    end
+end
+
 function Adapter:Tick(now)
     now = stamp(now)
     if self.stopped or not now then return end
@@ -117,6 +156,7 @@ function Adapter:Tick(now)
     if self.lastRefresh and now >= self.lastRefresh and now - self.lastRefresh < .25 then return end
     self.lastRefresh = now
     for _, unit in ipairs(UNITS) do self:Bind(unit, now) end
+    self:ObserveSelfDefensives(now)
 end
 
 function Adapter:Resolve(unitOrGUID)
@@ -211,7 +251,7 @@ function Adapter:OnEvent(event, ...)
         -- positives again; an identical retained subscription would not replay.
         self:DisconnectBus()
         self.core:ResetSession(now)
-        self.bindings, self.lastTick, self.lastRefresh = {}, nil, nil
+        self.bindings, self.lastTick, self.lastRefresh, self.lastSelfAuraProbe = {}, nil, nil, nil
         self:UpdateCoverage(); self:Tick(now); self:ConnectBus(now)
     elseif event == 'PLAYER_TARGET_CHANGED' then self:Bind('target', now)
     elseif event == 'PLAYER_FOCUS_CHANGED' then self:Bind('focus', now)
