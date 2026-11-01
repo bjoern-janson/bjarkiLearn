@@ -3,11 +3,11 @@
 ## 0.1.7-shadow (review branch)
 
 - Read the local player's Barkskin/Evasion through a bounded positive-only native aura lookup. Preserve the hostile-only Portraits evidence bus and never turn missing/secret reads into negative claims.
-- Drop enemy windows with no positive observations. Retain enemy-positive diagnostics without letting enemy rows evict player examples from a full 256-example buffer.
+- Keep up to 16 recent unknown enemy windows for late attribution corrections, without allowing them or positive enemy rows to evict a full player corpus. Older unknown windows retire under the same 256-example cap.
 - Let frozen candidate training finish across clean corpus changes; publish a completed older model with pending refresh and retain its original correction guards. Corrections and delayed maturity cancel affected candidates, including after replay-row eviction.
 - Cancel in-progress candidates on session reset; no session-local occurrence identity crosses the reset.
 - Update version and compatibility identity, intentionally rejecting older saved learning while retaining the enable/disable preference.
-- Add focused source-executed Lua regression tests and CI. Historical r11 release evidence remains specific to 0.1.6.
+- Add focused source-executed Lua tests plus gated adapted historical semantic/lifecycle/smoke tests. The inherited checks preserve six explicit historical-only whole-state comparison failures. The old r11 release evidence remains specific to 0.1.6.
 
 ## 0.1.6-shadow
 
