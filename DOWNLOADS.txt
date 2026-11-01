@@ -1,4 +1,7 @@
-0.1.7-shadow review branch (source and tests only; no new verified install ZIP yet).
+0.1.7-shadow review branch. The focused Lua CI builds a 14-file install ZIP from exact tested sources.
+Install ZIP artifact name: bjarkiLearn-0.1.7-shadow-install
+Workflow: .github/workflows/learner-smoke.yml (check the latest successful run on this branch).
+This is not a full 0.1.7 verification bundle or live-client certificate.
 The 0.1.6-shadow install and verification-r11 packages remain archived below for historical use.
 
 bjarkiLearn 0.1.6-shadow
