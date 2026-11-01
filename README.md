@@ -2,7 +2,7 @@
 
 A shared Lua learner for the Bjarki World of Warcraft addon suite. It combines readable encounter context with a small predictive model and revisable training records.
 
-**Status: 0.1.7-shadow (review branch).** Adds accessible, positive-only local-player defensive witnesses, player-priority example retention, and progressive frozen-snapshot rebuilds. Fresh runtime and live-client validation remain pending; previous r11 checks apply only to 0.1.6.
+**Status: 0.1.7-shadow (pre-launch candidate).** Adds accessible, positive-only local-player defensive witnesses, player-priority example retention and progressive frozen-snapshot rebuilds. Source-executed offline tests pass the scoped 0.1.7 gates; live-client behavior and predictive usefulness remain unverified.
 
 The addon starts in shadow mode. It records evidence and trains real models; its forecasts remain diagnostics. The suite's tracking, colours, layout and aura priorities keep their existing owners and behavior.
 
@@ -36,7 +36,7 @@ The first task is **registered readable cast-family deliveries in the next two s
 | Learning lifecycle | Immutable anchors, per-output masks, deduplication, replacement of revised outcomes and deterministic clean rebuilds |
 | Limits | 16 actors, 128 occurrences, 256 retained examples (player-priority), and at most 256 serving-model correction descriptors; at most four sample updates per scheduled tick outside combat |
 
-The initial negative-label regime is the local player's continuously serviced readable event stream. Combat establishes eligibility at the anchor; an already opened two-second horizon can finish after a known combat exit. Registration failure, lost identity, unknown combat, unreadable relevant events and scheduler gaps censor absence labels. Enemy positives are tracked separately, and enemy examples never train the player model. Unlabeled enemy windows are dropped; positive enemy windows cannot evict player examples when the buffer is full.
+The initial negative-label regime is the local player's continuously serviced readable event stream. Combat establishes eligibility at the anchor; an already opened two-second horizon can finish after a known combat exit. Registration failure, lost identity, unknown combat, unreadable relevant events and scheduler gaps censor absence labels. Enemy positives are tracked separately, and enemy examples never train the player model. Up to 16 recent unlabeled enemy windows remain available for retrospective cast reattribution; older unknown windows retire within the existing 256-example cap. Unknown enemy windows and positive enemy windows cannot evict player examples when the buffer is full.
 
 A head needs at least two player positives and eight negatives in the completed serving model's training snapshot before numeric shadow scores are exposed. This is a support floor, not a calibration result. Sparse families can remain withheld. The initial explicit spell vocabulary is in [docs/API.md](docs/API.md).
 
@@ -97,6 +97,6 @@ python3 -m pip install -r requirements-test.txt
 python3 run_all.py
 ```
 
-Verification-r11 repairs three tooling bugs: completed-copy checker path aliases, relative `PYTHONPATH` handling across working-directory changes, and reserved Windows payload names. All 26 full-suite jobs returned their expected results, including 38 new regression cases; all 19 completed-copy controls passed. The existing checks remain enforced. See the [r11 release notes and evidence](releases/0.1.6-shadow/verification-r11/README.txt) for checksums and validation limits. The Lua runtime is unchanged.
+The historical verification-r11 tooling revision repairs three issues without changing its 0.1.6 runtime: completed-copy checker path aliases, relative `PYTHONPATH` handling across working-directory changes, and reserved Windows payload names. All 26 full-suite jobs returned their expected results, including 38 new regression cases; all 19 completed-copy controls passed. The existing checks remain enforced. See the [r11 release notes and evidence](releases/0.1.6-shadow/verification-r11/README.txt) for checksums and validation limits. The Lua runtime is unchanged.
 
-The historical verification bundle contains exact 0.1.6 source, tests, before/after results and package manifest. Focused source-executed 0.1.7 regressions are available in `tests/test_017.lua` for Lua 5.1 and 5.4. [VERIFICATION.md](VERIFICATION.md) records the checks and their limits; [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) records the lifecycle decisions.
+The historical verification bundle contains exact 0.1.6 source, tests, before/after results and package manifest. The 0.1.7 CI executes `tests/test_017.lua` under Lua 5.1/5.4 and reruns archived semantic, lifecycle and smoke cases with explicit version-scoped adaptations via `tests/verify_inherited_017.py`. Its admissible result is 42/42 semantic, 8/8 smoke and 28/34 lifecycle/comparison; six old whole-state comparisons remain visible as non-comparable historical failures. No full r11 packaging-tool verification or live-client claim is inherited. [VERIFICATION.md](VERIFICATION.md) records the checks and their limits; [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) records the lifecycle decisions.
