@@ -204,7 +204,9 @@ function Main:PrintStatus()
     if status.adapter then
         local adapter = status.adapter
         printLine('readable cast deliveries '..textValue(adapter.casts)..', positive aura messages '
-            ..textValue(adapter.auras)..', coverage gaps '..textValue(adapter.gaps)
+            ..textValue(adapter.auras)..', self aura witnesses/probes '
+            ..textValue(adapter.selfAuraWitnesses)..'/'..textValue(adapter.selfAuraProbes)
+            ..', coverage gaps '..textValue(adapter.gaps)
             ..'; Portraits bridge '..(adapter.busConnected and 'connected' or 'absent'))
     end
     printLine('player-only negative coverage; enemy absence remains unknown. No forecasts change the interface.')
