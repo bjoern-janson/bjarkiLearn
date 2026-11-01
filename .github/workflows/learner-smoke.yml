@@ -17,117 +17,23 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Lua runtimes
         run: sudo apt-get update -qq && sudo apt-get install -y lua5.1 lua5.4
-      - name: Inspect historical verification harness
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import zipfile, pathlib, collections
-          p=pathlib.Path('releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip')
-          with zipfile.ZipFile(p) as z:
-              names=z.namelist()
-              print('archive entries',len(names))
-              print('root entries:')
-              print('\n'.join(sorted({n.split('/')[0] for n in names})))
-              print('potential harness names:')
-              for n in names:
-                  if n.endswith(('run_all.py','README-VERIFICATION.txt','test_core.py','test_native.py','requirements-test.txt')) or '/tests/' in n and n.endswith('.py') and n.count('/')<=2:
-                      print(n)
-          PY
-      - name: Inspect inherited runtime test entrypoints
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import zipfile
-          p='releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip'
-          with zipfile.ZipFile(p) as z:
-              names=z.namelist()
-              for prefix in ('source/','tests-016/','review-016/','smoke/','prior/tests/'):
-                  selected=[n for n in names if n.startswith(prefix) and n.endswith(('.lua','.py','.md','.txt')) and n.count('/')<=3]
-                  print('ENTRYPOINTS',prefix,len(selected))
-                  print('\\n'.join(selected[:45]))
-              for path in ('README-VERIFICATION.txt','tests-016/run_all.py','tests-016/run_repair.py','tests-016/repair.py'):
-                  if path in names:
-                      print('FILE',path)
-                      print('\\n'.join(z.read(path).decode('utf-8').splitlines()[:110]))
-          PY
-      - name: Inspect verification runner arguments
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import zipfile
-          p='releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip'
-          paths=('tests-016/run.py','review-016/run.py','smoke/run.py','prior/tests/run_retention.py','tests-016/harness.lua','review-016/README.txt','tests-016/REPORT.txt')
-          with zipfile.ZipFile(p) as z:
-              for path in paths:
-                  print('====',path)
-                  lines=z.read(path).decode('utf-8').splitlines()
-                  limit=155 if path.endswith('run.py') else 75
-                  for i,line in enumerate(lines[:limit],1): print(str(i).rjust(4),line)
-          PY
-      - name: Review historical expectation contexts
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from zipfile import ZipFile
-          p='releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip'
-          cases={
-            'tests-016/cases.lua': ['control_root_retraction_family_correction_and_reassignment','control_root_serving_guard_survives_training_row_eviction','druid_candidate_and_public_semantics','native_old_save_rejection_enabled_false'],
-            'review-016/lifecycle.lua': ['witness_projection_boundary_and_anchored_immutability','native_root_vocabulary_only_intended_change','routine_retirement_keeps_model_but_correction_after_row_retirement_withdraws'],
-            'review-016/unaffected.lua': ['exact_unaffected_feature_matrix_and_config','unaffected_mage_trace_seed_16073'],
-            'smoke/probes.lua': ['semantic version and advertised target are explicit'],
-          }
-          with ZipFile(p) as z:
-            for path,needles in cases.items():
-              src=z.read(path).decode('utf-8').splitlines()
-              print('======',path,'lines',len(src))
-              for needle in needles:
-                matches=[i for i,s in enumerate(src) if needle in s]
-                print('FIND',needle,'at',[i+1 for i in matches])
-                for i in matches[:1]:
-                  start=max(0,i-4); end=min(len(src),i+57)
-                  for j in range(start,end): print(str(j+1).rjust(4),src[j])
-          PY
       - name: Lua 5.1 source regression
         run: lua5.1 tests/test_017.lua
       - name: Lua 5.4 source regression
         run: lua5.4 tests/test_017.lua
-      - name: Re-run inherited 0.1.6 runtime tests on 0.1.7 (diagnostic pass)
+      - name: Re-run historically scoped Lua integration tests
         shell: bash
         run: |
           set -euo pipefail
           python3 -m pip install -q lupa
-          python3 - <<'PY'
-          import zipfile
-          p='releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip'
-          with zipfile.ZipFile(p) as z: z.extractall('_legacy017')
-          PY
-          mkdir -p inherited-017-reports
-          set +e
-          python3 _legacy017/tests-016/run.py --source . --baseline _legacy017/baseline/source/bjarkiLearn --output inherited-017-reports/semantic.json > inherited-017-reports/semantic.log 2>&1
-          echo "SEMANTIC_EXIT=$?"
-          python3 _legacy017/review-016/run.py --source . --baseline _legacy017/baseline/source/bjarkiLearn --output inherited-017-reports/review.json > inherited-017-reports/review.log 2>&1
-          echo "REVIEW_EXIT=$?"
-          python3 _legacy017/smoke/run.py --source . --output inherited-017-reports/smoke.json > inherited-017-reports/smoke.log 2>&1
-          echo "SMOKE_EXIT=$?"
-          set -e
-          python3 - <<'PY'
-          import json,pathlib
-          for name in ('semantic','review','smoke'):
-              path=pathlib.Path('inherited-017-reports')/(name+'.json')
-              if not path.exists():
-                  print(name,'NO REPORT'); print((path.parent/(name+'.log')).read_text()[-1800:]);continue
-              j=json.loads(path.read_text())
-              print('INHERITED',name,'PASS',j.get('passed',j.get('summary',{}).get('passed')),'TOTAL',j.get('total',j.get('summary',{}).get('total')))
-              failures=[r for r in j.get('cases',[]) if r.get('passed') is False]
-              for r in failures[:35]: print('FAIL',name,{k:str(v)[:250] for k,v in r.items() if k in ('engine','runtime','case','name','source','error','message')})
-              print('FAIL_COUNT',name,len(failures))
-          PY
-      - name: Save inherited test reports
+          python3 tests/verify_inherited_017.py
+      - name: Publish adapted-test evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bjarkiLearn-0.1.7-inherited-runtime-diagnostics
-          path: inherited-017-reports/
-          if-no-files-found: error
+          name: bjarkiLearn-0.1.7-adapted-regressions
+          path: inherited-017-results.json
+          if-no-files-found: ignore
       - name: Build and validate install ZIP
         shell: bash
         run: |
