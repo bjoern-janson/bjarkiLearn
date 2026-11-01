@@ -64,6 +64,29 @@ jobs:
                   limit=155 if path.endswith('run.py') else 75
                   for i,line in enumerate(lines[:limit],1): print(str(i).rjust(4),line)
           PY
+      - name: Review historical expectation contexts
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from zipfile import ZipFile
+          p='releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip'
+          cases={
+            'tests-016/cases.lua': ['control_root_retraction_family_correction_and_reassignment','control_root_serving_guard_survives_training_row_eviction','druid_candidate_and_public_semantics','native_old_save_rejection_enabled_false'],
+            'review-016/lifecycle.lua': ['witness_projection_boundary_and_anchored_immutability','native_root_vocabulary_only_intended_change','routine_retirement_keeps_model_but_correction_after_row_retirement_withdraws'],
+            'review-016/unaffected.lua': ['exact_unaffected_feature_matrix_and_config','unaffected_mage_trace_seed_16073'],
+            'smoke/probes.lua': ['semantic version and advertised target are explicit'],
+          }
+          with ZipFile(p) as z:
+            for path,needles in cases.items():
+              src=z.read(path).decode('utf-8').splitlines()
+              print('======',path,'lines',len(src))
+              for needle in needles:
+                matches=[i for i,s in enumerate(src) if needle in s]
+                print('FIND',needle,'at',[i+1 for i in matches])
+                for i in matches[:1]:
+                  start=max(0,i-4); end=min(len(src),i+57)
+                  for j in range(start,end): print(str(j+1).rjust(4),src[j])
+          PY
       - name: Lua 5.1 source regression
         run: lua5.1 tests/test_017.lua
       - name: Lua 5.4 source regression
