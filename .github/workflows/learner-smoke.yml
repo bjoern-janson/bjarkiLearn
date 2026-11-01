@@ -1,0 +1,23 @@
+name: Learner focused Lua regressions
+on:
+  push:
+    paths:
+      - '*.lua'
+      - 'tests/**'
+      - '.github/workflows/learner-smoke.yml'
+  pull_request:
+    paths:
+      - '*.lua'
+      - 'tests/**'
+      - '.github/workflows/learner-smoke.yml'
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua runtimes
+        run: sudo apt-get update -qq && sudo apt-get install -y lua5.1 lua5.4
+      - name: Lua 5.1 source regression
+        run: lua5.1 tests/test_017.lua
+      - name: Lua 5.4 source regression
+        run: lua5.4 tests/test_017.lua
