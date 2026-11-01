@@ -68,6 +68,43 @@ jobs:
         run: lua5.1 tests/test_017.lua
       - name: Lua 5.4 source regression
         run: lua5.4 tests/test_017.lua
+      - name: Re-run inherited 0.1.6 runtime tests on 0.1.7 (diagnostic pass)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install -q lupa
+          python3 - <<'PY'
+          import zipfile
+          p='releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip'
+          with zipfile.ZipFile(p) as z: z.extractall('_legacy017')
+          PY
+          mkdir -p inherited-017-reports
+          set +e
+          python3 _legacy017/tests-016/run.py --source . --baseline _legacy017/baseline/source/bjarkiLearn --output inherited-017-reports/semantic.json > inherited-017-reports/semantic.log 2>&1
+          echo "SEMANTIC_EXIT=$?"
+          python3 _legacy017/review-016/run.py --source . --baseline _legacy017/baseline/source/bjarkiLearn --output inherited-017-reports/review.json > inherited-017-reports/review.log 2>&1
+          echo "REVIEW_EXIT=$?"
+          python3 _legacy017/smoke/run.py --source . --output inherited-017-reports/smoke.json > inherited-017-reports/smoke.log 2>&1
+          echo "SMOKE_EXIT=$?"
+          set -e
+          python3 - <<'PY'
+          import json,pathlib
+          for name in ('semantic','review','smoke'):
+              path=pathlib.Path('inherited-017-reports')/(name+'.json')
+              if not path.exists():
+                  print(name,'NO REPORT'); print((path.parent/(name+'.log')).read_text()[-1800:]);continue
+              j=json.loads(path.read_text())
+              print('INHERITED',name,'PASS',j.get('passed',j.get('summary',{}).get('passed')),'TOTAL',j.get('total',j.get('summary',{}).get('total')))
+              failures=[r for r in j.get('cases',[]) if r.get('passed') is False]
+              for r in failures[:35]: print('FAIL',name,{k:str(v)[:250] for k,v in r.items() if k in ('engine','runtime','case','name','source','error','message')})
+              print('FAIL_COUNT',name,len(failures))
+          PY
+      - name: Save inherited test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: bjarkiLearn-0.1.7-inherited-runtime-diagnostics
+          path: inherited-017-reports/
+          if-no-files-found: error
       - name: Build and validate install ZIP
         shell: bash
         run: |
