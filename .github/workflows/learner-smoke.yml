@@ -50,6 +50,20 @@ jobs:
                       print('FILE',path)
                       print('\\n'.join(z.read(path).decode('utf-8').splitlines()[:110]))
           PY
+      - name: Inspect verification runner arguments
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import zipfile
+          p='releases/0.1.6-shadow/verification-r11/bjarkiLearn-0.1.6-shadow-verification-r11.zip'
+          paths=('tests-016/run.py','review-016/run.py','smoke/run.py','prior/tests/run_retention.py','tests-016/harness.lua','review-016/README.txt','tests-016/REPORT.txt')
+          with zipfile.ZipFile(p) as z:
+              for path in paths:
+                  print('====',path)
+                  lines=z.read(path).decode('utf-8').splitlines()
+                  limit=155 if path.endswith('run.py') else 75
+                  for i,line in enumerate(lines[:limit],1): print(str(i).rjust(4),line)
+          PY
       - name: Lua 5.1 source regression
         run: lua5.1 tests/test_017.lua
       - name: Lua 5.4 source regression
