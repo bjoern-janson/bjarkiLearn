@@ -67,15 +67,34 @@ for i=1,10 do
     context(core,OTHER,"hostile",at)
     core:Tick(at,true); core:Tick(at+2.3,true)
 end
-check("empty enemy windows dropped",#core.examples==10)
-check("unlabeled-drop counter",core.stats.unlabeledOtherDropped==10)
+check("bounded enemy unknowns retained",#core.examples==20)
+check("unlabeled-retention counter",core.stats.unlabeledOtherRetained==10)
 context(core,OTHER,"hostile",35)
 core:Tick(35,true)
 check("enemy positive accepted",core:Cast({
     actor=OTHER,id="enemy-stun",family=2,at=36,revision=1}))
 core:Tick(37.3,true)
-check("enemy positive retained",#core.examples==11 and core.examples[11].regime=="other")
+check("enemy positive retained",#core.examples==21 and core.examples[21].regime=="other")
 check("enemy positive not training data",core:Status().trainingExamples==10)
+
+-- A later correction can still reattribute a cast into a recent initially
+-- empty enemy window, without granting unsupported negative labels.
+local reattr=ns.Core.New()
+reattr:SetCoverage(true)
+context(reattr,SELF,"self",10)
+context(reattr,OTHER,"hostile",10)
+reattr:Tick(10,true)
+check("initial attribution",reattr:Cast({actor=SELF,id="move-root",family=3,at=11,revision=1}))
+reattr:Tick(12.3,true)
+check("prior enemy window survives",#reattr.examples==2 and reattr.examples[2].actor==OTHER)
+check("new attribution",reattr:Cast({actor=OTHER,id="move-root",family=3,at=11,revision=2}))
+check("retrospective enemy positive",reattr.examples[2].y[3]==1 and reattr.examples[2].mask[3]==true)
+
+-- Unknown enemy history stays bounded even without any player examples.
+local unknown=ns.Core.New()
+for i=1,30 do window(unknown,OTHER,"hostile",i*3) end
+check("unknown enemy correction horizon bounded",#unknown.examples==16)
+check("old unknowns retired",unknown.stats.unlabeledOtherRetired==14)
 
 -- Even a positive enemy window cannot evict a full player-only corpus.
 local cap=ns.Core.New()

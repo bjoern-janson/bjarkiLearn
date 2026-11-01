@@ -428,10 +428,27 @@ end
 function Core:_Resolve(w)
     w.y,w.mask,w.lead=self:_Labels(w)
     ns.Bump(self.stats,"resolvedWindows")
-    -- Enemy absence is never labeled. Unlabeled enemy windows must not displace
-    -- the player examples from which the only current model learns.
+    -- Keep a small amount of unlabeled enemy history for retrospective
+    -- reattribution. Otherwise moving a cast from the player to the enemy
+    -- would have no earlier enemy window to revise. This stays inside the
+    -- existing 256-row cap; it never evicts player data to make room.
     if w.regime~="player" and not any(w.mask) then
-        ns.Bump(self.stats,"unlabeledOtherDropped")
+        local count, oldest = 0, nil
+        for index,prior in ipairs(self.examples) do
+            if prior.regime~="player" and not any(prior.mask) then
+                count=count+1
+                if not oldest then oldest=index end
+            end
+        end
+        if count>=C.maxUnknownOther and oldest then
+            table.remove(self.examples,oldest)
+            ns.Bump(self.stats,"unlabeledOtherRetired")
+        elseif #self.examples>=C.maxExamples then
+            ns.Bump(self.stats,"unlabeledOtherDropped")
+            return
+        end
+        self.examples[#self.examples+1]=w
+        ns.Bump(self.stats,"unlabeledOtherRetained")
         return
     end
     local replayChanged=w.regime=="player" and any(w.mask)
