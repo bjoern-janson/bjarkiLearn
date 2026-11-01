@@ -235,6 +235,24 @@ function Core:_AffectsCandidate(old,new)
     end
     return false
 end
+-- Keep the newest unknown enemy rows in retained order, including sealed
+-- saves. Prune after the full evidence update, never while revising a row.
+-- These rows do not train the player model, so pruning does not dirty it.
+function Core:_PruneUnknownOther(limit)
+    local count=0
+    limit=limit or C.maxUnknownOther
+    for index=#self.examples,1,-1 do
+        local w=self.examples[index]
+        if w.regime~="player" and not any(w.mask) then
+            count=count+1
+            if count>limit then
+                table.remove(self.examples,index)
+                ns.Bump(self.stats,"unlabeledOtherRetired")
+            end
+        end
+    end
+end
+
 -- All triggers use the same outcome update. Lead-only refinements do not
 -- change training labels, so they leave the row revision and corpus intact.
 function Core:_ReviseWindow(w)
@@ -260,11 +278,14 @@ end
 function Core:_ReconcileEvidenceChange(old,new)
     local affects=self:_AffectsModel(old,new) or self:_AffectsCandidate(old,new)
     local revised=self:_ReviseAffectedWindows(old,new)
+    self:_PruneUnknownOther()
     if revised or affects then self:_Dirty(true) end
 end
 function Core:_ReconcileHistoryRetirement(old)
     -- Losing replay evidence rebuilds the candidate, but a completed serving
     -- snapshot remains valid until contradictory evidence reaches its guards.
+    -- Cast/Aura prune after insertion; an incoming cast can restore a positive
+    -- label on a row that temporarily lost its retired occurrence.
     if self:_ReviseAffectedWindows(old,nil) then self:_Dirty(false) end
 end
 function Core:_ReconcileTimeAdvance(since)
@@ -282,6 +303,7 @@ function Core:_ReconcileTimeAdvance(since)
             if self:_ReviseWindow(w) then revised=true end
         end
     end
+    self:_PruneUnknownOther()
     if revised or affects then self:_Dirty(true) end
 end
 function Core:_EvictOccurrence()
@@ -329,6 +351,7 @@ function Core:Cast(raw)
         for _,w in ipairs(self.examples) do
             if not w.sealed and w.actor==actor then w.lost[family]=true; w.mask[family]=false end
         end
+        self:_PruneUnknownOther()
         local a=self.actors[actor]
         if a and a.window then a.window.lost[family]=true end
         self:_Dirty(true); ns.Bump(self.stats,"lostRevisions")
@@ -379,6 +402,7 @@ function Core:Aura(raw)
         expires=expiry,revision=old and old.revision+1 or 1,
         firstSighting=not old,source=source}
     self:_Insert(key,e); self:_InvalidateActorEvidence(actor)
+    self:_PruneUnknownOther()
     ns.Bump(self.stats,old and "auraRevisions" or "auraWitnesses")
     return true
 end
@@ -433,17 +457,10 @@ function Core:_Resolve(w)
     -- would have no earlier enemy window to revise. This stays inside the
     -- existing 256-row cap; it never evicts player data to make room.
     if w.regime~="player" and not any(w.mask) then
-        local count, oldest = 0, nil
-        for index,prior in ipairs(self.examples) do
-            if prior.regime~="player" and not any(prior.mask) then
-                count=count+1
-                if not oldest then oldest=index end
-            end
-        end
-        if count>=C.maxUnknownOther and oldest then
-            table.remove(self.examples,oldest)
-            ns.Bump(self.stats,"unlabeledOtherRetired")
-        elseif #self.examples>=C.maxExamples then
+        -- Reserve one unknown slot before checking the shared capacity. This
+        -- also repairs an already excessive count in a single admission.
+        self:_PruneUnknownOther(C.maxUnknownOther-1)
+        if #self.examples>=C.maxExamples then
             ns.Bump(self.stats,"unlabeledOtherDropped")
             return
         end
@@ -705,6 +722,7 @@ function Core:Restore(saved)
         restored[#restored+1]={x=x,y=y,mask=mask,regime=regime,predictions=predictions,sealed=true,revision=1}
     end
     self.examples=restored
+    self:_PruneUnknownOther()
     self.actors={}; self.actorOrder={}; self.occurrences={}; self.occurrenceOrder={}
     self.evidenceFloor=-1; self.openAfter=self.now
     self.evidenceTime=self.now; self.nextCastAt=nil

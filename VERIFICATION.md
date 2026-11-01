@@ -2,6 +2,8 @@
 
 The current review branch changes native self-aura observation, example retention and model-candidate lifecycle. The historical 0.1.6 verification-r11 archive below is **not** evidence that these changed Lua files pass its old source checks.
 
+Additional source-executed retention regressions in `tests/test_retention.lua` cover corrections, occurrence eviction, lost-revision masking, oversized compatible saves, deterministic pruning and preservation of player learning. GitHub Actions runs these under Lua 5.1 and 5.4 alongside the existing focused and inherited suites.
+
 Focused source-executed Lua regressions are in `tests/test_017.lua` and GitHub Actions runs them under Lua 5.1 and 5.4. The mandatory `tests/verify_inherited_017.py` gate reads the exact historical r11 ZIP by its published SHA-256; it copies, narrowly adapts and reruns the original Lua semantic/lifecycle/smoke cases without altering that archived evidence. Verified results: **42/42 semantic, 8/8 smoke and 28/34 lifecycle/comparison** with exactly six declared historical-only 0.1.5 whole-state comparison mismatches, no unexpected failures. The original strict tests remain archived and their non-comparability is visible. The launch-candidate ZIP is built in CI from 14 source files and checked byte-for-byte. This is **not** a rerun of all 26 historical r11 Windows tooling/packaging jobs. Live Forever event behavior, secret-value enforcement, runtime cost and gameplay usefulness remain unverified.
 
 ---

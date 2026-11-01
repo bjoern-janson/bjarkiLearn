@@ -21,6 +21,10 @@ jobs:
         run: lua5.1 tests/test_017.lua
       - name: Lua 5.4 source regression
         run: lua5.4 tests/test_017.lua
+      - name: Lua 5.1 retention regression
+        run: lua5.1 tests/test_retention.lua
+      - name: Lua 5.4 retention regression
+        run: lua5.4 tests/test_retention.lua
       - name: Re-run historically scoped Lua integration tests
         shell: bash
         run: |

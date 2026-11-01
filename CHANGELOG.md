@@ -4,6 +4,7 @@
 
 - Read the local player's Barkskin/Evasion through a bounded positive-only native aura lookup. Preserve the hostile-only Portraits evidence bus and never turn missing/secret reads into negative claims.
 - Keep up to 16 recent unknown enemy windows for late attribution corrections, without allowing them or positive enemy rows to evict a full player corpus. Older unknown windows retire under the same 256-example cap.
+- Reapply that unknown-enemy limit after completed label reconciliation, evidence retirement, lost-revision masking and compatible save restoration. Keep the newest retained unknown rows without removing positive enemy observations or changing player training solely for pruning.
 - Let frozen candidate training finish across clean corpus changes; publish a completed older model with pending refresh and retain its original correction guards. Corrections and delayed maturity cancel affected candidates, including after replay-row eviction.
 - Cancel in-progress candidates on session reset; no session-local occurrence identity crosses the reset.
 - Update version and compatibility identity, intentionally rejecting older saved learning while retaining the enable/disable preference.
