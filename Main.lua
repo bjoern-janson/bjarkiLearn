@@ -192,7 +192,7 @@ function Main:PrintStatus()
             for _, family in ipairs(core.families) do
                 local line = textValue(family.family)..': player + '..textValue(family.positive)
                     ..' / - '..textValue(family.negative)..' / unknown '..textValue(family.censored)
-                    ..'; enemy positives '..textValue(family.otherPositive)
+                    ..', non-self positives '..textValue(family.otherPositive)
                 if S.Number(family.scored) and family.scored > 0 then
                     line = line..'; '..family.scored..' paired forecasts, Brier neural/linear/frequency '
                         ..string.format('%.4f/%.4f/%.4f', family.neuralLoss, family.linearLoss, family.frequencyLoss)
@@ -203,13 +203,13 @@ function Main:PrintStatus()
     end
     if status.adapter then
         local adapter = status.adapter
-        printLine('readable cast deliveries '..textValue(adapter.casts)..', positive aura messages '
+        printLine('readable cast deliveries '..textValue(adapter.casts)..', Portraits aura messages '
             ..textValue(adapter.auras)..', self aura witnesses/probes '
             ..textValue(adapter.selfAuraWitnesses)..'/'..textValue(adapter.selfAuraProbes)
             ..', coverage gaps '..textValue(adapter.gaps)
-            ..'; Portraits bridge '..(adapter.busConnected and 'connected' or 'absent'))
+            ..', shared evidence bus '..(adapter.busConnected and 'subscribed' or 'unsubscribed'))
     end
-    printLine('player-only negative coverage; enemy absence remains unknown. No forecasts change the interface.')
+    printLine('only local-player windows have negative coverage. Non-self absence remains unknown. Forecasts are diagnostic.')
     local profiling = self.profileSamples > 0 and ('update peak '..string.format('%.3f', self.maxUpdateMs)..' ms')
         or 'CPU profiling unavailable'
     printLine(profiling..'; errors '..self.errors..'. /blearn inspect player|target|focus')

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Re-run frozen 0.1.6 Lua test logic against 0.1.8 with scoped fixture changes.
+"""Re-run frozen 0.1.6 Lua test logic against 0.1.9 with scoped fixture changes.
 
 The archive is never edited. Historical cross-version whole-state comparisons
 remain visible as expected mismatches, rather than being silently discarded.
@@ -22,7 +22,7 @@ REPORT = ROOT / "inherited-017-results.json"
 OLD_COMPAT = ("learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/"
               "h2/player-combat-v1/mlp12-sgd4-v1")
 NEW_COMPAT = ("learn1/forever16001-provisional2/features48-v3/cast-delivery-v2/"
-              "h2/player-combat-v1/self-aura-v1/retention-v1/replay-v2/mlp12-sgd4-v1")
+              "h2/player-combat-v2/self-aura-v2/retention-v1/replay-v2/mlp12-sgd4-v1")
 EXPECTED_HISTORIC = {
     ("lua51", "current_vs_exact015", "exact_unaffected_feature_matrix_and_config"),
     ("lua51", "current_vs_exact015", "unaffected_mage_trace_seed_16073"),
@@ -121,7 +121,7 @@ def main() -> int:
              "local is016=ns.Config.version~='0.1.5-shadow'")
         edit("smoke/probes.lua",
              "eq(ns.Config.version,'0.1.6-shadow')",
-             "eq(ns.Config.version,'0.1.8-shadow')")
+             "eq(ns.Config.version,'0.1.9-shadow')")
         edit("smoke/probes.lua", OLD_COMPAT, NEW_COMPAT)
         baseline = tmp / "baseline/source/bjarkiLearn"
         results = [

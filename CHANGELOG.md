@@ -1,5 +1,11 @@
 # Changes
 
+## 0.1.9-shadow
+
+- Preserve local cast coverage across identifiable NPC casts. Restrict an unreadable cast to the affected window and known family. Honor newly observed defensive auras after an earlier expiry.
+- Validate current native bindings on public reads. Diagnostics distinguish non-self observations and evidence bus subscriptions.
+- Start a fresh corpus for the new collection policy. Schema 1 and the enabled setting are preserved.
+
 ## 0.1.8-shadow
 
 - Share the defensive aura IDs between the native lookup and the rules. Existing 0.1.7 saved models load with the same observation policy.

@@ -33,7 +33,7 @@ Negative-label coverage is enabled only for the local player's continuously serv
 
 The namespace is private. The public `BjarkiLearn` interface returns copied status, context and forecasts; it has no general evidence-injection or suite-mutation method. `OptionalDeps` supplies convenient load order without making the suite mandatory.
 
-`Core.New()` owns the collection lifecycle. `Context(record)`, `Cast(record)`, `Aura(record)`, `Gap(reason, actor)`, `Tick(now, inCombat)`, `Forecast(actor, now)`, `Status()`, `Export()` and `Restore(saved)` operate on ordinary normalized data. Native inputs pass through the adapter's readable checks first. Actor identities and occurrence identities are session-local and never enter network features or saved variables.
+`Core.New()` owns the collection lifecycle. `Context(record)`, `Cast(record)`, `Aura(record)`, `Gap(reason, actor, family, at)`, `Tick(now, inCombat)`, `Forecast(actor, now)`, `Status()`, `Export()` and `Restore(saved)` operate on ordinary normalized data. For a single cast delivery, a known timestamp limits the gap to windows containing that instant and a known family limits it to that output. Stream interruptions have unknown duration and censor all affected pending outputs. Native inputs pass through the adapter's readable checks first. Actor identities and occurrence identities are session-local and never enter network features or saved variables.
 
 Models expose `New(inputs, hidden, outputs, seed)`, `Predict(x)`, `Learn(x, y, mask, recordStatistics)`, `Valid()` and `Copy()`. The fourth Learn argument suppresses duplicate frequency counts on later replay epochs. All models see the same eligible examples and masks.
 

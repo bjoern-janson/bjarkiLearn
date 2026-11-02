@@ -1,12 +1,12 @@
 local _, ns = ...
 
 ns.Config = {
-    version = "0.1.8-shadow", schema = 1, horizon = 2, grace = 0.25,
+    version = "0.1.9-shadow", schema = 1, horizon = 2, grace = 0.25,
     maxActors = 16, maxOccurrences = 128, maxExamples = 256, maxUnknownOther = 16,
     featureCount = 48, hiddenCount = 12, outputCount = 6,
     seed = 73013, epochs = 4, stepsPerTick = 4, contextTTL = 1,
     target = "cast-delivery-v2", ruleBasis = "forever-provisional-class-v2",
-    compat = "learn1/forever16001-provisional2/features48-v3/cast-delivery-v2/h2/player-combat-v1/self-aura-v1/retention-v1/replay-v2/mlp12-sgd4-v1",
+    compat = "learn1/forever16001-provisional2/features48-v3/cast-delivery-v2/h2/player-combat-v2/self-aura-v2/retention-v1/replay-v2/mlp12-sgd4-v1",
 }
 
 -- Check accessibility before comparison, indexing, formatting or truthiness.

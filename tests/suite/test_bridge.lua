@@ -18,6 +18,12 @@ local function setup(order,unit)
     h:fire('PLAYER_TARGET_CHANGED'); h:drain()
     return h
 end
+local function learnStatusText()
+    local lines={}
+    DEFAULT_CHAT_FRAME.AddMessage=function(_,line) lines[#lines+1]=line end
+    SlashCmdList.BJARKILEARN('status')
+    return table.concat(lines,'\n')
+end
 local function consumers(h,guid,id)
     local row=assert(h:row(guid),'CC cooldown follows Portraits publication')
     local occurrence=assert(h:occurrence(guid,id),'Learn aura follows Portraits publication')
@@ -121,6 +127,87 @@ test('queued derived snapshot reads rebound identity and Learn binding changes',
     eq(context.defensiveWitness.at,101,'current binding sees new recipient witness')
     eq(h.addons[L].Runtime.adapter.bindings.target,OTHER,'native binding refreshed')
 end)
+for _,unit in ipairs({'target','focus'}) do
+    local event=unit=='target' and 'PLAYER_TARGET_CHANGED' or 'PLAYER_FOCUS_CHANGED'
+    test('public '..unit..' queries before Learn handles a rebind',function()
+        local h=T.new(paths,{P})
+        local observer=CreateFrame('Frame')
+        observer:RegisterEvent(event)
+        local checking=false
+        observer:SetScript('OnEvent',function()
+            if not checking then return end
+            local before=BjarkiLearn:Status().adapter
+            for _,key in ipairs({unit,G,OTHER}) do
+                eq(BjarkiLearn:GetContext(key),nil,'no context before binding refresh: '..key)
+                eq(BjarkiLearn:Forecast(key),nil,'no forecast before binding refresh: '..key)
+            end
+            local after=BjarkiLearn:Status().adapter
+            eq(after.contexts,before.contexts,'read-only query cannot bind the new actor')
+            eq(after.gaps,before.gaps,'read-only query cannot record a coverage gap')
+        end)
+        h:load(L)
+        h:bind(unit,G); h:fire(event)
+        h:added(unit,aura(21,98,12))
+        assert(BjarkiLearn:GetContext(unit).defensiveWitness,'old actor has a positive witness')
+        assert(BjarkiLearn:Forecast(G),'old actor resolves by GUID before change')
+        h.clock=100.1; h:bind(unit,OTHER); checking=true
+        h:fire(event); h:drain()
+        local current=assert(BjarkiLearn:GetContext(unit))
+        eq(current.actor,OTHER,'refresh binds the new actor')
+        eq(current.defensiveWitness,nil,'previous witness stays with original actor')
+        eq(BjarkiLearn:Forecast(OTHER).actor,OTHER,'new GUID resolves after refresh')
+        h:healthy()
+    end)
+end
+test('public GUID queries require one surviving readable alias',function()
+    local h=setup({L})
+    h:bind('focus',G); h:fire('PLAYER_FOCUS_CHANGED')
+    local before=BjarkiLearn:Status().adapter
+    local nativeIsPlayer=UnitIsPlayer
+    UnitIsPlayer=function(unit)
+        if unit=='target' then return false end
+        return nativeIsPlayer(unit)
+    end
+    eq(BjarkiLearn:GetContext('target'),nil,'contradictory token rejected')
+    eq(BjarkiLearn:Forecast('target'),nil,'contradictory token forecast rejected')
+    eq(BjarkiLearn:GetContext(G).actor,G,'focus still confirms the GUID')
+    eq(BjarkiLearn:Forecast(G).actor,G,'surviving focus permits GUID forecast')
+    for _,unavailable in ipairs({
+        function() return h.hidden end, function() return nil end,
+        function() error('unavailable UnitGUID') end,
+    }) do
+        UnitGUID=function(unit)
+            if unit=='focus' then return unavailable() end
+            return h.units[unit]
+        end
+        for _,key in ipairs({'focus',G}) do
+            eq(BjarkiLearn:GetContext(key),nil,'unverified identity has no public context')
+            eq(BjarkiLearn:Forecast(key),nil,'unverified identity has no public forecast')
+        end
+    end
+    eq(BjarkiLearn:GetContext('player').actor,h.units.player,'unrelated current player still resolves')
+    local after=BjarkiLearn:Status().adapter
+    eq(after.contexts,before.contexts,'queries cannot record observations')
+    eq(after.gaps,before.gaps,'queries cannot change coverage')
+    h:healthy()
+end)
+test('friendly casts appear as non-self positives and withhold learned scores',function()
+    local h=T.new(paths,{L})
+    h:bind('target',G); h.hostile.target=false; h:fire('PLAYER_TARGET_CHANGED')
+    InCombatLockdown=function() return true end
+    for tick=0,18 do
+        h.clock=100+tick/8
+        h.addons[L].Runtime:Update()
+        if tick==4 then h:fire('UNIT_SPELLCAST_SUCCEEDED','target','Cast-Friendly',15487) end
+    end
+    eq(BjarkiLearn:GetContext('target').role,'friendly','readable ally')
+    eq(BjarkiLearn:Status().core.families[4].otherPositive,1,'retained ally silence')
+    assert(learnStatusText():match('silence:[^\n]*non%-self positives 1'),'status identifies the ally count as non-self')
+    local silence=BjarkiLearn:Forecast('target').outputs[4]
+    eq(silence.reason,'unsupported_non_self_coverage','friendly withholding reason')
+    eq(silence.score,nil,'no learned score for ally')
+    h:healthy()
+end)
 test('Learn disable unsubscribes; re-enable replays bounded actual publisher positives',function()
     local h=setup(); h:added('targettarget',aura(21,98,12))
     local old=h.addons[L].Runtime.adapter
@@ -174,6 +261,22 @@ test('bus and consumers reject negative schema; unsupported helpful spell is not
     eq(h:occurrence(G,30),nil,'Learn ignores non-defensive family')
     h:healthy()
 end)
+test('a later positive snapshot supersedes elapsed timing on the same aura instance',function()
+    local h=setup()
+    h.clock=101; h:snapshot('targettarget',aura(41,89,15,5277))
+    eq(BjarkiLearn:GetContext('target').defensiveWitness.expires,104,'first Evasion endpoint')
+    h.clock=105
+    local later=aura(41,nil,nil,5277)
+    later.expirationTime,later.duration=h.hidden,h.hidden
+    h:snapshot('targettarget',later)
+    local ctx=assert(BjarkiLearn:GetContext('target'))
+    eq(ctx.defensiveWitness.at,105,'new positive observation time')
+    eq(ctx.defensiveWitness.expires,nil,'refresh duration unknown after old endpoint')
+    eq(h.addons[L].Rules.Features(ctx,105)[48],1,'current positive remains known')
+    h.clock=106; h:snapshot('targettarget',aura(41,103,15,5277))
+    eq(BjarkiLearn:GetContext('target').defensiveWitness.expires,118,'readable refreshed timing')
+    h:healthy()
+end)
 test('Learn-first optional addon load is a resilience probe with late connection',function()
     local h=setup({L,P,C})
     eq(h.addons[L].Runtime.adapter.stats.busConnected,true,'ADDON_LOADED connects late publisher bus')
@@ -194,6 +297,16 @@ for _,order in ipairs({{L},{C,L},{P,L},{P,C}}) do
         h.auras.targettarget={[22812]=aura(21,98,12)}
         h:added('targettarget',h.auras.targettarget[22812])
         h:fire('PLAYER_ENTERING_WORLD'); h:drain()
+        if h.addons[L] then
+            local status=learnStatusText()
+            local subscription=BjarkiEvidenceV1 and 'subscribed' or 'unsubscribed'
+            assert(status:find('shared evidence bus '..subscription,1,true),'status identifies bus subscription')
+            if not h.addons[P] then
+                assert(status:find('Portraits aura messages 0',1,true),'no deliveries from an absent publisher')
+            else
+                assert(status:match('Portraits aura messages [1-9]'),'status reports actual Portraits deliveries')
+            end
+        end
         if not h.addons[P] then
             eq(BjarkiEvidenceV1 and BjarkiEvidenceV1.stats.published or 0,0,'no publisher means no fabricated bus evidence')
             if h.addons[L] then eq(h:occurrence(G),nil,'Learn has no fabricated bridge witness') end

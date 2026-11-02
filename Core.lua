@@ -77,14 +77,16 @@ function Core:SetCoverage(enabled)
     self.coverage=enabled==true
     if not self.coverage then self:Gap("coverage_unavailable") end
 end
-function Core:Gap(reason, actorID)
+function Core:Gap(reason, actorID, family, at)
     reason=identifier(reason) or "unknown"
     ns.Bump(self.gapReasons,reason)
     for id,actor in pairs(self.actors) do
-        if not actorID or id==actorID then
-            if actor.window then
-                for i=1,6 do actor.window.coverage[i]=false end
-            end
+        local w=actor.window
+        -- A timestamped delivery concerns (anchor, deadline]. An interruption
+        -- to the stream has unknown extent and keeps the conservative mask.
+        if w and (not actorID or id==actorID) and (not at or at>w.anchor and at<=w.deadline) then
+            if family then w.coverage[family]=false
+            else for i=1,6 do w.coverage[i]=false end end
         end
     end
 end
@@ -394,7 +396,9 @@ function Core:Aura(raw)
     if old and at<old.at then return false,"stale_aura" end
     local expiry=number(raw.expires)
     local freshApplication=old and raw.newApplication==true and at>old.at
-    if not expiry and old and not freshApplication then expiry=old.expires end
+    if not expiry and old and not freshApplication and old.expires and old.expires>at then
+        expiry=old.expires
+    end
     if old and old.expires==expiry and old.at==at then return false,"duplicate" end
     local source=S.String(raw.source)
     if source~="native-player-aura" then source="bjarkiPortraits" end
@@ -426,7 +430,7 @@ function Core:_MakeForecast(a,now,x,predictions,nextAt)
     local candidates=R.Candidates(a.class)
     for i,name in ipairs(R.families) do
         local score=predictions.neural[i]
-        local reason=a.regime~="player" and "unsupported_enemy_coverage"
+        local reason=a.regime~="player" and "unsupported_non_self_coverage"
             or not self.model and (self.dirty and "rebuilding" or "cold_start")
             or not score and "insufficient_positive_and_negative_support" or "shadow_only"
         f.outputs[i]={family=name,score=score,linear=predictions.linear[i],frequency=predictions.frequency[i],

@@ -1,6 +1,10 @@
+# 0.1.9-shadow verification boundary
+
+`tests/test_evidence_scope.lua` has 18 cases for cast coverage, defensive-witness timing and upgrading a saved corpus. They dispatch through the addon lifecycle and exercise reload with a disabled setting and retained examples. `tests/suite/test_bridge.lua` checks current unit identities, surviving GUID aliases and status text against the suite publishers. The separate mutation control checks that breaking the publisher identity is detected. These tests use modeled client APIs. The candidate still needs in-game checks for native event delivery, frame cost and forecast usefulness.
+
 # 0.1.7-shadow verification boundary
 
-The current review branch changes native self-aura observation, example retention and model-candidate lifecycle. The historical 0.1.6 verification-r11 archive below is **not** evidence that these changed Lua files pass its old source checks.
+The 0.1.7 candidate changed native self-aura observation, example retention and model-candidate lifecycle. The historical 0.1.6 verification-r11 archive below is **not** evidence that these changed Lua files pass its old source checks.
 
 Additional source-executed retention regressions in `tests/test_retention.lua` cover corrections, occurrence eviction, lost-revision masking, oversized compatible saves, deterministic pruning and preservation of player learning. GitHub Actions runs these under Lua 5.1 and 5.4 alongside the existing focused and inherited suites.
 

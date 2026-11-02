@@ -12,6 +12,22 @@ local function guid(value)
     local v = S.String(value)
     if v and #v <= 128 and v:match('^Player%-[%w%-]+$') then return v end
 end
+local function unitIdentity(unit)
+    local raw = S.String(S.Call(UnitGUID, unit))
+    local isPlayer = S.Boolean(S.Call(UnitIsPlayer, unit))
+    local current = guid(raw)
+    if current then
+        if isPlayer ~= false then return current end
+        return nil -- Conflicting player identity.
+    end
+    if isPlayer ~= true then
+        local kind = raw and #raw <= 128 and raw:match('^(%a+)%-[%w%-]+$')
+        if kind == 'Creature' or kind == 'Pet' or kind == 'Vehicle'
+            or (isPlayer == false and S.Boolean(S.Call(UnitExists, unit)) == true) then
+            return nil, true
+        end
+    end
+end
 local function stamp(value)
     local v = S.Number(value)
     if v and v >= 0 and v <= 100000000 then return v end
@@ -54,9 +70,9 @@ function Adapter.New(core)
             busErrors = 0, busConnected = false, registered = false } }, Adapter)
 end
 
-function Adapter:Gap(reason, actor)
+function Adapter:Gap(reason, actor, family, at)
     self.stats.gaps = self.stats.gaps + 1
-    self.core:Gap(reason, actor)
+    self.core:Gap(reason, actor, family, at)
 end
 
 function Adapter:SetRegistered(value)
@@ -75,10 +91,7 @@ function Adapter:UpdateCoverage()
 end
 
 function Adapter:Bind(unit, now)
-    local current = guid(S.Call(UnitGUID, unit))
-    -- A readable contradiction is disqualifying. Unknown type is permitted
-    -- when the GUID itself establishes player identity.
-    if S.Boolean(S.Call(UnitIsPlayer, unit)) == false then current = nil end
+    local current, nonPlayer = unitIdentity(unit)
     local previous = self.bindings[unit]
     self.bindings[unit] = current
     if unit == 'player' and previous ~= current then self.lastSelfAuraProbe = nil end
@@ -94,7 +107,7 @@ function Adapter:Bind(unit, now)
     end
     if not current then
         if unit == 'player' then self:UpdateCoverage() end
-        return nil
+        return nil, nonPlayer
     end
     local source = unit
     if unit ~= 'player' and self.bindings.player == current then source = 'player' end
@@ -162,28 +175,35 @@ end
 function Adapter:Resolve(unitOrGUID)
     local value = S.String(unitOrGUID)
     if not value then return nil end
-    if TRACKED[value] then return self.bindings[value] end
-    value = guid(value)
-    if value then
-        for _, unit in ipairs(UNITS) do if self.bindings[unit] == value then return value end end
+    -- A caller's event handler can run before ours. Check the live alias
+    -- without updating the observation stream from a public query.
+    if TRACKED[value] then
+        local cached = self.bindings[value]
+        if cached and unitIdentity(value) == cached then return cached end
+    elseif guid(value) then
+        for _, unit in ipairs(UNITS) do
+            if self.bindings[unit] == value and unitIdentity(unit) == value then return value end
+        end
     end
 end
 
 function Adapter:OnCast(rawUnit, rawCast, rawSpell, now)
     local unit = S.String(rawUnit)
-    if not unit then self.stats.rejected = self.stats.rejected + 1; self:Gap('unreadable-unit'); return end
-    if not TRACKED[unit] then return end
-    local actor = self:Bind(unit, now)
+    if unit and not TRACKED[unit] then return end
+    local actor, nonPlayer
+    if unit then actor, nonPlayer = self:Bind(unit, now) end
+    if nonPlayer then return end
     local spellID = identifier(rawSpell)
-    if not actor or not spellID then
+    local family = spellID and ns.Rules.Classify(spellID)
+    if spellID and not family then self.stats.unknownSpells = self.stats.unknownSpells + 1; return end
+    local id = castIdentity(rawCast)
+    if not unit or not actor or not spellID or not id then
         self.stats.rejected = self.stats.rejected + 1
-        self:Gap(not actor and 'unreadable-actor' or 'unreadable-spell', actor)
+        local reason = not unit and 'unreadable-unit' or not actor and 'unreadable-actor'
+            or not spellID and 'unreadable-spell' or 'unreadable-cast'
+        self:Gap(reason, actor, family, now)
         return
     end
-    local family = ns.Rules.Classify(spellID)
-    if not family then self.stats.unknownSpells = self.stats.unknownSpells + 1; return end
-    local id = castIdentity(rawCast)
-    if not id then self.stats.rejected = self.stats.rejected + 1; self:Gap('unreadable-cast', actor); return end
     self.core:Cast({ actor = actor, id = id, family = family, at = now, revision = 1, source = 'native-cast' })
     self.stats.casts = self.stats.casts + 1
 end

@@ -9,7 +9,7 @@ lua5.1 tests/suite/test_mutation.lua ../bjarkiPortraits ../bjarkiCC
 lua5.4 tests/suite/test_mutation.lua ../bjarkiPortraits ../bjarkiCC
 ```
 
-The normal harness reports **20 cases** per interpreter. The separate negative control must report that dropping the publisher's native application identity breaks the Learn consumer assertion. It temporarily changes the actual `EvidencePublisher.lua` source in memory while loading it, runs the same suite, and restores the loader. It does not edit the checked-out addon files or create a production test entry point. A passing unmutated suite and a detected mutation are both required evidence.
+The normal harness reports **25 cases** per interpreter. The separate negative control must report that dropping the publisher's native application identity breaks the Learn consumer assertion. It temporarily changes the actual `EvidencePublisher.lua` source in memory while loading it, runs the same suite, and restores the loader. It does not edit the checked-out addon files or create a production test entry point. A passing unmutated suite and a detected mutation are both required evidence.
 
 `support.lua` models only client APIs and frame methods. Every addon module loads from its real `.toc`, in its shipped module order. The first two scenarios start with no consumer evidence, dispatch a real Portraits `UNIT_AURA` event for a derived unit (which CC's general event path does not consume), and assert both CC cooldown rows and Learn occurrences/public context. This establishes publisher-to-consumer causality. No normal positive test injects a bus record directly; the direct `Publish` call is a malformed negative-schema rejection check.
 
