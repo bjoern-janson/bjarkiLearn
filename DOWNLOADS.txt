@@ -1,5 +1,5 @@
-0.1.7-shadow pre-launch candidate. GitHub Actions builds a 14-file install ZIP from the exact tested sources.
-Install ZIP artifact name: bjarkiLearn-0.1.7-shadow-install
+0.1.9-shadow pre-launch candidate. GitHub Actions builds a 14-file install ZIP from the exact tested sources.
+Install ZIP artifact name: bjarkiLearn-0.1.9-shadow-install
 Workflow: .github/workflows/learner-smoke.yml (check the latest successful run for main after merge).
 Offline acceptance: 42/42 adapted semantic, 8/8 smoke, 28/34 lifecycle/comparison, six declared historic-only mismatches, zero unexpected failures. No live-client or full r11 packaging-tool certificate.
 The 0.1.6-shadow install and verification-r11 packages remain archived below for historical use.

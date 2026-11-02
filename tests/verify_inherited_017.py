@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Re-run frozen 0.1.6 Lua test logic against 0.1.7 with scoped fixture changes.
+"""Re-run frozen 0.1.6 Lua test logic against 0.1.9 with scoped fixture changes.
 
 The archive is never edited. Historical cross-version whole-state comparisons
 remain visible as expected mismatches, rather than being silently discarded.
@@ -22,7 +22,7 @@ REPORT = ROOT / "inherited-017-results.json"
 OLD_COMPAT = ("learn1/forever16001-provisional2/features48-v2/cast-delivery-v2/"
               "h2/player-combat-v1/mlp12-sgd4-v1")
 NEW_COMPAT = ("learn1/forever16001-provisional2/features48-v3/cast-delivery-v2/"
-              "h2/player-combat-v1/self-aura-v1/retention-v1/replay-v2/mlp12-sgd4-v1")
+              "h2/player-combat-v2/self-aura-v2/retention-v1/replay-v2/mlp12-sgd4-v1")
 EXPECTED_HISTORIC = {
     ("lua51", "current_vs_exact015", "exact_unaffected_feature_matrix_and_config"),
     ("lua51", "current_vs_exact015", "unaffected_mage_trace_seed_16073"),
@@ -75,12 +75,20 @@ def main() -> int:
         tmp = Path(folder)
         prefixes = ("tests-016/", "review-016/", "smoke/", "baseline/source/bjarkiLearn/")
         with ZipFile(ARCHIVE) as z:
-            # The numerical learner and class/feature rules remain byte-identical
-            # to 0.1.6; whole-state deviations must come from the declared
-            # collection, retention and serving-lifecycle changes.
-            for unchanged in ("Network.lua", "Rules.lua"):
-                if z.read("source/bjarkiLearn/" + unchanged) != (ROOT / unchanged).read_bytes():
-                    raise RuntimeError("undeclared mathematical/rule source drift: " + unchanged)
+            # The only approved edit to these frozen files is sharing the ordered
+            # defensive observation IDs with Adapter. Check every other byte.
+            for filename in ("Network.lua", "Rules.lua"):
+                expected = z.read("source/bjarkiLearn/" + filename)
+                if filename == "Rules.lua":
+                    old = b"R.SelfDefensive = {[22812]=true, [5277]=true, [26669]=true}\r\n"
+                    new = (b"R.SelfDefensiveIDs = {22812, 5277, 26669}\r\n"
+                           b"R.SelfDefensive = {}\r\n"
+                           b"for _, id in ipairs(R.SelfDefensiveIDs) do R.SelfDefensive[id] = true end\r\n")
+                    if expected.count(old) != 1:
+                        raise RuntimeError("archived defensive rule declaration changed")
+                    expected = expected.replace(old, new)
+                if expected != (ROOT / filename).read_bytes():
+                    raise RuntimeError("undeclared mathematical/rule source drift: " + filename)
             for entry in z.infolist():
                 path = entry.filename
                 if entry.is_dir() or not (path.startswith(prefixes) or path == "input-manifest.json"):
@@ -113,7 +121,7 @@ def main() -> int:
              "local is016=ns.Config.version~='0.1.5-shadow'")
         edit("smoke/probes.lua",
              "eq(ns.Config.version,'0.1.6-shadow')",
-             "eq(ns.Config.version,'0.1.7-shadow')")
+             "eq(ns.Config.version,'0.1.9-shadow')")
         edit("smoke/probes.lua", OLD_COMPAT, NEW_COMPAT)
         baseline = tmp / "baseline/source/bjarkiLearn"
         results = [

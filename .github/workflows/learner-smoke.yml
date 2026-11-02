@@ -21,6 +21,14 @@ jobs:
         run: lua5.1 tests/test_017.lua
       - name: Lua 5.4 source regression
         run: lua5.4 tests/test_017.lua
+      - name: Lua 5.1 retention regression
+        run: lua5.1 tests/test_retention.lua
+      - name: Lua 5.4 retention regression
+        run: lua5.4 tests/test_retention.lua
+      - name: Cast coverage and defensive timing regressions
+        run: |
+          lua5.1 tests/test_evidence_scope.lua
+          lua5.4 tests/test_evidence_scope.lua
       - name: Re-run historically scoped Lua integration tests
         shell: bash
         run: |
@@ -31,7 +39,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bjarkiLearn-0.1.7-adapted-regressions
+          name: bjarkiLearn-0.1.9-adapted-regressions
           path: inherited-017-results.json
           if-no-files-found: ignore
       - name: Build and validate install ZIP
@@ -47,7 +55,7 @@ jobs:
               'DESIGN.md', 'VERIFICATION.md', 'docs/API.md',
               'docs/IMPLEMENTATION.md',
           ]
-          output = 'bjarkiLearn-0.1.7-shadow.zip'
+          output = 'bjarkiLearn-0.1.9-shadow.zip'
           with ZipFile(output, 'w', ZIP_DEFLATED, compresslevel=9) as archive:
               for path in paths:
                   archive.write(path, 'bjarkiLearn/' + path)
@@ -61,6 +69,6 @@ jobs:
       - name: Upload install candidate
         uses: actions/upload-artifact@v4
         with:
-          name: bjarkiLearn-0.1.7-shadow-install
-          path: bjarkiLearn-0.1.7-shadow.zip
+          name: bjarkiLearn-0.1.9-shadow-install
+          path: bjarkiLearn-0.1.9-shadow.zip
           if-no-files-found: error

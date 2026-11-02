@@ -1,9 +1,20 @@
 # Changes
 
+## 0.1.9-shadow
+
+- Preserve local cast coverage across identifiable NPC casts. Restrict an unreadable cast to the affected window and known family. Honor newly observed defensive auras after an earlier expiry.
+- Validate current native bindings on public reads. Diagnostics distinguish non-self observations and evidence bus subscriptions.
+- Start a fresh corpus for the new collection policy. Schema 1 and the enabled setting are preserved.
+
+## 0.1.8-shadow
+
+- Share the defensive aura IDs between the native lookup and the rules. Existing 0.1.7 saved models load with the same observation policy.
+
 ## 0.1.7-shadow (review branch)
 
 - Read the local player's Barkskin/Evasion through a bounded positive-only native aura lookup. Preserve the hostile-only Portraits evidence bus and never turn missing/secret reads into negative claims.
 - Keep up to 16 recent unknown enemy windows for late attribution corrections, without allowing them or positive enemy rows to evict a full player corpus. Older unknown windows retire under the same 256-example cap.
+- Reapply that unknown-enemy limit after completed label reconciliation, evidence retirement, lost-revision masking and compatible save restoration. Keep the newest retained unknown rows without removing positive enemy observations or changing player training solely for pruning.
 - Let frozen candidate training finish across clean corpus changes; publish a completed older model with pending refresh and retain its original correction guards. Corrections and delayed maturity cancel affected candidates, including after replay-row eviction.
 - Cancel in-progress candidates on session reset; no session-local occurrence identity crosses the reset.
 - Update version and compatibility identity, intentionally rejecting older saved learning while retaining the enable/disable preference.

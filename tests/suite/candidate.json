@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "candidate": "2026-11-02",
+  "purpose": "Frozen four-addon audit-fix candidate for prelaunch bridge integration.",
+  "addons": [
+    {
+      "addon": "bjarkiPortraits",
+      "repository": "bjoern-janson/bjarkiPortraits",
+      "commit": "0db5db6bd685d38b7bf2d1be5d451aaccc262a77",
+      "version": "0.1.163-audit-fixes-test",
+      "archive": "bjarkiPortraits-0.1.163-audit-fixes-test.zip",
+      "archive_sha256": "1ce5cdd91ce482c9d056e4d7605aca2089e8a05d40aceedd1960f3a53d364904",
+      "generated_files": [],
+      "files": {
+        "AuraEngine.lua": "69537acd7c91a25d581764e4792d6348d8372ea99691582c0e18af6d8c86329e",
+        "Commands.lua": "5bc032a7ddbed1208b382f83be2617e6e4ba4c85fdee331aad136d7376c1d75d",
+        "Core.lua": "0d8677815d30d423cba9051a5de4b79545f3da48c5aac9fd5e8748105e8ddd64",
+        "EvidencePublisher.lua": "0b86e35bba4ef0c8f5e0bea3b9f6d8349ffb18814d186a6b03442037bb20443a",
+        "Main.lua": "a2b2b4596dbdd99e78e41a4d974ec3568a83c6a4b893dfa60e666b703ba2edf7",
+        "PetPortraits.lua": "2f2cba98ef7bfbf618bb3011259ceae9a70dd3bdb5eabb8f11cf328ceb35c48d",
+        "Priority.lua": "edaae646e3a8e2f16e7ad14817a35f63194c2fc91c4cb2daefef2fb306ad1732",
+        "SharedEvidence.lua": "ca6c78fcbec53dd0500abdff4b55b62d1af08e8a5e0d9b233ea2b1a0bbb1b456",
+        "Spells.lua": "ebc63c4551a55c500ed4b143de8a8594356a6a9a9e6655a06a51b9ba32062822",
+        "StanceState.lua": "35899d8a78256e57a175e58417531c2978829e165f2b409cb1cb20ebfea63378",
+        "bjarkiPortraits.toc": "50bab8c56c694ad4bd55b1e21a240170aa7ae2802592d181d75dc8a2b2292f90",
+        "bjarkiPortraits_Camelot.toc": "50bab8c56c694ad4bd55b1e21a240170aa7ae2802592d181d75dc8a2b2292f90"
+      }
+    },
+    {
+      "addon": "bjarkiUI",
+      "repository": "bjoern-janson/bjarkiUI",
+      "commit": "885829216ddd2545f9db649ac8fdcbda90e812cf",
+      "version": "0.2.264-audit-fixes-test",
+      "archive": "bjarkiUI-0.2.264-audit-fixes-test.zip",
+      "archive_sha256": "e135e259fdd51c59a794da04ea7d149a85c6476fe1e3414bd41de9f1d6cf5aad",
+      "generated_files": [
+        "SHA256SUMS.txt"
+      ],
+      "files": {
+        "CooldownSeconds.lua": "994e5fe4eb7706737dbbeeb914121000ba38c9f57bb4eb866283b8d68e1bdc55",
+        "PartyOrder.lua": "a02b1064d678a4ac8636c2757f7ccd80b4290c2b096888a5342354d29e0863d6",
+        "SHA256SUMS.txt": "5061555c230ccb1751fffbe631070ca91c0131e47277812c96199704d1a55465",
+        "SoftDark.lua": "d0a5e0e72f0e4de7d2b5757494c980d329fa947e74e812d79aecb7e2055c033f",
+        "TrackedBuffSeconds.lua": "d9203b9a2320680d98e862fd7f6ade3bd76424ad8c42c2a40e1ab19de9f6639c",
+        "bjarkiUI.lua": "d8be9091eca60420d4b4e6d04803e5d439c670c0580cc6a168251d3ebe3be346",
+        "bjarkiUI.toc": "a14fc9e4482a9f46b5b1a346c4fec3797c4fef6cadbcd5f89884120fddc0e5dd",
+        "bjarkiUI_Camelot.toc": "a14fc9e4482a9f46b5b1a346c4fec3797c4fef6cadbcd5f89884120fddc0e5dd"
+      }
+    },
+    {
+      "addon": "bjarkiCC",
+      "repository": "bjoern-janson/bjarkiCC",
+      "commit": "12660bc94bebba8ed3353360d6b07ccf0e548b56",
+      "version": "0.4.17.51-audit-fixes-test",
+      "archive": "bjarkiCC-0.4.17.51-audit-fixes-test.zip",
+      "archive_sha256": "b05b671c7246a0d85282019546375e287477c5714d696b7e293a2e2cf2d5c1d6",
+      "generated_files": [],
+      "files": {
+        "Anchors.lua": "4c847e60e6a21417d460f08678923e58c62cd29c8f7805ed1bf74118b895c072",
+        "Bootstrap.lua": "369be0812b7fde04289811ceb78a8c5b310e5ee0e7a7c7a2acc06fa49c81ca1b",
+        "Claims.lua": "e1635571401aa93415f4bc7738ba2da2e58485b21e09e4a1358ed9f194d62d0f",
+        "CooldownEvidence.lua": "3e9785e7daf344412c4a30020c47fe55702947bef8eca1ac56fdf9c1218e6454",
+        "Data.lua": "f7077a05f33ff2f92de722945a65216ee6fa392efc8e8eca56f84698ab6f93fb",
+        "GCDCore.lua": "6a966498c9b09e7a620c4e7883d54f60b4798d37d5bc99040c0eaee8d6ba8f0c",
+        "GCDFlash.lua": "d31d071c0f0837dc2bbb1c267160ab76b74385564f7ddef7ad0f67c347d22e02",
+        "GCDPlates.lua": "b97845b9707af1ceb489f69f04a89b6d4ab090247a969ec53517504f2a935f7e",
+        "Main.lua": "8a7095aa060e87a67430f063cae88f1653f66a772df63935c7e090507aa04dc9",
+        "Model.lua": "1f74edfb51827d055c41293fb73294b740a7cfbf0110c768a29c33a25668dc44",
+        "NativeStuns.lua": "e326876e7c9be5fb89be692eb68bec9f3b1323db080da1c42e3b347ee6e36fb6",
+        "Observer.lua": "73cf3e129598534e62630e4b9bbdfaf08d909a5efce02f8b174cb46355526213",
+        "OwnCasts.lua": "86ec04927bd8254717ae6aa923f8e7c83747b6359b5c4cba4e380d261d4cdd57",
+        "SHA256SUMS.txt": "05a6cdaca7cf561a471e0bf0ea0328aa8a3db5b2bae171d2831dfbb2793d5f91",
+        "SharedEvidence.lua": "ca6c78fcbec53dd0500abdff4b55b62d1af08e8a5e0d9b233ea2b1a0bbb1b456",
+        "THIRD_PARTY_NOTICES.txt": "74df832f76e6833e6ee79f37fbba0d57015686dea6b5b3aafe92452c5ae2ca8a",
+        "UI.lua": "94d1fe533eeccc54e9b6fb7f381e62ab8e032ab65d51e006b4d5b2c5926ca4b2",
+        "bjarkiCC.toc": "58b37277b6ac7c6d05c8f43039d1255d08ffe08003bc0cf79017aab177cb7d8e",
+        "bjarkiCC_Camelot.toc": "58b37277b6ac7c6d05c8f43039d1255d08ffe08003bc0cf79017aab177cb7d8e"
+      }
+    },
+    {
+      "addon": "bjarkiLearn",
+      "repository": "bjoern-janson/bjarkiLearn",
+      "commit": "041e063c7ec4a50b4b4f4d99c93b878b039b521b",
+      "version": "0.1.9-shadow",
+      "archive": "bjarkiLearn-0.1.9-shadow.zip",
+      "archive_sha256": "0a9b1b288736aedbebb154e92697acb101c4d10dcf506896558f364be06da183",
+      "generated_files": [],
+      "files": {
+        "Adapter.lua": "6f6ed5ef1b2f26e0c7d065d387a1d4e236e33c44191398627f3c18563565552c",
+        "Bootstrap.lua": "9f5ebca3d3b70b241bd55544e7dcef5a28a856fc61bf2ba5b69e4da34f54ef7a",
+        "CHANGELOG.md": "48a645602b6d347814202b9f579e67c485e07c87d90516df574b94579523add4",
+        "Core.lua": "3274632258841f29cb55e940c8c95ad85f369acb59fb4a4e47dc3bc43278bd01",
+        "DESIGN.md": "ba865e432772cab9964fe38976437cee95bf48cdd4fc5c7699955ea455784a81",
+        "Main.lua": "759123513ae157cae874fa07f37864fbe09c460c9f516fbb08bd75a8592d9e51",
+        "Network.lua": "49668680ce13803c329a816f76863b04bb752cb07e5d2759cf7076af05165c49",
+        "README.md": "68fb67fded1670cbae7cf771ec5f2e2cf92fb4dbfe52742b3c889900c512e897",
+        "Rules.lua": "bcf71bd605debb536fd76a4062d1da75b3c45bbfbc38925bd51a80f98619e112",
+        "VERIFICATION.md": "04f827eed8f256095c4e93cccd984c02cb8ac80d39ce66a13ba119bd0dc9376d",
+        "bjarkiLearn.toc": "f3273e60abfd6bfde720ef1c03f12827c48e07109ad74c6b7b38ebbaa4b65e1e",
+        "bjarkiLearn_Camelot.toc": "f3273e60abfd6bfde720ef1c03f12827c48e07109ad74c6b7b38ebbaa4b65e1e",
+        "docs/API.md": "a92fe19e1e689e94fccce9d0bd817315cf40bb372da31787f952bac74d0ce0f1",
+        "docs/IMPLEMENTATION.md": "1472a8ccbf2b3adafdf7e1587de4dd837eb1fd82908555091e5895440ccb89ad"
+      }
+    }
+  ]
+}

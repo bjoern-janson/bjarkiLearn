@@ -2,7 +2,7 @@
 
 A shared Lua learner for the Bjarki World of Warcraft addon suite. It combines readable encounter context with a small predictive model and revisable training records.
 
-**Status: 0.1.7-shadow (pre-launch candidate).** Adds accessible, positive-only local-player defensive witnesses, player-priority example retention and progressive frozen-snapshot rebuilds. Source-executed offline tests pass the scoped 0.1.7 gates; live-client behavior and predictive usefulness remain unverified.
+**Current candidate 0.1.9-shadow.** Learn now scopes missing cast evidence to the actor, spell family and observation window it can affect. A current defensive observation can outlive a previous expiration. Learn keeps your enabled setting and starts fresh training on upgrade from 0.1.7 or 0.1.8. Their saved examples lack the original events needed to apply both corrections.
 
 The addon starts in shadow mode. It records evidence and trains real models; its forecasts remain diagnostics. The suite's tracking, colours, layout and aura priorities keep their existing owners and behavior.
 
@@ -14,9 +14,9 @@ Extract the install ZIP so `Interface/AddOns/bjarkiLearn/` contains `bjarkiLearn
 
 | Command | Result |
 | --- | --- |
-| `/blearn status` | Label coverage, model progress, paired prediction losses, bridge status and available CPU measurements |
+| `/blearn status` | Label coverage, model progress, paired prediction losses, shared evidence bus subscription, Portraits aura message count and available CPU measurements |
 | `/blearn inspect player` | Current semantic context, class candidates and supported shadow scores |
-| `/blearn inspect target` or `focus` | Actor context and candidates; enemy learned scores remain withheld |
+| `/blearn inspect target` or `focus` | Current actor context and candidates. Learned scores are withheld for non-self actors. |
 | `/blearn disable` / `enable` | Pause or resume collection and learning, retaining examples |
 | `/blearn reset` | Clear only this addon's retained examples and adaptation |
 
@@ -30,13 +30,13 @@ The first task is **registered readable cast-family deliveries in the next two s
 | --- | --- |
 | Semantic context | Readable player/target/focus identity, class, role, combat, health, power and supported Druid form witnesses |
 | Capability rules | Provisional class candidates before spells happen; Priest fear is relevant and Silence stays conditional |
-| Defensive witnesses | Portraits' unchanged hostile-only bus supplies positive evidence; a throttled native player scan supplies local Barkskin/Evasion witnesses. Neither labels a cast or proves absence. |
+| Defensive witnesses | Portraits publishes readable hostile aura observations on a shared bus that either Portraits or CC can provide. A throttled player scan supplies local Barkskin/Evasion witnesses. |
 | Neural candidate | 48 inputs, 12 tanh hidden units, six sigmoid outputs: **666 trainable parameters** |
 | Comparators | Regularized logistic model and Laplace-smoothed event frequencies on the same eligible examples |
 | Learning lifecycle | Immutable anchors, per-output masks, deduplication, replacement of revised outcomes and deterministic clean rebuilds |
 | Limits | 16 actors, 128 occurrences, 256 retained examples (player-priority), and at most 256 serving-model correction descriptors; at most four sample updates per scheduled tick outside combat |
 
-The initial negative-label regime is the local player's continuously serviced readable event stream. Combat establishes eligibility at the anchor; an already opened two-second horizon can finish after a known combat exit. Registration failure, lost identity, unknown combat, unreadable relevant events and scheduler gaps censor absence labels. Enemy positives are tracked separately, and enemy examples never train the player model. Up to 16 recent unlabeled enemy windows remain available for retrospective cast reattribution; older unknown windows retire within the existing 256-example cap. Unknown enemy windows and positive enemy windows cannot evict player examples when the buffer is full.
+The initial negative-label regime is the local player's continuously serviced readable event stream. Combat establishes eligibility at the anchor; an already opened two-second horizon can finish after a known combat exit. Registration failure, lost identity, unknown combat, unreadable relevant events and scheduler gaps censor absence labels. The separate non-self positive count includes observed players who are friendly, hostile or of unknown hostility. Only local-player examples train the model. Up to 16 recent unlabeled non-self windows remain available for retrospective cast reattribution within the 256-example cap. Player examples take priority over all non-self windows when the buffer is full.
 
 A head needs at least two player positives and eight negatives in the completed serving model's training snapshot before numeric shadow scores are exposed. This is a support floor, not a calibration result. Sparse families can remain withheld. The initial explicit spell vocabulary is in [docs/API.md](docs/API.md).
 
