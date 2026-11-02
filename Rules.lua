@@ -18,7 +18,9 @@ add(3, {122,865,6131,10230,19306,20909,20910,1242634,339,1062,5195,5196,9852,985
 add(4, {15487})
 add(5, {1766,1767,1768,1769,6552,6554,72,1671,1672,2139,19244,19647})
 add(6, {22812,5277,26669})
-R.SelfDefensive = {[22812]=true, [5277]=true, [26669]=true}
+R.SelfDefensiveIDs = {22812, 5277, 26669}
+R.SelfDefensive = {}
+for _, id in ipairs(R.SelfDefensiveIDs) do R.SelfDefensive[id] = true end
 function R.Classify(spellID) return casts[spellID] end
 
 -- These are possibility seeds, not exhaustive rules or event-rate priors.

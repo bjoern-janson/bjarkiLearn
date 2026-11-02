@@ -7,7 +7,7 @@ ns.Adapter = Adapter
 local UNITS = { 'player', 'target', 'focus' }
 local TRACKED = { player = true, target = true, focus = true }
 local BUS_KEY = 'bjarkiLearn.aura-evidence'
-local SELF_DEFENSIVES = { 22812, 5277, 26669 }
+local SELF_DEFENSIVES = ns.Rules.SelfDefensiveIDs
 local function guid(value)
     local v = S.String(value)
     if v and #v <= 128 and v:match('^Player%-[%w%-]+$') then return v end

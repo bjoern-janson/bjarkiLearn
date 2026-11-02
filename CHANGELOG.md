@@ -1,5 +1,9 @@
 # Changes
 
+## 0.1.8-shadow
+
+- Share the defensive aura IDs between the native lookup and the rules. Existing 0.1.7 saved models load with the same observation policy.
+
 ## 0.1.7-shadow (review branch)
 
 - Read the local player's Barkskin/Evasion through a bounded positive-only native aura lookup. Preserve the hostile-only Portraits evidence bus and never turn missing/secret reads into negative claims.

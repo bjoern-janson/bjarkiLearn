@@ -1,7 +1,7 @@
 local _, ns = ...
 
 ns.Config = {
-    version = "0.1.7-shadow", schema = 1, horizon = 2, grace = 0.25,
+    version = "0.1.8-shadow", schema = 1, horizon = 2, grace = 0.25,
     maxActors = 16, maxOccurrences = 128, maxExamples = 256, maxUnknownOther = 16,
     featureCount = 48, hiddenCount = 12, outputCount = 6,
     seed = 73013, epochs = 4, stepsPerTick = 4, contextTTL = 1,

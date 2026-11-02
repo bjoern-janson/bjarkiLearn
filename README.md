@@ -2,7 +2,7 @@
 
 A shared Lua learner for the Bjarki World of Warcraft addon suite. It combines readable encounter context with a small predictive model and revisable training records.
 
-**Status: 0.1.7-shadow (pre-launch candidate).** Adds accessible, positive-only local-player defensive witnesses, player-priority example retention and progressive frozen-snapshot rebuilds. Source-executed offline tests pass the scoped 0.1.7 gates; live-client behavior and predictive usefulness remain unverified.
+**Current candidate 0.1.8-shadow.** The adapter and rules now share one ordered list for Barkskin and both Evasion ranks. Existing 0.1.7 saved models remain compatible. Forecast usefulness still needs an in-game check.
 
 The addon starts in shadow mode. It records evidence and trains real models; its forecasts remain diagnostics. The suite's tracking, colours, layout and aura priorities keep their existing owners and behavior.
 
